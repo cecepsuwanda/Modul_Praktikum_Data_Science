@@ -20,13 +20,17 @@ Melaporkan NA per kolom; memilih strategi imputasi atau penghapusan; menghapus d
 \textit{Missing} dapat MCAR/MAR/MNAR---pada praktikum, yang penting Anda \textbf{transparan}: berapa banyak yang hilang, apa yang Anda lakukan, dan risiko bias. Duplikat baris dapat merusak statistik dan model; outlier bukan selalu error---bisa sinyal---tetapi harus diputuskan dengan konteks domain.
 \end{konsep}
 
+\begin{catatan}
+Contoh memakai \texttt{titanic} dari Seaborn (sama dengan Minggu 2--5) agar alur praktikum konsisten. Dokumentasikan setiap keputusan (mis.\ mengapa kolom \texttt{deck} dihapus) di Markdown.
+\end{catatan}
+
 \section{K3 / etika}
 
 Jangan menghapus baris berisi kelompok minoritas tanpa analisis dampak terhadap keadilan model (catatan untuk proyek akhir).
 
 \section{Sarana}
 
-\texttt{pandas}, \texttt{numpy}, \texttt{matplotlib.pyplot} atau \texttt{seaborn} untuk boxplot.
+\texttt{pandas}, \texttt{numpy}, \texttt{seaborn}, \texttt{matplotlib.pyplot} untuk boxplot.
 
 \section{Prosedur kerja}
 
@@ -40,20 +44,34 @@ Jangan menghapus baris berisi kelompok minoritas tanpa analisis dampak terhadap 
 
 \section{Contoh kode}
 
-\begin{lstlisting}[caption=Audit missing values]
+\begin{lstlisting}[caption=Muat Titanic dan audit missing values]
 import pandas as pd
 import numpy as np
+import seaborn as sns
 
-# df = pd.read_csv("...")
+df = sns.load_dataset("titanic").copy()
+df_raw = df.copy()
+
 missing = df.isna().sum().sort_values(ascending=False)
 print(missing[missing > 0])
 \end{lstlisting}
 
-\begin{lstlisting}[caption=Imputasi median untuk kolom numerik]
-num_cols = df.select_dtypes(include="number").columns
+\begin{lstlisting}[caption=Hapus kolom sangat sparse; imputasi terarah]
 df_clean = df.copy()
+# deck: terlalu banyak NA untuk contoh sederhana
+df_clean = df_clean.drop(columns=["deck"], errors="ignore")
+
+df_clean["age"] = df_clean["age"].fillna(df_clean["age"].median())
+emb_mode = df_clean["embarked"].mode()
+if len(emb_mode) > 0:
+    df_clean["embarked"] = df_clean["embarked"].fillna(emb_mode[0])
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Imputasi median untuk kolom numerik lain (opsional)]
+num_cols = df_clean.select_dtypes(include="number").columns
 for c in num_cols:
-    df_clean[c] = df_clean[c].fillna(df_clean[c].median())
+    med = df_clean[c].median()
+    df_clean[c] = df_clean[c].fillna(med)
 \end{lstlisting}
 
 \begin{lstlisting}[caption=Duplikat dan shape]
@@ -62,11 +80,14 @@ df_clean = df_clean.drop_duplicates()
 print("sesudah", df_clean.shape)
 \end{lstlisting}
 
-\begin{lstlisting}[caption=Boxplot outlier (contoh)]
+\begin{lstlisting}[caption=Boxplot tarif per kelas (outlier visual)]
 import matplotlib.pyplot as plt
-col = df_clean.select_dtypes(include="number").columns[0]
-plt.boxplot(df_clean[col].dropna())
-plt.title(f"Boxplot: {col}")
+import seaborn as sns
+
+plt.figure(figsize=(8, 4))
+sns.boxplot(data=df_clean, x="class", y="fare")
+plt.title("Sebaran fare per class (deteksi outlier)")
+plt.tight_layout()
 plt.show()
 \end{lstlisting}
 

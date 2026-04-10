@@ -51,6 +51,29 @@ dfp["cluster"] = labels
 print(dfp.groupby("cluster").mean())
 \end{lstlisting}
 
+\section{Alternatif: data nyata (Iris)}
+
+\begin{catatan}
+\texttt{make\_blobs} mengontrol bentuk klaster sintetis. Untuk membandingkan, dataset bawaan Iris (empat fitur numerik) sering membentuk pola yang cocok dengan $k=3$---ingat klaster tidak sama dengan label spesies; jangan memakai \texttt{target} sebagai input K-Means saat mensimulasikan unsupervised.
+\end{catatan}
+
+\begin{lstlisting}[caption={K-Means pada Iris (fitur saja, di-skala)}]
+from sklearn.datasets import load_iris
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import silhouette_score
+
+iris = load_iris(as_frame=True)
+X_iris = iris.data.values
+scaler_i = StandardScaler()
+Xs_i = scaler_i.fit_transform(X_iris)
+
+km_i = KMeans(n_clusters=3, random_state=42, n_init="auto")
+lab_i = km_i.fit_predict(Xs_i)
+print("inertia", km_i.inertia_)
+print("silhouette k=3", silhouette_score(Xs_i, lab_i))
+\end{lstlisting}
+
 \section{Referensi}
 
 \begin{itemize}[leftmargin=*]

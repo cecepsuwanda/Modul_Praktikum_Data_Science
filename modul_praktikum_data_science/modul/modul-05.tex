@@ -20,44 +20,61 @@ Menghasilkan histogram/KDE, scatter atau boxplot kategori, heatmap korelasi; set
 EDA menjawab ``apa yang data ceritakan'' sebelum asumsi model. Visual yang baik memiliki \textbf{judul}, \textbf{label sumbu}, dan \textbf{skala} yang terbaca; hindari chart junk berlebihan.
 \end{konsep}
 
+\begin{catatan}
+Contoh memakai dataset \texttt{titanic} Seaborn; target biner \texttt{survived} cocok untuk hipotesis klasifikasi (mis.\ hubungan \texttt{fare}/\texttt{class} dengan survival).
+\end{catatan}
+
 \section{Sarana}
 
 \texttt{matplotlib.pyplot}, \texttt{seaborn}, \texttt{pandas}.
 
 \section{Contoh kode}
 
-\begin{lstlisting}[caption=Histogram dan KDE]
+\begin{lstlisting}[caption=Histogram umur dan scatter umur vs fare]
 import matplotlib.pyplot as plt
 import seaborn as sns
-# df, kolom numerik n1, n2
+
+df = sns.load_dataset("titanic")
+
 fig, ax = plt.subplots(1, 2, figsize=(10, 4))
-sns.histplot(df["n1"], kde=True, ax=ax[0])
-ax[0].set_title("Distribusi n1")
-sns.scatterplot(data=df, x="n1", y="n2", ax=ax[1])
-ax[1].set_title("n1 vs n2")
+sns.histplot(df["age"].dropna(), kde=True, ax=ax[0])
+ax[0].set_title("Distribusi umur penumpang")
+ax[0].set_xlabel("age")
+sns.scatterplot(
+    data=df, x="age", y="fare", hue="survived", alpha=0.65, ax=ax[1]
+)
+ax[1].set_title("Umur vs tarif (hue: survived)")
 plt.tight_layout()
 plt.show()
 \end{lstlisting}
 
-\begin{lstlisting}[caption=Boxplot per kategori]
+\begin{lstlisting}[caption=Boxplot tarif per kelas kabin]
 plt.figure(figsize=(8, 4))
-sns.boxplot(data=df, x="kategori", y="n1")
-plt.title("Sebaran n1 per kategori")
-plt.xticks(rotation=30)
+sns.boxplot(data=df, x="class", y="fare")
+plt.title("Sebaran fare per class")
+plt.xlabel("class")
+plt.ylabel("fare")
+plt.tight_layout()
 plt.show()
 \end{lstlisting}
 
-\begin{lstlisting}[caption=Heatmap korelasi]
-num = df.select_dtypes(include="number")
+\begin{lstlisting}[caption=Heatmap korelasi fitur numerik]
+num = df[["survived", "pclass", "age", "sibsp", "parch", "fare"]].dropna()
 plt.figure(figsize=(7, 5))
-sns.heatmap(num.corr(), annot=False, cmap="vlag", center=0)
-plt.title("Korelasi antar fitur numerik")
+sns.heatmap(num.corr(), annot=True, fmt=".2f", cmap="vlag", center=0)
+plt.title("Korelasi antar variabel numerik")
+plt.tight_layout()
 plt.show()
 \end{lstlisting}
 
-\begin{lstlisting}[caption=Pairplot subset kecil]
-cols = ["n1", "n2", "n3"]
-sns.pairplot(df[cols].dropna(), corner=True)
+\begin{lstlisting}[caption=Pairplot subset (dengan hue survival)]
+cols = ["age", "fare", "pclass"]
+sns.pairplot(
+    df[cols + ["survived"]].dropna(),
+    hue="survived",
+    corner=True,
+    plot_kws={"alpha": 0.6},
+)
 plt.show()
 \end{lstlisting}
 

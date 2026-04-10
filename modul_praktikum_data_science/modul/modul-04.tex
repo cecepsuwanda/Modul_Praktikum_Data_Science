@@ -20,9 +20,17 @@ Membedakan fitur nominal vs ordinal; menerapkan one-hot atau label encoding; men
 Model seperti regresi dan SVM umumnya membutuhkan fitur numerik ter-skala. Kategorikal perlu dikodekan. \textbf{Data leakage} terjadi jika statistik dari seluruh data (termasuk uji) dipakai untuk transform sebelum split---pada minggu ini kita siapkan pola yang akan distandarkan di minggu 6+ dengan \texttt{Pipeline} dan split yang benar.
 \end{konsep}
 
+\begin{catatan}
+Contoh Titanic: \texttt{fit\_transform} hanya pada \texttt{X\_train}; \texttt{transform} pada \texttt{X\_test}. Jangan menggabungkan latih+uji lalu baru memutuskan imputer/scaler.
+\end{catatan}
+
 \section{Sarana}
 
-\texttt{pandas}, \texttt{sklearn.preprocessing}, \texttt{sklearn.compose.ColumnTransformer} (opsional).
+\begin{itemize}[leftmargin=*, nosep]
+  \item \texttt{pandas}, \texttt{seaborn}
+  \item \texttt{sklearn.preprocessing}, \texttt{sklearn.pipeline}
+  \item \texttt{sklearn.compose.ColumnTransformer}
+\end{itemize}
 
 \section{Prosedur kerja}
 
@@ -35,44 +43,65 @@ Model seperti regresi dan SVM umumnya membutuhkan fitur numerik ter-skala. Kateg
 
 \section{Contoh kode}
 
-\noindent\textbf{Pisah fitur dan target.}
-\begin{verbatim}
-import pandas as pd
-# df_clean dari minggu 3
-target_col = "target"  # sesuaikan
-X = df_clean.drop(columns=[target_col])
-y = df_clean[target_col]
-\end{verbatim}
+\begin{lstlisting}[caption=Titanic: pisah fitur/target dan subset kolom]
+import seaborn as sns
 
-\noindent\textbf{One-hot untuk kategorikal (pandas get\_dummies).}
-\begin{verbatim}
-X_num = X.select_dtypes(include="number")
-X_cat = X.select_dtypes(exclude="number")
-X_dum = pd.get_dummies(X_cat, drop_first=True)
-X_prep = pd.concat((X_num, X_dum), axis=1)
-print(X_prep.shape)
-\end{verbatim}
+df = sns.load_dataset("titanic")
+df = df.drop(columns=["deck"], errors="ignore")
 
-\noindent\textbf{StandardScaler pada fitur numerik.}
-\begin{verbatim}
-from sklearn.preprocessing import StandardScaler
-scaler = StandardScaler()
-X_num_scaled = scaler.fit_transform(X_num)
-\end{verbatim}
+target_col = "survived"
+drop_extra = ["class", "who", "adult_male", "embark_town", "alive", "alone"]
+X = df.drop(columns=[target_col] + drop_extra, errors="ignore")
+y = df[target_col]
+\end{lstlisting}
 
-\noindent\textbf{ColumnTransformer ringkas (pola sklearn).}
-\begin{verbatim}
+\begin{lstlisting}[caption=Split dulu; prapemroses hanya fit di data latih]
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+\end{lstlisting}
+
+\begin{lstlisting}[caption=ColumnTransformer + imputer (polar anti-leakage)]
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
-num_features = X.select_dtypes(include="number").columns
-cat_features = X.select_dtypes(exclude="number").columns
+from sklearn.impute import SimpleImputer
+from sklearn.pipeline import Pipeline
+
+num_features = ["pclass", "age", "sibsp", "parch", "fare"]
+cat_features = ["sex", "embarked"]
+
+numeric_pipe = Pipeline([
+    ("imp", SimpleImputer(strategy="median")),
+    ("scale", StandardScaler()),
+])
+categorical_pipe = Pipeline([
+    ("imp", SimpleImputer(strategy="most_frequent")),
+    ("oh", OneHotEncoder(handle_unknown="ignore")),
+])
+
 preprocess = ColumnTransformer(
-    transformers=(
-        ("num", StandardScaler(), num_features),
-        ("cat", OneHotEncoder(handle_unknown="ignore"), cat_features),
-    )
+    transformers=[
+        ("num", numeric_pipe, num_features),
+        ("cat", categorical_pipe, cat_features),
+    ]
 )
-\end{verbatim}
+
+X_train_prep = preprocess.fit_transform(X_train)
+X_test_prep = preprocess.transform(X_test)
+print("train", X_train_prep.shape, "test", X_test_prep.shape)
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Alternatif cepat: pandas get\_dummies (tanpa pipeline)]
+import pandas as pd
+
+X_num = X_train[num_features].copy()
+X_cat = X_train[cat_features].copy()
+X_dum = pd.get_dummies(X_cat, drop_first=True)
+X_prep_df = pd.concat([X_num.reset_index(drop=True), X_dum], axis=1)
+print(X_prep_df.shape)
+\end{lstlisting}
 
 \section{Referensi}
 
@@ -87,7 +116,7 @@ preprocess = ColumnTransformer(
 \begin{rangkuman}
 Minggu 4 menyiapkan representasi numerik untuk pemodelan dengan kesadaran leakage.
 
-\textbf{Kata kunci:} one-hot, scaler, ColumnTransformer
+\textbf{Kata kunci:} one-hot, scaler, ColumnTransformer, SimpleImputer
 \end{rangkuman}
 
 \end{document}

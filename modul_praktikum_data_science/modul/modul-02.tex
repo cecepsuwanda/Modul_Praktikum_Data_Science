@@ -24,41 +24,64 @@ Memuat CSV dan Excel; menggunakan \texttt{head}, \texttt{tail}, \texttt{info}, \
 Path berkas: gunakan path relatif ke folder kerja notebook atau unggah ke Colab dengan \texttt{files.upload()}. Dokumentasikan path di Markdown agar asisten dapat mereproduksi.
 \end{catatan}
 
+\begin{catatan}
+Contoh di bawah memakai dataset bawaan Seaborn (\texttt{tips}, \texttt{titanic}) untuk latihan tanpa unduhan manual. Dataset terbuka lain: bandingkan dengan \texttt{fetch\_openml}. Jika Anda memakai data sendiri, cantumkan URL dan lisensi di notebook.
+\end{catatan}
+
 \section{K3 dan etika}
 
 Dataset hanya dari sumber yang diizinkan; jangan menyematkan token API atau path absolut sensitif di notebook yang diunggah ke LMS.
 
 \section{Sarana}
 
-\texttt{pandas}, \texttt{numpy} (dependensi umum), \texttt{openpyxl} untuk \texttt{.xlsx}.
+\texttt{pandas}, \texttt{numpy}, \texttt{seaborn} (untuk \texttt{load\_dataset}), \texttt{openpyxl} untuk \texttt{.xlsx}, \texttt{sklearn} untuk OpenML.
 
 \section{Prosedur kerja}
 
 \begin{enumerate}[leftmargin=*]
-  \item \texttt{import pandas as pd}
-  \item Muat satu CSV (\texttt{read\_csv}); tampilkan \texttt{head(10)} dan \texttt{info()}.
-  \item Muat sumber kedua (CSV lain atau Excel); bandingkan \texttt{shape} dan \texttt{dtypes}.
+  \item \texttt{import pandas as pd}; muat data dari CSV lokal (\texttt{read\_csv}), Seaborn, atau OpenML; tampilkan \texttt{head(10)} dan \texttt{info()}.
+  \item Muat sumber kedua (dataset Seaborn lain, CSV, atau Excel); bandingkan \texttt{shape} dan \texttt{dtypes}.
   \item Di Markdown, tulis kolom kandidat \textbf{target} (regresi/klasifikasi) dan alasan singkat.
-  \item Sinkronkan dengan \texttt{notebooks/minggu\_02.ipynb}.
+  \item Sinkronkan dengan \path{notebooks/minggu_02.ipynb}.
 \end{enumerate}
 
 \section{Contoh kode}
 
-\begin{lstlisting}[caption=Import dan muat CSV]
+\begin{lstlisting}[caption=Dua dataset Seaborn: tips dan Titanic]
 import pandas as pd
+import seaborn as sns
 
-# Ganti path dengan file Anda (contoh: dataset publik)
-df = pd.read_csv("data/contoh.csv")  # encoding="utf-8" bila perlu
-print(df.shape)
-print(df.head())
+df_tips = sns.load_dataset("tips")
+df_titanic = sns.load_dataset("titanic")
+
+print("tips", df_tips.shape, df_tips.dtypes.head())
+print("titanic", df_titanic.shape)
+print(df_titanic.head())
 \end{lstlisting}
 
-\begin{lstlisting}[caption=Ringkasan struktur dan statistik]
-print(df.info())
-print(df.describe(include="all").T.head(12))
+\begin{lstlisting}[caption=Ringkasan struktur dan statistik (Titanic)]
+print(df_titanic.info())
+print(df_titanic.describe(include="all").T.head(14))
 \end{lstlisting}
 
-\begin{lstlisting}[caption=Membaca Excel (satu sheet)]
+\begin{lstlisting}[caption=Alternatif sumber terbuka: OpenML (perlu jaringan pertama kali)]
+from sklearn.datasets import fetch_openml
+
+iris_oml = fetch_openml(name="iris", version=1, as_frame=True)
+df_iris = iris_oml.frame
+print(df_iris.shape, df_iris.columns.tolist())
+print(df_iris.head())
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Membaca CSV dari URL (contoh format terbuka)]
+url = (
+    "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
+)
+df_url = pd.read_csv(url)
+print(df_url.shape)
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Membaca Excel (satu sheet, jika ada berkas lokal)}]
 df_xlsx = pd.read_excel("data/contoh.xlsx", sheet_name=0)
 print(df_xlsx.dtypes.value_counts())
 \end{lstlisting}
@@ -69,11 +92,11 @@ def ringkas(nama, frame):
         "nama": nama,
         "baris": len(frame),
         "kolom": frame.shape[1],
-        "missing_total": frame.isna().sum().sum(),
+        "missing_total": int(frame.isna().sum().sum()),
     }
 
-print(ringkas("csv", df))
-print(ringkas("xlsx", df_xlsx))
+print(ringkas("tips", df_tips))
+print(ringkas("titanic", df_titanic))
 \end{lstlisting}
 
 \section{Referensi sesi}
@@ -82,6 +105,7 @@ print(ringkas("xlsx", df_xlsx))
   \item pandas User Guide IO. \url{https://pandas.pydata.org/docs/user_guide/io.html}
   \item Kaggle Learn Pandas. \url{https://www.kaggle.com/learn/pandas}
   \item Microsoft Learn Pandas. \url{https://learn.microsoft.com/en-us/training/modules/pandas-data-science/}
+  \item Daftar dataset Seaborn. \url{https://github.com/mwaskom/seaborn-data}
 \end{itemize}
 
 \begin{aktivitas}
@@ -95,7 +119,7 @@ print(ringkas("xlsx", df_xlsx))
 \end{latihan}
 
 \begin{asesmen}
-\textbf{Tugas modul:} \texttt{read\_*} tanpa error; dokumentasi path/URL; hipotesis target/fitur.
+\textbf{Tugas modul:} \texttt{read\_*} atau muat built-in tanpa error; dokumentasi path/URL; hipotesis target/fitur.
 
 \textbf{Siap lanjut:} memahami \texttt{info()} dan \texttt{describe()} untuk minggu cleaning.
 \end{asesmen}
@@ -108,7 +132,7 @@ print(ringkas("xlsx", df_xlsx))
 \begin{rangkuman}
 Minggu 2 menegaskan I/O Pandas dan inspeksi awal sebagai fondasi prapemrosesan.
 
-\textbf{Kata kunci:} \texttt{read\_csv}, \texttt{read\_excel}, \texttt{DataFrame}, dtypes
+\textbf{Kata kunci:} \texttt{read\_csv}, \texttt{read\_excel}, \texttt{DataFrame}, dtypes, Seaborn
 \end{rangkuman}
 
 \end{document}
