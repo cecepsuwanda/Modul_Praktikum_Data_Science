@@ -10,11 +10,37 @@
 
 \SesiRPS{10}{P8}{$\sim$170 menit}{CPMK-P3}
 
+\noindent Klastering mencari struktur tanpa label; hasilnya bergantung pada skala fitur dan pemilihan $k$. Oleh karena itu, standarisasi (\texttt{StandardScaler}) dan kurva diagnostik (inertia, silhouette) wajib dibahas bersama narasi, bukan hanya angka tunggal.
+
+\section{Kemampuan akhir sesi}
+
+Menjalankan K-Means pada data numerik ter-skala; membandingkan beberapa $k$ dengan silhouette dan/atau inertia; mendeskripsikan profil rata-rata tiap klaster untuk komunikasi hasil.
+
+Profil klaster (\texttt{groupby}) membantu menamai segmen secara domain-driven, misalnya ``klaster dengan pengeluaran tinggi dan frekuensi rendah''---meskipun penamaan tetap subjektif dan perlu validasi bisnis.
+
 \section{Teori}
 
 \begin{konsep}
 Klastering \textit{unsupervised}: tidak ada label. K-Means meminimalkan inertia dalam cluster; hasil dipengaruhi skala fitur---gunakan \texttt{StandardScaler}.
 \end{konsep}
+
+K-Means mengasumsikan bentuk klaster relatif bulat dan ukuran sebanding; untuk data sangat tidak simetris, algoritma lain (DBSCAN, GMM) mungkin lebih cocok, tetapi di luar cakupan minimal praktikum ini.
+
+\input{tikz/fig_elbow_illus}
+
+\begin{table}[htbp]
+\centering
+\caption{Diagnostik pemilihan $k$ (ringkas).}
+\label{tab:k-diagnostik}
+\begin{tabular}{@{}p{3.2cm}p{9.5cm}@{}}
+\toprule
+\textbf{Metrik} & \textbf{Interpretasi praktis} \\
+\midrule
+Inertia & Menurun saat $k$ naik; cari ``siku'' penurunan melambat. \\
+Silhouette & Lebih tinggi $\Rightarrow$ pemisahan lebih tajam antar klaster. \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \section{Contoh kode}
 
@@ -56,6 +82,8 @@ print(dfp.groupby("cluster").mean())
 \begin{catatan}
 \texttt{make\_blobs} mengontrol bentuk klaster sintetis. Untuk membandingkan, dataset bawaan Iris (empat fitur numerik) sering membentuk pola yang cocok dengan $k=3$---ingat klaster tidak sama dengan label spesies; jangan memakai \texttt{target} sebagai input K-Means saat mensimulasikan unsupervised.
 \end{catatan}
+
+Membandingkan label klaster dengan label asli (\textit{adjusted rand index}, dll.) boleh sebagai latihan tambahan, tetapi fokus praktikum tetap pada deskripsi pola tanpa ``kunci jawaban'' supervisi.
 
 \begin{lstlisting}[caption={K-Means pada Iris (fitur saja, di-skala)}]
 from sklearn.datasets import load_iris

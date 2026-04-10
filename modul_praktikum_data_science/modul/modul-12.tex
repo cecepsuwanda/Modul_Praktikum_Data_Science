@@ -10,11 +10,38 @@
 
 \SesiRPS{12}{P9}{$\sim$170 menit}{CPMK-P4}
 
+\noindent Satu pemisahan latih/uji saja bisa beruntung atau sial karena sampel kecil. Validasi silang memberi estimasi kinerja dengan mencoba beberapa partisi; \texttt{GridSearchCV} menyisipkan pencarian hiperparameter di dalam lipatan tersebut---dengan catatan ketat bahwa \textbf{test set} tidak boleh dipakai untuk memilih model.
+
+\section{Kemampuan akhir sesi}
+
+Menjalankan CV untuk estimasi metrik; menyusun \texttt{GridSearchCV} pada \texttt{Pipeline}; menjelaskan mengapa evaluasi akhir pada \texttt{X\_test} hanya dilakukan sekali setelah tuning.
+
+Tanpa disiplin ini, metrik uji menjadi optimistik: model secara tidak langsung ``melihat'' data uji melalui banyak percobaan hiperparameter. Dokumentasikan ruang pencarian yang dicoba agar hasil dapat diaudit.
+
 \section{Teori}
 
 \begin{konsep}
 Validasi silang mengestimasi kinerja dengan rotasi partisi latih. \texttt{GridSearchCV} mencoba kombinasi hiperparameter pada ruang yang Anda tentukan. \textbf{Test set} hanya untuk laporan akhir setelah memilih model.
 \end{konsep}
+
+\texttt{Pipeline} di dalam CV memastikan setiap lipatan melakukan \texttt{fit\_transform} hanya pada data latih lipatan tersebut---konsisten dengan prinsip anti-leakage dari minggu prapemrosesan.
+
+\input{tikz/fig_cv_kfold}
+
+\begin{table}[htbp]
+\centering
+\caption{Peran partisi data saat tuning (ringkas).}
+\label{tab:partisi-tuning}
+\begin{tabular}{@{}p{3.2cm}p{9.5cm}@{}}
+\toprule
+\textbf{Subset} & \textbf{Fungsi} \\
+\midrule
+Train (dalam CV) & Latih model + pilih hiperparameter per lipatan. \\
+Validation (implisit CV) & Estimasi kinerja sementara. \\
+Test (hold-out) & Laporan akhir sekali, setelah model terpilih. \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \section{Contoh kode}
 

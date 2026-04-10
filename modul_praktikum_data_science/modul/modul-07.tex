@@ -10,6 +10,14 @@
 
 \SesiRPS{7}{P6}{$\sim$170 menit}{CPMK-P3}
 
+\noindent Regresi linear tetap relevan sebagai \textbf{model dasar} yang cepat dan interpretatif. Membandingkan RMSE/MAE terhadap baseline rata-rata menjawab pertanyaan inti: ``apakah fitur yang kita masukkan benar-benar membantu prediksi?''
+
+\section{Kemampuan akhir sesi}
+
+Melatih regresi pada data uji terpisah; melaporkan RMSE dan MAE dalam satuan target; menjelaskan perbedaan sensitivitas kedua metrik terhadap outlier error; memakai \texttt{Pipeline} bila skala fitur berbeda jauh.
+
+Metrik error pada data uji menggambarkan kinerja \textit{out-of-sample}: lebih realistis daripada hanya melihat residual pada data latih yang pernah ``dilihat'' model saat fitting.
+
 \section{Teori}
 
 \begin{konsep}
@@ -20,7 +28,27 @@ Regresi memprediksi target kontinu. RMSE dan MAE mengukur error dalam satuan tar
 Gunakan \path{sklearn.metrics.root_mean_squared_error} (versi baru) atau \path{mean_squared_error(..., squared=False)} sesuai versi paket terpasang.
 \end{catatan}
 
+Ridge (\textit{regularisasi} L2) membantu ketika fitur berkolinear atau dimensi tinggi; koefisien menjadi lebih stabil dibanding Ordinary Least Squares murni. \texttt{Pipeline} dengan \texttt{StandardScaler} sering dipasangkan dengan Ridge/SVM untuk konsistensi skala.
+
+\input{tikz/fig_mae_rmse_illus}
+
+\begin{table}[htbp]
+\centering
+\caption{LinearRegression vs Ridge (intuisi pemilihan).}
+\label{tab:linear-ridge}
+\begin{tabular}{@{}p{3.6cm}p{9.1cm}@{}}
+\toprule
+\textbf{Model} & \textbf{Kapan pertama kali dicoba} \\
+\midrule
+\texttt{LinearRegression} & Baseline interpretatif; hubungan hampir linear. \\
+\texttt{Ridge} & Banyak fitur berkorelasi; perlu stabilisasi koefisien. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \section{Contoh kode}
+
+Dataset \path{load_diabetes} dari \texttt{sklearn.datasets} adalah contoh regresi klasik berdimensi tetap; sesuaikan \path{test_size} dan \path{random_state} dengan kebijakan lab.
 
 \begin{lstlisting}[caption=Dataset diabetes dan split]
 from sklearn.datasets import load_diabetes

@@ -1,0 +1,13 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[node distance=6mm and 5mm]
+  \node[dsboxwide, fill=green!8] (src) {Sumber\\(CSV/API)};
+  \node[dsboxwide, fill=green!8, right=of src] (raw) {DataFrame\\mentah};
+  \node[dsboxwide, fill=green!8, right=of raw] (clean) {Cleaning\\encode/scale};
+  \node[dsboxwide, fill=green!8, right=of clean] (model) {Model\\sklearn};
+  \draw[dsarrow] (src) -- (raw);
+  \draw[dsarrow] (raw) -- (clean);
+  \draw[dsarrow] (clean) -- (model);
+\end{tikzpicture}
+\caption{Alur ringkas dari data tabular mentah menuju matriks fitur siap latih. Tahap tengah mencakup keputusan dokumentatif (missing, outlier, encoding) sebelum \texttt{fit}.}
+\end{figure}

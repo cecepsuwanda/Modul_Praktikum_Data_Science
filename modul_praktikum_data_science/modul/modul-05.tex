@@ -10,9 +10,13 @@
 
 \SesiRPS{5}{P4}{$\sim$170 menit}{CPMK-P2}
 
+\noindent EDA (\textit{Exploratory Data Analysis}) adalah iterasi antara pertanyaan analitik, plot, dan pemeriksaan tabel ringkas. Tujuan utamanya bukan estetika semata, tetapi \textbf{membantu memutuskan} transformasi data dan keluarga model yang masuk akal.
+
 \section{Kemampuan akhir sesi}
 
 Menghasilkan histogram/KDE, scatter atau boxplot kategori, heatmap korelasi; setiap plot memiliki judul dan label sumbu; merumuskan satu hipotesis pemodelan.
+
+Setiap visual sebaiknya diakhiri dengan satu kalimat interpretasi yang dapat dipahami rekan non-statistik: misalnya ``kelas pertama cenderung membayar tarif lebih tinggi dan memiliki proporsi survival berbeda'' alih-alih hanya menyebut nama plot.
 
 \section{Teori}
 
@@ -24,11 +28,31 @@ EDA menjawab ``apa yang data ceritakan'' sebelum asumsi model. Visual yang baik 
 Contoh memakai dataset \texttt{titanic} Seaborn; target biner \texttt{survived} cocok untuk hipotesis klasifikasi (mis.\ hubungan \texttt{fare}/\texttt{class} dengan survival).
 \end{catatan}
 
+Membandingkan distribusi variabel terhadap kelas target (\texttt{hue}) sering mengungkap interaksi yang tidak terlihat pada agregat tunggal; ini menjadi bahan diskusi penting sebelum memilih metrik evaluasi.
+
+\begin{table}[htbp]
+\centering
+\caption{Jenis plot dan pertanyaan analitik yang lazim dijawab.}
+\label{tab:plot-eda}
+\begin{tabular}{@{}p{3.2cm}p{9.5cm}@{}}
+\toprule
+\textbf{Plot} & \textbf{Pertanyaan contoh} \\
+\midrule
+Histogram/KDE & Apakah distribusi simetris? Ada multimodalitas? \\
+Scatter + hue & Apakah pemisahan kelas terlihat di ruang dua fitur? \\
+Boxplot per kategori & Apakah median dan rentang antar grup berbeda jelas? \\
+Heatmap korelasi & Fitur numerik mana yang redundan atau berkolinear? \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \section{Sarana}
 
 \texttt{matplotlib.pyplot}, \texttt{seaborn}, \texttt{pandas}.
 
 \section{Contoh kode}
+
+Contoh berikut mendemonstrasikan empat keluarga visual pada dataset yang sama; di notebook, tambahkan sel Markdown antara plot untuk menjelaskan temuan.
 
 \begin{lstlisting}[caption=Histogram umur dan scatter umur vs fare]
 import matplotlib.pyplot as plt
@@ -77,6 +101,8 @@ sns.pairplot(
 )
 plt.show()
 \end{lstlisting}
+
+\input{tikz/fig_hist_illus}
 
 \section{Referensi}
 

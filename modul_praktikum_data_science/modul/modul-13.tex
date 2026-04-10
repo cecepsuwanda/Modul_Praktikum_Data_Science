@@ -10,11 +10,39 @@
 
 \SesiRPS{13}{P10}{$\sim$170 menit}{CPMK-P4}
 
+\noindent CPMK-P4 menuntut komunikasi \textit{insight}: pembaca manajerial tidak wajib memahami setiap baris kode, tetapi harus memahami apa yang data dukung, seberapa yakin kita, dan apa implikasi tindakannya.
+
+\section{Kemampuan akhir sesi}
+
+Menyusun struktur Markdown berlapis dari ringkasan eksekutif hingga rekomendasi; menyematkan minimal satu visual dan satu tabel metrik yang mendukung argumen utama.
+
+Gunakan bahasa yang menghindari jargon berlebihan; jika istilah teknis perlu disebut, beri analogi satu kalimat atau rujuk ke bagian lampiran teknis di notebook.
+
 \section{Teori}
 
 \begin{konsep}
 \textit{Data storytelling} menghubungkan bukti (tabel, plot, metrik) dengan rekomendasi. Struktur umum: konteks bisnis $\rightarrow$ pertanyaan $\rightarrow$ metode ringkas $\rightarrow$ temuan utama $\rightarrow$ keterbatasan $\rightarrow$ tindakan yang disarankan.
 \end{konsep}
+
+Ringkasan eksekutif sebaiknya dapat dibaca mandiri dalam satu layar: pembaca memutuskan apakah akan menggulir ke bagian metode dan lampiran bukti. Plot dipilih yang mendukung satu klaim utama, bukan menampilkan semua eksperimen sekaligus.
+
+\input{tikz/fig_story_arc}
+
+\begin{table}[htbp]
+\centering
+\caption{Struktur bagian narasi di notebook (disarankan).}
+\label{tab:struktur-narasi}
+\begin{tabular}{@{}p{4.2cm}p{8.5cm}@{}}
+\toprule
+\textbf{Bagian} & \textbf{Isi} \\
+\midrule
+Ringkasan eksekutif & Masalah, jawaban singkat, rekomendasi. \\
+Metode (ringkas) & Sumber data, model utama, validasi. \\
+Temuan & Bullet + rujuk gambar/tabel. \\
+Risiko & Kualitas data, asumsi, etika. \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \section{Contoh kerangka Markdown}
 
@@ -31,6 +59,8 @@ Gunakan sel Markdown berurutan (bukan sebagai listing Python):
 \end{verbatim}
 
 \section{Contoh kode (plot untuk slide ringkasan)}
+
+Visual untuk manajemen cenderung sederhana dan berlabel jelas; hindari palet yang sulit dibaca saat diproyeksikan.
 
 \begin{lstlisting}[caption=Plot sederhana untuk disematkan di narasi]
 import matplotlib.pyplot as plt

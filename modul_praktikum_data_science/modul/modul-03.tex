@@ -5,14 +5,18 @@
 \chapter{Missing Values, Duplikat, dan Outlier Dasar}
 
 \begin{subcpmk}
-  \item \textbf{Sub-CPMK-P3:} Menangani missing, duplikat, outlier sederhana dengan narasi keputusan (RPS Mg.\ 3).
+  \item \textbf{Sub-CPMK-P3:} Menangani missing, duplikat, dan outlier sederhana dengan narasi keputusan (RPS Mg.\ 3).
 \end{subcpmk}
 
 \SesiRPS{3}{P3}{$\sim$170 menit}{CPMK-P2}
 
+\noindent Cleaning data adalah serangkaian \textbf{keputusan yang dapat diaudit}: setiap penghapusan baris, imputasi, atau pemotongan outlier harus dapat dijelaskan kepada rekan atau pemangku kepentingan tanpa menyembunyikan dampaknya pada distribusi kelas atau variabel.
+
 \section{Kemampuan akhir sesi}
 
 Melaporkan NA per kolom; memilih strategi imputasi atau penghapusan; menghapus duplikat; mengidentifikasi outlier visual (boxplot) dan mendokumentasikan tindakan.
+
+Kemampuan akhir ini mendukung CPMK-P2: Anda tidak hanya ``memperbaiki'' angka, tetapi menunjukkan bahwa Anda memahami risiko bias---misalnya imputasi median yang meratakan varians atau penghapusan baris yang mengorbankan kelompok minoritas.
 
 \section{Teori}
 
@@ -24,15 +28,38 @@ Melaporkan NA per kolom; memilih strategi imputasi atau penghapusan; menghapus d
 Contoh memakai \texttt{titanic} dari Seaborn (sama dengan Minggu 2--5) agar alur praktikum konsisten. Dokumentasikan setiap keputusan (mis.\ mengapa kolom \texttt{deck} dihapus) di Markdown.
 \end{catatan}
 
+Distribusi setelah imputasi atau penghapusan harus dibandingkan secara visual dengan data mentah minimal pada satu atau dua variabel kunci; ini membantu mendeteksi distorsi yang tidak disengaja sebelum data masuk ke model.
+
+\input{tikz/fig_hist_illus}
+
+\begin{table}[htbp]
+\centering
+\caption{Strategi umum untuk missing values (ringkas).}
+\label{tab:strategi-missing}
+\begin{tabular}{@{}p{3.2cm}p{9.5cm}@{}}
+\toprule
+\textbf{Strategi} & \textbf{Kapan mempertimbangkan} \\
+\midrule
+Median/mode & Numerik/kategorik; robust terhadap ekor berat (median). \\
+Hapus baris & Missing sedikit dan MCAR terasa masuk akal; dokumentasikan $n$. \\
+Hapus kolom & Kolom sangat sparse tanpa nilai prediktif jelas. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \section{K3 / etika}
 
 Jangan menghapus baris berisi kelompok minoritas tanpa analisis dampak terhadap keadilan model (catatan untuk proyek akhir).
+
+Pada dataset yang mengandung variabel sensitif (gender, asal, dll.), penghapusan selektif dapat memperburuk representasi kelompok tertentu. Laporkan proporsi kelas sebelum dan sesudah cleaning bila target bersifat sosial atau perilaku.
 
 \section{Sarana}
 
 \texttt{pandas}, \texttt{numpy}, \texttt{seaborn}, \texttt{matplotlib.pyplot} untuk boxplot.
 
 \section{Prosedur kerja}
+
+Prosedur minggu ini mengalir dari audit kuantitatif (\texttt{isna}) ke tindakan terdokumentasi dan verifikasi visual. Menyimpan \texttt{df\_raw} memungkinkan Anda mengembalikan keputusan jika asisten atau dosen mempertanyakan langkah tertentu.
 
 \begin{enumerate}[leftmargin=*]
   \item Hitung \texttt{isna().sum()} per kolom; simpan salinan \texttt{df\_raw}.
@@ -43,6 +70,8 @@ Jangan menghapus baris berisi kelompok minoritas tanpa analisis dampak terhadap 
 \end{enumerate}
 
 \section{Contoh kode}
+
+Kode berikut menggambarkan pola kerja dari audit missing menuju \texttt{df\_clean} yang siap divisualisasikan; sesuaikan strategi dengan domain dataset Anda.
 
 \begin{lstlisting}[caption=Muat Titanic dan audit missing values]
 import pandas as pd

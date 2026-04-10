@@ -10,15 +10,38 @@
 
 \SesiRPS{8}{P7}{$\sim$170 menit}{CPMK-P3}
 
+\noindent Membandingkan beberapa keluarga classifier pada dataset yang sama melatih intuisi tentang \textbf{bias-variance} dan asumsi geometris (linear vs berbasis jarak vs partisi aksial). Confusion matrix mengubah angka akurasi tunggal menjadi pola kesalahan yang dapat ditindaklanjuti.
+
 \section{Kemampuan akhir sesi}
 
 Membangun pipeline prapemrosesan sederhana; melatih klasifikasi; membandingkan akurasi atau F1; menampilkan \texttt{confusion\_matrix}.
+
+Selain akurasi, pertimbangkan distribusi kelas: pada data tidak seimbang, model yang selalu memprediksi kelas mayoritas bisa tampil ``tinggi'' secara akurasi namun gagal menangkap kelas minoritas yang penting secara bisnis.
 
 \section{Teori}
 
 \begin{konsep}
 Klasifikasi memprediksi kelas diskrit. Regresi logistik memodelkan log-odds linear; K-NN berbasis jarak; pohon keputusan memecah ruang fitur secara hierarkis. Untuk kelas tidak seimbang, akurasi bisa menyesatkan---pertimbangkan F1 per kelas.
 \end{konsep}
+
+Regresi logistik membutuhkan skala fitur yang wajar bila dipasangkan dengan regularisasi; K-NN sangat sensitif terhadap skala karena memakai jarak Euclidean; pohon lebih toleran terhadap monotonic transform pada fitur numerik namun tetap bisa overfit tanpa kedalaman terbatas.
+
+\input{tikz/fig_confusion_2x2}
+
+\begin{table}[htbp]
+\centering
+\caption{Karakteristik singkat tiga estimator bab ini.}
+\label{tab:classifier-band}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{5.05cm}p{7.65cm}@{}}
+\toprule
+\textbf{Estimator} & \textbf{Catatan} \\
+\midrule
+\texttt{LogisticRegression} & Batas keputusan linear di ruang fitur; cepat. \\
+\texttt{KNeighborsClassifier} & Nonparametrik lokal; skala fitur penting. \\
+\texttt{DecisionTreeClassifier} & Interpretatif; mudah overfit tanpa kedalaman atau pruning. \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \section{Contoh kode}
 

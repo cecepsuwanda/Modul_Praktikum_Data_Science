@@ -6,6 +6,10 @@
 
 \section{Identitas Mata Kuliah Praktikum}
 
+Bab ini menjadi peta navigasi seluruh praktikum: Anda akan melihat bagaimana \textbf{Sub-CPMK P1--P10}, \textbf{CPMK-P1--P4}, dan \textbf{CPL prodi} dirangkai dalam 16 minggu. Memahami identitas MK membantu menyelaraskan ekspektasi dosen, asisten, dan mahasiswa terhadap bukti kinerja di notebook.
+
+Praktikum bersifat \textit{hands-on} satu SKS; fokus utamanya adalah kemampuan mengoperasikan rantai kerja data---bukan sekadar menghafal definisi. Artefak yang dinilai adalah notebook yang dapat direproduksi, dilengkapi sumber data, dan narasi keputusan analitik.
+
 \begin{description}[style=nextline, widest=Dosen pengampu / koordinator praktikum:, itemsep=0.35em]
   \item[Nama mata kuliah:] Praktikum Data Science
   \item[Kode:] TIF-xxx-prak
@@ -20,18 +24,59 @@
 
 \noindent\textbf{Artefak latihan:} folder \path{notebooks/minggu_01.ipynb} s.d.\ \path{notebooks/minggu_16.ipynb}.
 
+\begin{table}[htbp]
+\centering
+\caption{Ringkasan artefak utama praktikum.}
+\label{tab:artefak-modul}
+\begin{tabular}{@{}p{3.2cm}p{9.5cm}@{}}
+\toprule
+\textbf{Artefak} & \textbf{Keterangan} \\
+\midrule
+Notebook mingguan & Bukti pengerjaan per Sub-CPMK; wajib lulus \textit{Restart Kernel and Run All}. \\
+PDF modul & Panduan teori singkat, prosedur lab, dan contoh kode rujukan. \\
+Silabus/RPS & Acuan CPL/CPMK dan alokasi waktu resmi MK. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \section{Deskripsi dan Ruang Lingkup}
 
 Modul ini mendukung \textbf{CPMK-P1--P4} dan \textbf{Sub-CPMK-P1--P10} untuk praktikum berbasis \textbf{OBE}. Lingkup: Python 3, \jupyter{} (atau Colab/VS Code), NumPy, Pandas, Matplotlib, Seaborn, \sklearn{}. Alur: pemahaman masalah (CRISP-DM), data, prapemrosesan, EDA, pemodelan, evaluasi, komunikasi \textit{insight}. RPS resmi: \path{silabus_praktikum_data_science.tex}.
 
+Ruang lingkup disusun agar setiap minggu memiliki \textbf{keluaran konkret} di notebook: mulai dari etika dan struktur CRISP-DM, berlanjut ke manipulasi data, visualisasi, lalu pemodelan dengan metrik yang dapat diinterpretasikan. Pendekatan ini menjembatani teori Data Science dengan praktik reproduktif di laboratorium.
+
+\input{tikz/fig_crispdm}
+
 \section{CPL Prodi yang Dibebankan}
+
+\textbf{CPL} (\textit{Capaian Pembelajaran Lulusan}) menyatakan kemampuan tingkat prodi yang dibuktikan secara tidak langsung melalui CPMK dan Sub-CPMK praktikum. Dua CPL berikut menjadi jangkar penilaian proyek dan tugas akhir praktikum.
+
+Pada praktikum, bukti CPL muncul dari kombinasi: (1) analisis masalah dan pemilihan metode yang masuk akal, (2) implementasi kode yang terbaca dan dapat diuji ulang, serta (3) komunikasi temuan kepada audiens non-teknis dalam bentuk ringkasan Markdown.
 
 \begin{itemize}[leftmargin=*]
   \item \textbf{CPL01:} Menganalisis persoalan \textit{computing} kompleks dan menerapkan prinsip \textit{computing} serta disiplin relevan untuk mengidentifikasi solusi, dengan wawasan transdisiplin.
   \item \textbf{CPL03:} Merancang dan menganalisis algoritma untuk permasalahan organisasi, memilih dan menerapkannya pada bahasa pemrograman tertentu.
 \end{itemize}
 
+\begin{table}[htbp]
+\centering
+\caption{CPL yang dilibatkan dan contoh bukti di praktikum.}
+\label{tab:cpl-bukti}
+\begin{tabular}{@{}p{1.8cm}p{10.8cm}@{}}
+\toprule
+\textbf{CPL} & \textbf{Contoh bukti di notebook} \\
+\midrule
+CPL01 & Narasi pemahaman bisnis/data, keterbatasan studi, rekomendasi berbasis plot/metrik. \\
+CPL03 & Pipeline \texttt{sklearn}, perbandingan algoritma, validasi silang, kode terstruktur. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \section{CPMK Praktikum (kemampuan akhir MK)}
+
+\textbf{CPMK-P1--P4} memecah tujuan MK menjadi empat blok kemampuan yang dapat dinilai di akhir semester. Setiap blok didukung oleh beberapa Sub-CPMK mingguan; penilaian formatif di tiap minggu sebaiknya merujuk indikator yang relevan dengan CPMK tersebut.
+
+Urutan CPMK mengikuti alur kerja data science umum: infrastruktur dan proses (P1), data dan EDA (P2), pemodelan (P3), evaluasi dan komunikasi (P4). Mahasiswa diharapkan dapat menjelaskan ``mengapa'' di balik setiap langkah, bukan hanya menyalin kode.
 
 \begin{itemize}[leftmargin=*]
   \item \textbf{CPMK-P1:} Lingkungan Python/\jupyter{}, K3, CRISP-DM ringkas.
@@ -40,7 +85,27 @@ Modul ini mendukung \textbf{CPMK-P1--P4} dan \textbf{Sub-CPMK-P1--P10} untuk pra
   \item \textbf{CPMK-P4:} Metrik, validasi silang, tuning sederhana, narasi \textit{insight}.
 \end{itemize}
 
+\begin{table}[htbp]
+\centering
+\caption{CPMK praktikum dan ranah utama bukti.}
+\label{tab:cpmk-ranah}
+\begin{tabular}{@{}llp{7.2cm}@{}}
+\toprule
+\textbf{CPMK} & \textbf{Ranah} & \textbf{Fokus penilaian} \\
+\midrule
+P1 & Lingkungan \& proses & Notebook rapi, K3, alur CRISP-DM \\
+P2 & Data \& visual & Kualitas data, plot informatif \\
+P3 & Pemodelan & API \texttt{fit/predict}, perbandingan model \\
+P4 & Evaluasi \& narasi & Metrik, CV, ringkasan untuk pemangku kepentingan \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \section{Sub-CPMK Praktikum P1--P10 (indikator ringkas)}
+
+\textbf{Sub-CPMK} memecah CPMK menjadi indikator operasional per minggu. Daftar berikut memudahkan Anda mencocokkan tugas lab dengan rubrik penilaian; detail prosedur dan contoh kode ada pada bab terkait.
+
+Indikator P1--P10 saling mengisi: misalnya P3 (cleaning) mendukung P4 (EDA) dan P5 (split/pemodelan). Jika satu minggu tertinggal, dokumentasikan keterangan di notebook agar asisten dapat memberi umpan balik yang tepat.
 
 \begin{itemize}[leftmargin=*]
   \item \textbf{P1} --- \jupyter{}, kernel, etika \& lisensi data
@@ -55,25 +120,54 @@ Modul ini mendukung \textbf{CPMK-P1--P4} dan \textbf{Sub-CPMK-P1--P10} untuk pra
   \item \textbf{P10} --- Ringkasan eksekutif; pipeline end-to-end mini
 \end{itemize}
 
+\begin{table}[htbp]
+\centering
+\caption{Sub-CPMK P1--P10 dan kata kunci bukti di notebook.}
+\label{tab:subcpmk-kunci}
+\footnotesize
+\begin{tabular}{@{}clp{6.8cm}@{}}
+\toprule
+\textbf{P} & \textbf{Topik} & \textbf{Kata kunci bukti} \\
+\midrule
+P1 & Jupyter \& etika & Kernel, lisensi data, CRISP-DM \\
+P2 & Pandas I/O & \texttt{read\_*}, \texttt{info}, \texttt{describe} \\
+P3 & Prapemrosesan & Missing, duplikat, encoding, scaler \\
+P4 & EDA & Histogram, boxplot, korelasi \\
+P5 & API sklearn & \texttt{train\_test\_split}, \texttt{fit} \\
+P6 & Regresi & RMSE/MAE, baseline \\
+P7 & Klasifikasi & Akurasi/F1, confusion matrix \\
+P8 & Ensemble \& cluster & RF, K-Means, silhouette \\
+P9 & Tuning & CV, GridSearch, ROC opsional \\
+P10 & Komunikasi & Ringkasan eksekutif, pipeline \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \section{\texorpdfstring{Matriks Sub-CPMK $\rightarrow$ CPMK $\rightarrow$ CPL}{Matriks Sub-CPMK ke CPMK ke CPL}}
 
-{\small
-\begin{tabular}{|l|l|l|}
-\hline
+Matriks berikut menyatukan tiga tingkat capaian: dari indikator mingguan (Sub-CPMK) ke capaian MK (CPMK) hingga jejak ke CPL prodi. Gunakan tabel ini saat menyusun portofolio atau refleksi akhir semester.
+
+\begin{table}[htbp]
+\centering
+\caption{Pemetaan Sub-CPMK ke CPMK dan CPL.}
+\label{tab:matriks-obe}
+\begin{tabular}{@{}lll@{}}
+\toprule
 \textbf{Sub-CPMK} & \textbf{CPMK} & \textbf{CPL} \\
-\hline
+\midrule
 P1 & P1 & CPL01 \\
-\hline
 P2, P3, P4 & P2 & CPL01, CPL03 \\
-\hline
 P5, P6, P7, P8 & P3 & CPL03 \\
-\hline
 P9, P10 & P4 & CPL01, CPL03 \\
-\hline
+\bottomrule
 \end{tabular}
-}
+\end{table}
 
 \section{Sinkronisasi 16 Minggu dengan RPS (Bagian 10)}
+
+Jadwal berikut selaras dengan rencana pembelajaran semester (RPS) bagian jadwal/topik lab. Angka menit mengacu pada sesi terstruktur; mahasiswa dapat meluangkan waktu tambahan di luar jam untuk eksplorasi dan perbaikan notebook.
+
+Koordinasi dengan dosen pengampu teori disarankan agar konsep statistik atau ML yang relevan di kelas teori muncul pada minggu praktikum yang mendekatinya---tanpa mensyaratkan urutan yang kaku jika kurikulum bergeser.
 
 {\footnotesize
 \begingroup\setlength{\tabcolsep}{3pt}%
@@ -126,15 +220,36 @@ P9, P10 & P4 & CPL01, CPL03 \\
 
 \section{K3, Etika Data, dan Tata Tertib Lab}
 
+K3 laboratorium melindungi pengguna perangkat dan menjaga keberlangsungan praktikum multi-angkatan. Etika data memastikan penggunaan dataset sesuai lisensi dan norma privasi. Keduanya merupakan bagian tak terpisahkan dari capaian profesionalisme, bukan sekadar aturan administratif.
+
 Larangan makan/minum di workstation; laporkan kerusakan; patuhi lisensi dataset; tidak menyebarkan data pribadi tanpa izin; atribusi tutorial dan sumber data wajib di Markdown.
 
+\begin{table}[htbp]
+\centering
+\caption{Ringkasan K3 dan etika data di lab.}
+\label{tab:k3-etika}
+\begin{tabular}{@{}p{3.5cm}p{9.2cm}@{}}
+\toprule
+\textbf{Aspek} & \textbf{Praktik yang diharapkan} \\
+\midrule
+K3 fisik & Tidak makan/minum di meja kerja; hati-hati kabel; laporkan perangkat panas. \\
+Etika akademik & Kutip sumber kode/tutorial; tidak plagiasi notebook rekan. \\
+Etika data & Cantumkan lisensi; hindari PII tanpa izin; hormati syarat API. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \section{Petunjuk Penggunaan Modul}
+
+Modul PDF dan notebook saling melengkapi: PDF memberi kerangka konsep dan urutan aktivitas, sedangkan notebook menjadi tempat eksperimen dan bukti capaian. Biasakan menulis Markdown antara sel kode agar pembaca lain (termasuk Anda di minggu depan) memahami maksud setiap langkah.
 
 \begin{enumerate}[leftmargin=*]
   \item Baca \textbf{Informasi sesi praktikum} dan \textbf{Sub-CPMK} di tiap bab.
   \item Kerjakan \texttt{notebooks/minggu\_NN.ipynb} paralel dengan membaca bab PDF.
   \item Kumpulkan \texttt{.ipynb} yang lulus \textit{Restart Kernel and Run All}.
 \end{enumerate}
+
+\input{tikz/fig_notebook_alur}
 
 \begin{rangkuman}
 Bab 0 memuat identitas MK, CPL/CPMK/Sub-CPMK P1--P10, jadwal 16 minggu selaras RPS, K3, etika data, dan alur notebook.

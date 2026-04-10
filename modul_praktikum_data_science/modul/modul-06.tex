@@ -10,9 +10,13 @@
 
 \SesiRPS{6}{P5}{$\sim$170 menit}{CPMK-P3}
 
+\noindent Minggu ini adalah ``pengikat'' antara prapemrosesan dan pemodelan: API \sklearn{} yang konsisten memudahkan Anda menukar algoritma tanpa mengubah pola evaluasi. Memahami perbedaan supervised dan unsupervised membantu memilih metrik dan visual yang tepat di minggu berikutnya.
+
 \section{Kemampuan akhir sesi}
 
 Menjelaskan beda supervised/unsupervised; menggunakan \texttt{train\_test\_split} dengan \texttt{random\_state}; memanggil \texttt{fit}, \texttt{predict}, \texttt{score} pada data uji; mengenali gejala overfitting konsep.
+
+Anda diharapkan dapat membaca dokumentasi estimator dengan cepat: argumen wajib, metode yang tersedia, dan apakah model membutuhkan skala fitur. Kebiasaan menetapkan \texttt{random\_state} membuat hasil dapat direplikasi oleh asisten atau rekan kelompok.
 
 \section{Teori}
 
@@ -20,7 +24,28 @@ Menjelaskan beda supervised/unsupervised; menggunakan \texttt{train\_test\_split
 Estimator \sklearn{} memiliki antarmuka seragam: \texttt{fit(X, y)} untuk supervised dengan label; \texttt{predict} atau \texttt{predict\_proba}; \texttt{transform} untuk prapemrosesan. Data uji tidak boleh dipakai untuk \texttt{fit} estimator atau scaler.
 \end{konsep}
 
+Supervised learning memakai pasangan $(X, y)$; unsupervised sering hanya $X$ (klastering, reduksi dimensi). Overfitting konsep berarti model menyesuaikan noise latih---gejalanya metrik latih jauh lebih baik daripada metrik uji; teknik mitigasi akan dibahas bertahap (validasi silang, regularisasi, ensemble).
+
+\input{tikz/fig_train_test}
+
+\begin{table}[htbp]
+\centering
+\caption{Supervised vs unsupervised (ringkas).}
+\label{tab:sup-unsup}
+\begin{tabular}{@{}p{3.2cm}p{4.8cm}p{4.8cm}@{}}
+\toprule
+\textbf{Aspek} & \textbf{Supervised} & \textbf{Unsupervised} \\
+\midrule
+Label & Ada target $y$ & Tidak ada target eksplisit \\
+Contoh & Klasifikasi, regresi & K-Means, PCA \\
+Metrik & Akurasi, RMSE, F1, \ldots & Silhouette, inertia, \ldots \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \section{Contoh kode}
+
+Contoh Iris memakai \texttt{stratify=y} agar proporsi kelas konsisten di latih dan uji---penting untuk dataset kecil atau kelas jarang.
 
 \begin{lstlisting}[caption=Split dan baseline DummyClassifier]
 from sklearn.model_selection import train_test_split

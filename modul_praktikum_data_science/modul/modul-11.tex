@@ -10,11 +10,37 @@
 
 \SesiRPS{11}{P9}{$\sim$170 menit}{CPMK-P4}
 
+\noindent Akurasi saja sering gagal menggambarkan biaya kesalahan yang tidak simetris. Presisi dan recall memisahkan dua jenis risiko: alarm palsu versus kejadian yang terlewat---sangat relevan untuk deteksi fraud, diagnosis, atau moderasi konten.
+
+\section{Kemampuan akhir sesi}
+
+Menghitung dan menjelaskan presisi, recall, dan F1; membaca kurva ROC dan AUC untuk kasus biner; mendiskusikan dampak ketidakseimbangan kelas pada pemilihan metrik dan threshold.
+
+Pada data tidak seimbang, pertimbangkan \texttt{class\_weight} atau sampling dengan hati-hati; dokumentasikan trade-off karena teknik sampling dapat mengubah distribusi target secara artifisial.
+
 \section{Teori}
 
 \begin{konsep}
 Presisi menjawab ``dari yang diprediksi positif, berapa yang benar''; recall ``dari semua positif sejati, berapa yang tertangkap''. F1 adalah harmonik keduanya. ROC-AUC bermakna kuat pada klasifikasi biner dengan skor probabilitas.
 \end{konsep}
+
+ROC mengintegrasikan trade-off TPR/FPR pada berbagai threshold; AUC mendekati 0.5 menandakan skor hampir acak. Untuk multiclass, laporan per kelas dan rata-rata makro/mikro memberi gambaran yang lebih lengkap daripada satu angka.
+
+\input{tikz/fig_roc_illus}
+
+\begin{table}[htbp]
+\centering
+\caption{Kapan mementingkan presisi vs recall (contoh domain).}
+\label{tab:precision-recall-domain}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{3.6cm}>{\raggedright\arraybackslash}p{9.1cm}@{}}
+\toprule
+\textbf{Skenario} & \textbf{Prioritas metrik} \\
+\midrule
+Deteksi penyakit serius & Recall tinggi (minimal FN). \\
+Kampanye pemasaran & Presisi tinggi (minimal FP). \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \section{Contoh kode}
 

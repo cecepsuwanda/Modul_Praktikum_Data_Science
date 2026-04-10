@@ -10,13 +10,38 @@
 
 \SesiRPS{14}{P10}{$\sim$170 menit}{CPMK-P4}
 
+\noindent Peer review meniru praktik tim data di industri: kode dan narasi diperiksa oleh rekan sebelum digabungkan ke repositori bersama. Tujuannya bukan mencari kesalahan untuk menilai, melainkan meningkatkan kejelasan dan menemukan dependensi tersembunyi.
+
+\section{Kemampuan akhir sesi}
+
+Menjalankan notebook orang lain dari awal; mendokumentasikan kegagalan reproduksi secara spesifik; merevisi notebook sendiri berdasarkan umpan balik; menyertakan daftar paket versi.
+
+Reproduktifitas bersifat sosial-teknis: versi paket saja tidak cukup jika urutan sel atau asumsi path tidak didokumentasikan. Catat langkah manual (unduh data, set variabel lingkungan) di Markdown.
+
 \section{Teori}
 
 \begin{konsep}
 Reproduktifitas membutuhkan versi Python/paket, urutan sel, dan akses data yang sama. \textbf{Peer review} meningkatkan kejelasan dan menemukan langkah yang ``hanya jalan di laptop pemilik''.
 \end{konsep}
 
+\begin{table}[htbp]
+\centering
+\caption{Dimensi lembar review (contoh rubrik).}
+\label{tab:peer-review-dimensi}
+\begin{tabular}{@{}p{3.6cm}p{9.1cm}@{}}
+\toprule
+\textbf{Dimensi} & \textbf{Pertanyaan untuk reviewer} \\
+\midrule
+Reproduksi & Apakah \textit{Run All} lulus tanpa intervensi? \\
+Narasi & Apakah setiap bagian plot/kode punya konteks? \\
+Etika & Apakah sumber data dan lisensi lengkap? \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \section{Prosedur}
+
+Prosedur berikut memastikan umpan balik dapat ditindaklanjuti: setiap poin review sebaiknya merujuk nomor sel atau judul Markdown agar mitra mudah memperbaiki.
 
 \begin{enumerate}[leftmargin=*]
   \item Tukar notebook dengan pasangan; \textbf{Restart \& Run All}.
@@ -27,7 +52,7 @@ Reproduktifitas membutuhkan versi Python/paket, urutan sel, dan akses data yang 
 
 \section{Contoh requirements.txt}
 
-\begin{lstlisting}[caption=Contoh isi requirements.txt, language={},basicstyle=\ttfamily\small]
+\begin{lstlisting}[caption={Contoh isi requirements.txt}, language={},basicstyle=\ttfamily\small]
 jupyter>=1.0
 numpy>=1.24
 pandas>=2.0

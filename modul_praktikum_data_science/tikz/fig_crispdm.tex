@@ -1,0 +1,17 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[node distance=5mm and 4mm]
+  \node[dsbox, fill=blue!12] (n1) {Business\\Und.};
+  \node[dsbox, fill=blue!12, right=of n1] (n2) {Data\\Und.};
+  \node[dsbox, fill=blue!12, right=of n2] (n3) {Data\\Prep.};
+  \node[dsbox, fill=blue!12, below=of n3] (n4) {Modeling};
+  \node[dsbox, fill=blue!12, left=of n4] (n5) {Evaluation};
+  \node[dsbox, fill=blue!12, left=of n5] (n6) {Deploy};
+  \draw[dsarrow] (n1) -- (n2);
+  \draw[dsarrow] (n2) -- (n3);
+  \draw[dsarrow] (n3) -- (n4);
+  \draw[dsarrow] (n4) -- (n5);
+  \draw[dsarrow] (n5) -- (n6);
+\end{tikzpicture}
+\caption{Enam fase CRISP-DM sebagai kerangka berpikir proyek data. Pada praktikum 1 SKS, notebook tidak wajib menampilkan semua fase penuh setiap minggu, tetapi narasi sebaiknya menunjukkan fase mana yang sedang dikerjakan.}
+\end{figure}

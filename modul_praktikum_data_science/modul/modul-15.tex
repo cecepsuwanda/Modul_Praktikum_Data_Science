@@ -10,11 +10,31 @@
 
 \SesiRPS{15}{P10}{$\sim$170 menit}{CPMK-P2, CPMK-P3, CPMK-P4}
 
+\noindent Proyek mini adalah integrasi terbuka dari P2--P4: Anda menunjukkan bahwa rantai kerja dari data mentah hingga rekomendasi dapat dijalankan dalam satu notebook utuh, meskipun masih berstatus draft.
+
 \section{Lingkup proyek}
 
 \begin{konsep}
 Proyek mini membuktikan integrasi capaian P2--P4. Topik disetujui dosen: masalah jelas, data legal, minimal satu model, metrik selaras jenis target, kesimpulan non-teknis.
 \end{konsep}
+
+Pilih dataset yang ukuran dan kompleksitasnya realistis untuk waktu lab; lebih baik analisis yang rapi pada data sedang daripada model rumit tanpa dokumentasi. Prioritas draft pertama adalah alur utuh, bukan skor tertinggi.
+
+\input{tikz/fig_data_pipeline}
+
+\begin{table}[htbp]
+\centering
+\caption{Checklist draft proyek (target minimal).}
+\label{tab:checklist-proyek}
+\begin{tabular}{@{}p{0.6cm}p{11.3cm}@{}}
+\toprule
+$\square$ & Rumusan masalah dan pemangku kepentingan jelas. \\
+$\square$ & Sumber data legal, terdokumentasi, dapat diakses rekan. \\
+$\square$ & Prapemrosesan dan split/ CV konsisten dengan materi minggu 3--12. \\
+$\square$ & Minimal satu visual dan satu metrik interpretatif pada hold-out/CV. \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \section{Checklist draft (isi di notebook)}
 

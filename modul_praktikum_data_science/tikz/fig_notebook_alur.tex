@@ -1,0 +1,11 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[node distance=6mm]
+  \node[dsboxwide, fill=purple!8] (m) {Bab PDF\\modul};
+  \node[dsboxwide, fill=purple!8, right=of m] (n) {Notebook\\\texttt{.ipynb}};
+  \node[dsboxwide, fill=purple!8, right=of n] (r) {Run All\\+ narasi};
+  \draw[dsarrow] (m) -- (n);
+  \draw[dsarrow] (n) -- (r);
+\end{tikzpicture}
+\caption{Alur belajar disarankan: baca tujuan sesi di PDF, lalu implementasikan dan dokumentasikan di notebook hingga seluruh sel dapat dijalankan ulang dari awal.}
+\end{figure}

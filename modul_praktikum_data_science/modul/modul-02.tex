@@ -10,11 +10,17 @@
 
 \SesiRPS{2}{P2}{$\sim$170 menit}{CPMK-P2}
 
+\noindent Minggu ini menegaskan bahwa \textbf{inspeksi sebelum pemodelan} menghemat waktu debugging: tipe data yang salah, pemisah kolom yang tidak cocok, atau encoding teks yang tidak konsisten sering terlihat dari \texttt{info()} dan \texttt{head()}.
+
 \section{Kemampuan akhir sesi}
 
 Memuat CSV dan Excel; menggunakan \texttt{head}, \texttt{tail}, \texttt{info}, \texttt{describe}, \texttt{dtypes}; mengajukan hipotesis awal kolom target vs fitur.
 
+Kemampuan akhir di atas mensyaratkan kebiasaan menulis satu paragraf hipotesis di Markdown setelah inspeksi awal: kolom mana yang menjadi kandidat target, fitur mana yang perlu dibersihkan, dan apa risiko jika tipe data dibiarkan salah.
+
 \section{Teori dan bahan kajian}
+
+Memuat data adalah gerbang pertama ke seluruh pipeline analitik. Pandas menyatukan berbagai sumber (berkas lokal, URL, pustaka dataset) ke dalam objek \texttt{DataFrame} yang dapat diinspeksi secara seragam.
 
 \begin{konsep}
 \texttt{DataFrame} adalah tabel dengan indeks baris dan nama kolom. \texttt{dtypes} membedakan \texttt{int64}, \texttt{float64}, \texttt{object} (sering berarti teks atau campuran). Fungsi \texttt{info()} memberi ringkasan non-null dan tipe; \texttt{describe()} merangkum statistik numerik secara default.
@@ -28,15 +34,37 @@ Path berkas: gunakan path relatif ke folder kerja notebook atau unggah ke Colab 
 Contoh di bawah memakai dataset bawaan Seaborn (\texttt{tips}, \texttt{titanic}) untuk latihan tanpa unduhan manual. Dataset terbuka lain: bandingkan dengan \texttt{fetch\_openml}. Jika Anda memakai data sendiri, cantumkan URL dan lisensi di notebook.
 \end{catatan}
 
+\input{tikz/fig_data_pipeline}
+
 \section{K3 dan etika}
 
 Dataset hanya dari sumber yang diizinkan; jangan menyematkan token API atau path absolut sensitif di notebook yang diunggah ke LMS.
+
+Menyematkan kunci API atau path personal di notebook yang dibagikan berisiko kebocoran kredensial. Gunakan variabel lingkungan atau file konfigurasi lokal yang tidak diunggah, dan dokumentasikan nama variabel yang diperlukan di Markdown.
 
 \section{Sarana}
 
 \texttt{pandas}, \texttt{numpy}, \texttt{seaborn} (untuk \texttt{load\_dataset}), \texttt{openpyxl} untuk \texttt{.xlsx}, \texttt{sklearn} untuk OpenML.
 
+\begin{table}[htbp]
+\centering
+\caption{Fungsi muat data umum dan kapan memakainya.}
+\label{tab:io-pandas}
+\begin{tabular}{@{}p{3.4cm}p{8.8cm}@{}}
+\toprule
+\textbf{Fungsi} & \textbf{Gunakan ketika \ldots} \\
+\midrule
+\texttt{pd.read\_csv} & Berkas/teks bertabulator; atur \texttt{sep}, \texttt{encoding}. \\
+\texttt{pd.read\_excel} & Lembar kerja \texttt{.xlsx}; butuh \texttt{openpyxl}. \\
+\path{sns.load_dataset} & Latihan cepat dengan dataset kecil bawaan Seaborn. \\
+\texttt{fetch\_openml} & Dataset standar ML; unduhan/cache otomatis. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \section{Prosedur kerja}
+
+Prosedur minggu ini melatih perbandingan dua sumber data: bentuk (\texttt{shape}), tipe (\texttt{dtypes}), dan jumlah missing. Pola ini akan dipakai ulang setiap kali Anda menerima file baru dari pemangku kepentingan.
 
 \begin{enumerate}[leftmargin=*]
   \item \texttt{import pandas as pd}; muat data dari CSV lokal (\texttt{read\_csv}), Seaborn, atau OpenML; tampilkan \texttt{head(10)} dan \texttt{info()}.
@@ -46,6 +74,8 @@ Dataset hanya dari sumber yang diizinkan; jangan menyematkan token API atau path
 \end{enumerate}
 
 \section{Contoh kode}
+
+Contoh berikut menunjukkan variasi sumber data tanpa mengganti pola inspeksi: selalu mulai dari \texttt{head}, \texttt{info}, lalu \texttt{describe} bila kolom numerik sudah masuk akal.
 
 \begin{lstlisting}[caption=Dua dataset Seaborn: tips dan Titanic]
 import pandas as pd

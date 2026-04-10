@@ -10,11 +10,17 @@
 
 \SesiRPS{1}{P1}{$\sim$170 menit}{CPMK-P1}
 
+\noindent Pada minggu pertama, bukti capaian lebih ditentukan oleh \textbf{kualitas dokumentasi} dan \textbf{keterulangan eksekusi} daripada kompleksitas kode. Luangkan waktu untuk memastikan setiap sel punya maksud jelas dan kernel dapat dijalankan ulang dari awal tanpa error.
+
 \section{Kemampuan akhir sesi}
 
 Setelah sesi, mahasiswa mampu: (1) membuat notebook baru dan mengeksekusi sel Markdown serta sel kode Python; (2) menjelaskan enam fase CRISP-DM secara ringkas dan mengaitkannya dengan satu studi kasus; (3) mendokumentasikan sumber data, lisensi, dan batasan penggunaan di Markdown; (4) menyimpan berkas \texttt{.ipynb} sesuai konvensi penamaan.
 
+Kemampuan di atas adalah fondasi untuk seluruh modul berikutnya: tanpa kernel yang stabil dan Markdown yang menjelaskan konteks, analisis data sulit dinilai secara adil. Latih diri menulis satu hingga dua kalimat sebelum atau sesudah setiap plot/kode agar pembaca memahami ``mengapa'' langkah tersebut dilakukan.
+
 \section{Teori dan bahan kajian}
+
+Notebook interaktif menggabungkan narasi dan eksperimen dalam satu berkas yang dapat dibagikan. Memahami perbedaan sel, kernel, dan urutan eksekusi mencegah kesalahan yang sering muncul saat demo atau pengumpulan tugas.
 
 \subsection{Sel, kernel, dan urutan eksekusi}
 
@@ -22,9 +28,13 @@ Setelah sesi, mahasiswa mampu: (1) membuat notebook baru dan mengeksekusi sel Ma
 \jupyter{} menggabungkan narasi (\textbf{sel Markdown}) dan kode (\textbf{sel kode}). \textbf{Kernel} adalah proses Python yang menjalankan kode. Urutan angka di sisi sel menunjukkan urutan eksekusi terakhir---bukan urutan di halaman. Setelah mengubah banyak sel, gunakan \textbf{Restart Kernel and Run All} untuk memverifikasi reproduktifitas.
 \end{konsep}
 
+Kernel yang tidak sinkron dengan kode di layar adalah sumber bug klasik: variabel lama tetap ada di memori meskipun sel sudah dihapus dari dokumen. Kebiasaan \textit{Run All} setelah penyuntingan besar mengurangi risiko ini dan menyiapkan Anda untuk lingkungan penilaian otomatis.
+
 \subsection{CRISP-DM dalam satu halaman}
 
 \textit{Cross-Industry Standard Process for Data Mining} memetakan proyek data ke enam fase: \textbf{Business Understanding} (tujuan bisnis), \textbf{Data Understanding} (koleksi, kualitas), \textbf{Data Preparation} (cleaning, fitur), \textbf{Modeling}, \textbf{Evaluation}, \textbf{Deployment}. Pada praktikum 1 SKS, fokus kita adalah memahami bahwa notebook yang baik mencerminkan alur ini meskipun tidak semua fase dieksekusi penuh setiap minggu.
+
+\input{tikz/fig_crispdm}
 
 \subsection{Etika dan lisensi data}
 
@@ -32,15 +42,36 @@ Setelah sesi, mahasiswa mampu: (1) membuat notebook baru dan mengeksekusi sel Ma
 Cantumkan \textbf{URL sumber}, \textbf{lisensi} (CC, domain publik, syarat Kaggle, dll.), dan hindari mengunggah data yang berisi \textbf{PII} (data pribadi) tanpa persetujuan. Jika memakai data sintetis, tulis secara eksplisit bahwa data sintetis.
 \end{catatan}
 
+Dokumentasi lisensi bukan formalitas administratif: ia melindungi Anda dan institusi dari pelanggaran syarat penggunaan data. Di dunia profesional, pelanggaran lisensi dapat mengakibatkan penarikan model dari produksi.
+
 \section{Keselamatan kerja, etika, dan K3}
 
 Tata tertib laboratorium; tidak makan/minum di dekat keyboard; matikan perangkat dengan benar; laporkan kabel longgar atau perangkat panas. Etika akademik: kutip tutorial dengan atribusi; tidak plagiasi notebook rekan.
+
+K3 mendukung pembelajaran berkelanjutan: peralatan yang dirawat tetap andal untuk praktikan berikutnya. Etika akademik menjaga kepercayaan pada bukti capaian Anda---plagiarisme notebook setara dengan plagiarisme laporan tertulis.
 
 \section{Sarana dan prasarana}
 
 Python 3.10 atau lebih baru; \texttt{jupyter}, \texttt{notebook} atau JupyterLab; alternatif Google Colab; browser terkini; ruang penyimpanan untuk mengunduh \texttt{.ipynb}.
 
+\begin{table}[htbp]
+\centering
+\caption{Perbandingan ringkas lingkungan kerja notebook.}
+\label{tab:lingkungan-jupyter}
+\begin{tabular}{@{}p{3cm}p{4.5cm}p{4.5cm}@{}}
+\toprule
+\textbf{Lingkungan} & \textbf{Kelebihan} & \textbf{Catatan} \\
+\midrule
+JupyterLab lokal & Kontrol penuh, offline & Perlu instalasi Python \\
+VS Code + Jupyter & Terintegrasi editor & Perlu ekstensi resmi \\
+Google Colab & Tanpa setup di lab & Butuh akun \& jaringan \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \section{Prosedur kerja (di lab)}
+
+Urutan prosedur dirancang agar Anda membiasakan alur profesional: verifikasi lingkungan, struktur narasi, baru eksperimen kode. Menyimpan salinan ke path standar \path{notebooks/} memudahkan asisten dan sistem pengumpulan.
 
 \begin{enumerate}[leftmargin=*]
   \item Verifikasi Python: buka terminal, jalankan perintah versi interpreter.
@@ -52,7 +83,11 @@ Python 3.10 atau lebih baru; \texttt{jupyter}, \texttt{notebook} atau JupyterLab
   \item Simpan sebagai \path{Minggu01_NIM_Nama.ipynb} dan salin isi inti ke \path{notebooks/minggu_01.ipynb}.
 \end{enumerate}
 
+\input{tikz/fig_notebook_alur}
+
 \section{Contoh kode dan studi kasus}
+
+Contoh berikut dapat disalin per blok ke notebook; sesuaikan string identitas dan URL dataset dengan data Anda. Setelah setiap blok, tambahkan satu paragraf Markdown yang menjelaskan hubungan blok tersebut dengan fase CRISP-DM.
 
 \subsection{Memeriksa versi Python di notebook}
 

@@ -13,6 +13,11 @@
 \geometry{a4paper, margin=2.5cm, headheight=28pt, headsep=14pt}
 
 \usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes,calc}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{array}
@@ -35,6 +40,8 @@
 }
 
 \usepackage{subfiles}
+
+\input{tikz/tikz_common.tex}
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
@@ -189,6 +196,7 @@
 
 \newcommand{\SesiRPS}[4]{%
   \section{Informasi sesi praktikum}%
+  \noindent Berikut ringkasan penyelarasan sesi ini dengan RPS: nomor minggu, Sub-CPMK utama yang dibuktikan, alokasi waktu terstruktur, dan CPMK induk yang terlayani. Notebook yang dikumpulkan hendaknya menunjukkan bukti nyata pada Sub-CPMK utama tersebut.%
   \begin{itemize}[leftmargin=*]%
     \item \textbf{Minggu RPS:} #1%
     \item \textbf{Sub-CPMK utama:} #2%

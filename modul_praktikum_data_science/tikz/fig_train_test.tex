@@ -1,0 +1,11 @@
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[node distance=8mm]
+  \node[dsboxwide, fill=orange!15, minimum width=3.6cm, text width=3.4cm, align=center] (train)
+    {\textbf{Data latih}\\[2pt]\scriptsize \texttt{fit}, \texttt{fit\_transform}};
+  \node[dsboxwide, fill=gray!12, minimum width=3.6cm, text width=3.4cm, align=center, right=16mm of train] (test)
+    {\textbf{Data uji}\\[2pt]\scriptsize \texttt{transform} / \texttt{predict}};
+  \draw[dsarrow] (train.east) -- node[above, font=\scriptsize] {split} (test.west);
+\end{tikzpicture}
+\caption{Pemisahan latih/uji: estimator dan prapemroses di-\texttt{fit} hanya pada data latih; data uji dipakai untuk evaluasi akhir agar tidak terjadi kebocoran informasi.}
+\end{figure}

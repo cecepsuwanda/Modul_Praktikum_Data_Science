@@ -10,11 +10,38 @@
 
 \SesiRPS{9}{P8}{$\sim$170 menit}{CPMK-P3}
 
+\noindent Random Forest mengurangi varians prediksi dengan merata-ratakan banyak pohon yang dilatih pada sampel bootstrap berbeda. Ini sering memberi metrik lebih stabil daripada satu pohon dalam, dengan biaya komputasi dan interpretabilitas parsial.
+
+\section{Kemampuan akhir sesi}
+
+Melatih \texttt{RandomForestClassifier} dan/atau \texttt{RandomForestRegressor}; membandingkan skor uji dengan model minggu sebelumnya; menyajikan \texttt{feature\_importances\_} dengan narasi kritis (bukan kausal).
+
+Importansi fitur dari pohon berbasis impurity dapat bias jika fitur memiliki kardinalitas tinggi atau korelasi kuat; gunakan sebagai petunjuk eksplorasi, bukan bukti sebab-akibat.
+
 \section{Teori}
 
 \begin{konsep}
 Random Forest menggabungkan banyak pohon pada bootstrap sampel dan subset fitur acak; mengurangi varians dibanding satu pohon dalam. \texttt{feature\_importances\_} adalah proxy berbasis penurunan impurity---bukan kausalitas.
 \end{konsep}
+
+Hyperparameter seperti \texttt{n\_estimators} dan \texttt{max\_depth} mengontrol kompleksitas kolektif hutan; \texttt{random\_state} membantu reproduktifitas perbandingan antar eksperimen di notebook.
+
+\begin{table}[htbp]
+\centering
+\caption{Random Forest vs satu pohon (intuisi).}
+\label{tab:rf-vs-tree}
+\begin{tabular}{@{}p{3.8cm}p{8.9cm}@{}}
+\toprule
+\textbf{Aspek} & \textbf{Random Forest} \\
+\midrule
+Varians & Cenderung lebih rendah (ensemble). \\
+Overfit tunggal & Diredam oleh agregasi banyak pohon. \\
+Interpretasi & Kurang transparan daripada satu pohon kecil. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\input{tikz/fig_hist_illus}
 
 \section{Contoh kode}
 
