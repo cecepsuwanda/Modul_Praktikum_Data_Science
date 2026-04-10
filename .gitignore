@@ -1,0 +1,123 @@
+# =============================================================================
+# Modul_Praktikum_Data_Science — hasil build, cache, dan file lokal
+# =============================================================================
+
+# --- Folder keluaran kompilasi terpusat (compile_*.bat → output\) ---
+output/
+
+# --- PDF hasil LaTeX (hapus baris ini jika Anda ingin melacak PDF di git) ---
+*.pdf
+
+# --- LaTeX / pdfTeX / XeLaTeX / LuaLaTeX ---
+*.aux
+*.bbl
+*.bcf
+*.blg
+*-blx.aux
+*.cb
+*.cb2
+*.dvi
+*.fdb_latexmk
+*.fls
+*.fmt
+*.fot
+*.glg
+*.glo
+*.gls
+*.glstex
+*.idx
+*.ilg
+*.ind
+*.ist
+*.loa
+*.lof
+*.log
+*.lol
+*.lot
+*.loapp
+*.maf
+*.mtc*
+*.nav
+*.out
+*.pdfsync
+*.ps
+*.ptc
+*.pyg
+*.run.xml
+*.snm
+*.spl
+*.synctex
+*.synctex.gz
+*.tmp
+*.toc
+*.vrb
+*.xdv
+*.xref
+*.xdy
+*.4tc
+*.4ct
+*.idv
+*.lg
+*.brf
+_minted*
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.venv/
+venv/
+ENV/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.cover
+.hypothesis/
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+
+# --- Editor / IDE ---
+.idea/
+*.iml
+*.sublime-project
+*.sublime-workspace
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+*.swp
+*.swo
+*~
+
+# --- OS ---
+.DS_Store
+.DS_Store?
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# --- Cursor / alat lokal ---
+.cursor/
+
+# --- Cadangan / sementara ---
+*.bak
+*.temp

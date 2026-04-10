@@ -1,0 +1,113 @@
+\chapter*{Lampiran}
+\addcontentsline{toc}{chapter}{Lampiran}
+
+\section*{A. Komponen penilaian semester selaras RPS}
+
+Mata kuliah \textbf{100\% praktikum}. Total \textbf{100\%}.
+
+\begin{center}
+\small
+\begin{tabular}{|p{3.5cm}|p{3.8cm}|c|p{4cm}|}
+\hline
+\textbf{Komponen} & \textbf{Teknik asesmen} & \textbf{Bobot} & \textbf{Capaian} \\
+\hline
+Kinerja lab / tugas notebook & Rubrik per minggu & 40\% & Sub-CPMK-P1--P9 \\
+\hline
+Proyek mini end-to-end & Notebook: data $\rightarrow$ model $\rightarrow$ insight & 40\% & Sub-CPMK-P10 \\
+\hline
+Laporan ringkas \& presentasi & 2--4 halaman + 5--10 menit & 20\% & CPMK-P4 \\
+\hline
+\textbf{Total} & & \textbf{100\%} & \\
+\hline
+\end{tabular}
+\end{center}
+
+\section*{B. Rubrik notebook skala 0--4 per kriteria}
+
+{\footnotesize
+\begin{longtable}{|p{2.7cm}|p{5.4cm}|p{5cm}|}
+\hline
+\textbf{Kriteria} & \textbf{Yang dinilai} & \textbf{Sub-CPMK / CPMK} \\
+\hline
+\endfirsthead
+\hline
+\textbf{Kriteria} & \textbf{Yang dinilai} & \textbf{Sub-CPMK / CPMK} \\
+\hline
+\endhead
+\hline
+\endfoot
+Reproduktifitas & Restart kernel \& run all; dependensi/dataset jelas & P1, P2 \\
+Struktur \& narasi & Markdown: tujuan, langkah, keputusan analitik & P10, P4 \\
+Data \& etika & Sumber, lisensi, tidak menyebarkan data sensitif & P1 \\
+Prapemrosesan & Cleaning konsisten; hindari leakage kasar & P3 \\
+EDA \& visual & Visual mendukung pertanyaan; label sumbu jelas & P4 \\
+Pemodelan & Split latih/uji; API benar; baseline vs model & P5--P8 \\
+Evaluasi & Metrik sesuai tugas; interpretasi & P9, P4 \\
+Insight bisnis & Kesimpulan non-teknis $\geq$ satu paragraf & P10, P4 \\
+\hline
+\end{longtable}
+}
+
+\section*{C. Rubrik proyek mini end-to-end}
+
+\begin{center}
+\small
+\begin{tabular}{|l|c|p{6.2cm}|}
+\hline
+\textbf{Aspek} & \textbf{Bobot saran} & \textbf{Indikator} \\
+\hline
+CRISP-DM / masalah & 15\% & Tujuan jelas; pemangku kepentingan \\
+Data \& prapemrosesan & 25\% & Pipeline rapi; dokumentasi keputusan \\
+Model \& perbandingan & 25\% & $\geq$ dua pendekatan atau tuning sederhana \\
+Evaluasi \& interpretasi & 20\% & Metrik selaras regresi/klasifikasi \\
+Komunikasi & 15\% & Visual + ringkasan eksekutif \\
+\hline
+\end{tabular}
+\end{center}
+
+\section*{D. Panduan laporan ringkas}
+
+\begin{enumerate}[leftmargin=*]
+  \item Halaman judul: nama, NIM, judul, MK, tanggal.
+  \item Ringkasan 150--250 kata.
+  \item Data dan metode; hasil (tabel + gambar); keterbatasan.
+  \item Referensi dengan sitasi sumber data.
+\end{enumerate}
+
+\section*{E. Template penamaan}
+
+\begin{itemize}[leftmargin=*]
+  \item Notebook mingguan: \texttt{NIM\_TIFxxxPrak\_M\textit{nn}.ipynb}
+  \item Notebook latihan di folder \texttt{notebooks/}: \texttt{minggu\_\textit{nn}.ipynb}
+  \item \texttt{requirements.txt} atau cuplikan versi paket untuk reproduktifitas.
+\end{itemize}
+
+\section*{F. Lembar peer review inti}
+
+Tujuan jelas; langkah dapat diikuti; bagian membingungkan; visual terbaik; minimal dua saran perbaikan.
+
+\section*{G. Lembar observasi asisten}
+
+Checklist: K3; Jupyter mandiri; sumber data; prosedur utama selesai; siap lanjut atau perlu remedial.
+
+\section*{H. Glosarium singkat}
+
+\begin{description}[style=nextline, widest=Pipeline:, itemsep=0.2em]
+  \item[CRISP-DM:] Siklus proyek data dari pemahaman bisnis hingga deployment.
+  \item[EDA:] Eksplorasi data sebelum pemodelan formal.
+  \item[Leakage:] Informasi target bocor ke fitur latih.
+  \item[Pipeline:] Rangkaian \texttt{transform} + model di \sklearn{}.
+\end{description}
+
+\section*{I. Daftar pustaka terbuka}
+
+Lihat \texttt{sumber\_materi.md} dan Bagian 12 \texttt{silabus\_praktikum\_data\_science.tex}. Contoh:
+
+\begin{enumerate}[leftmargin=*]
+  \item Kaggle Learn (Python, Pandas, ML). \url{https://www.kaggle.com/learn}
+  \item VanderPlas, \textit{Python Data Science Handbook}. \url{https://jakevdp.github.io/PythonDataScienceHandbook/}
+  \item scikit-learn dokumentasi. \url{https://scikit-learn.org/stable/}
+  \item pandas User Guide. \url{https://pandas.pydata.org/docs/}
+  \item INRIA sklearn MOOC. \url{https://inria.github.io/scikit-learn-mooc/}
+  \item Data Indonesia. \url{https://data.go.id/}
+\end{enumerate}

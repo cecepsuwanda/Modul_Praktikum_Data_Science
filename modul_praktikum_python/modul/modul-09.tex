@@ -1,0 +1,139 @@
+\documentclass[../main.tex]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{9}}{}
+\begin{document}
+
+\chapter{Pemrograman Berorientasi Objek (OOP) Dasar}
+
+\begin{subcpmk}
+  \item Sub-CPMK 7.1: Mendefinisikan kelas dengan atribut dan metode, membuat objek, serta menerapkan pewarisan sederhana untuk memodelkan entitas program
+\end{subcpmk}
+
+\SesiRPS{11}{7.1}{$\sim$170 menit}{CPMK-7}
+
+\section{Sarana dan prasarana}
+
+Komputer laboratorium dengan Python 3.10+, editor/IDE, terminal, dan akses ke dokumentasi daring terbatas sesuai kebijakan prodi.
+
+\section{Keselamatan kerja dan etika}
+
+Tidak ada bahan kimia berisiko; tetap jaga postur ergonomis. Etika kode: tulis program sendiri atau sebutkan sumber jika memakai contoh dari tutorial.
+
+\section{Prosedur kerja}
+
+\begin{enumerate}[leftmargin=*]
+  \item Baca ringkasan teori kelas dan objek di bawah ini.
+  \item Replikasi contoh di Python, lalu modifikasi nama atribut dan metode.
+  \item Implementasikan hierarki sederhana (induk--anak) sesuai aktivitas.
+  \item Uji objek dari REPL atau skrip terpisah; simpan berkas sesuai konvensi penamaan.
+\end{enumerate}
+
+\section{Konsep Kelas dan Objek}
+
+\textbf{Kelas} adalah cetak biru; \textbf{objek} adalah instansi. Di Python, atribut biasanya diinisialisasi di \texttt{\_\_init\_\_}.
+
+\begin{lstlisting}[caption=Kelas sederhana dengan metode]
+class Mahasiswa:
+    def __init__(self, nim, nama):
+        self.nim = nim
+        self.nama = nama
+
+    def perkenalan(self):
+        return f"{self.nim} - {self.nama}"
+
+m = Mahasiswa("12345", "Andi")
+print(m.perkenalan())
+\end{lstlisting}
+
+\section{Pewarisan Sederhana}
+
+Anak mewarisi metode induk dan dapat menimpa (\textit{override}).
+
+\begin{lstlisting}[caption=Pewarisan]
+class Pengguna:
+    def __init__(self, username):
+        self.username = username
+
+class Admin(Pengguna):
+    def __init__(self, username, level):
+        super().__init__(username)
+        self.level = level
+
+    def info(self):
+        return f"{self.username} (admin level {self.level})"
+\end{lstlisting}
+
+\section{Studi Kasus dan Contoh Kode}
+
+Berikut adalah contoh-contoh program Python yang mengimplementasikan konsep-konsep pada modul ini.
+
+\subsection{Kode: \texttt{kendaraan.py}}
+\begin{lstlisting}[language=Python,caption={\texttt{kendaraan.py}}]
+"""Contoh kelas dasar dan pewarisan."""
+
+
+class Kendaraan:
+    def __init__(self, merk: str, tahun: int) -> None:
+        self.merk = merk
+        self.tahun = tahun
+
+    def info(self) -> str:
+        return f"{self.merk} ({self.tahun})"
+
+class Mobil(Kendaraan):
+    def __init__(self, merk: str, tahun: int, jumlah_pintu: int) -> None:
+        super().__init__(merk, tahun)
+        self.jumlah_pintu = jumlah_pintu
+
+    def info(self) -> str:
+        dasar = super().info()
+        return f"{dasar} - {self.jumlah_pintu} pintu"
+
+def main() -> None:
+    v1 = Kendaraan("Yamaha", 2015)
+    v2 = Mobil("Toyota", 2022, 4)
+    print(v1.info())
+    print(v2.info())
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+\section{Referensi sesi}
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{[13]} Downey, A. B. \textit{Think Python, 2e} --- bab berorientasi objek.
+  \item \textbf{[19]} Real Python --- tutorial kelas dan OOP Python 3.
+  \item \textbf{[8, 9]} \textit{The Python Tutorial} (docs.python.org) --- kelas.
+\end{itemize}
+
+\begin{aktivitas}
+  \item Buat kelas \texttt{Produk} dengan atribut \texttt{nama}, \texttt{harga}, dan metode \texttt{ringkasan()} yang mengembalikan string deskriptif.
+  \item Buat kelas \texttt{ProdukDiskon} yang mewarisi \texttt{Produk} dan\newline menambah atribut \texttt{persen\_diskon}; timpa \texttt{ringkasan()} agar menyebut harga setelah diskon.
+  \item Uji dengan minimal dua objek di skrip \texttt{NIM\_TIF105\_M11\_oop.py}.
+\end{aktivitas}
+
+\begin{latihan}
+  \item Jelaskan perbedaan kelas dan objek dalam satu paragraf.
+  \item Kapan \texttt{super()} berguna dalam pewarisan?
+  \item Apa konvensi \texttt{self} pada metode instance?
+\end{latihan}
+
+\begin{asesmen}
+\textbf{Formatif (checklist dosen/asisten):} kelas berjalan tanpa error; \texttt{\_\_init\_\_} mengikat atribut; ada minimal satu pewarisan dengan metode tambahan atau override.
+
+\textbf{Kuis singkat:} tuliskan satu baris yang membuat objek dari kelas buatan Anda dan memanggil satu metode.
+\end{asesmen}
+
+\begin{checklist}
+  \item Saya dapat mendefinisikan kelas dengan \texttt{\_\_init\_\_} dan metode instance
+  \item Saya dapat membuat subclass dan memanggil \texttt{super()}
+  \item Saya mengumpulkan skrip sesuai format penamaan
+\end{checklist}
+
+\begin{rangkuman}
+Bab ini memperkenalkan OOP dasar: kelas, objek, \texttt{\_\_init\_\_}, metode, dan pewarisan sederhana dengan \texttt{super()}.
+
+\textbf{Kata kunci:} \code{class}, \code{self}, \code{super()}, pewarisan
+\end{rangkuman}
+
+\end{document}

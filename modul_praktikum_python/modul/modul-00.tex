@@ -1,0 +1,186 @@
+\documentclass[../main.tex]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{0}}{}
+\begin{document}
+
+\chapter{Pendahuluan, Identitas Modul, dan Pemetaan OBE}
+
+\section{Identitas Mata Kuliah Praktikum}
+
+\begin{description}[style=nextline, widest=Dosen pengampu / koordinator praktikum:, itemsep=0.35em]
+  \item[Nama mata kuliah:] Praktikum Pemrograman Python
+  \item[Kode:] TIF-105
+  \item[Bobot:] 1 SKS (seluruhnya praktikum; placeholder --- sesuaikan jika MK teori terpisah)
+  \item[Program studi:] Teknik Informatika (S1) --- \textit{sesuaikan dengan prodi Anda}
+  \item[Semester / tahun akademik:] \ldots
+  \item[Dosen pengampu / koordinator praktikum:] \ldots
+  \item[Prasyarat:] \ldots\ (atau tidak ada, sesuai kurikulum)
+\end{description}
+
+\section{Deskripsi dan Ruang Lingkup}
+
+Modul praktikum ini adalah sumber belajar untuk mencapai \textbf{CPMK} dan \textbf{Sub-CPMK} mata kuliah praktikum Python berbasis \textbf{Outcome-Based Education (OBE)}. Cakupan materi: lingkungan Python 3, sintaks dasar, struktur kontrol, fungsi, struktur data, berkas dan JSON, modul serta \texttt{pip}/\texttt{venv}, debugging, dilanjutkan topik lanjut (OOP dasar, \textit{comprehension}/\textit{generator}, pengujian unit pengenalan). Setiap bab memetakan aktivitas, tugas, dan asesmen formatif ke capaian yang terukur.
+
+\section{Capaian Pembelajaran Lulusan (CPL) yang Dibebankan}
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{CPL-1 (Pengetahuan):} Konsep algoritme, modularitas, struktur data, dan penanganan data/berkas dalam Python.
+  \item \textbf{CPL-2 (Keterampilan umum):} Pemikiran logis, sistematis, dan kritis dalam merancang, mengimplementasikan, serta menguji program.
+  \item \textbf{CPL-3 (Keterampilan khusus):} Menulis, menguji, dan memperbaiki program Python dari skrip dasar hingga OOP sederhana dan pengujian unit pengenalan.
+  \item \textbf{CPL-4 (Sikap):} Tanggung jawab di laboratorium, K3, etika akademik, kolaborasi.
+  \item \textbf{CPL-5 (Profesionalisme praktis):} Lingkungan virtual, dependensi, \textit{debugging}, dokumentasi singkat.
+\end{itemize}
+
+\section{Capaian Pembelajaran Mata Kuliah (CPMK)}
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{CPMK-1:} Lingkungan Python 3, sintaks dasar, identifier, tipe data, operator, I/O.
+  \item \textbf{CPMK-2:} Percabangan dan perulangan (\texttt{match} pengenalan).
+  \item \textbf{CPMK-3:} Fungsi, parameter, \texttt{*args}/\texttt{**kwargs}, \textit{lambda}, anotasi tipe dasar.
+  \item \textbf{CPMK-4:} Struktur data dan pemrosesan string lanjut.
+  \item \textbf{CPMK-5:} Berkas teks, JSON, penanganan kesalahan (\texttt{try}/\texttt{except}/\ldots).
+  \item \textbf{CPMK-6:} Modul, \texttt{pip}, \texttt{venv}, debugging, gaya kode.
+  \item \textbf{CPMK-7:} OOP dasar, \textit{comprehension}/\textit{generator}, \texttt{unittest}/\texttt{pytest} pengenalan.
+\end{itemize}
+
+\section{Pemetaan Sub-CPMK ke CPMK}
+
+{\small
+\begin{tabular}{|p{7.8cm}|c|}
+\hline
+\textbf{Sub-CPMK (indikator)} & \textbf{CPMK} \\
+\hline
+1.1 Menjalankan Python, skrip, notebook; 1.2 Identifier, variabel, tipe; 1.3 Operator, I/O & 1 \\
+\hline
+2.1 Percabangan; 2.2 Perulangan & 2 \\
+\hline
+3.1 Fungsi dasar; 3.2 \texttt{*args}/\texttt{**kwargs}, \textit{lambda}, type hints & 3 \\
+\hline
+4.1 Struktur data lanjut; 4.2 String lanjut & 4 \\
+\hline
+5.1 Berkas teks; 5.2 JSON dan pengecualian lanjut & 5 \\
+\hline
+6.1 Modul, \texttt{pip}, \texttt{venv}; 6.2 Debugging, gaya & 6 \\
+\hline
+7.1 OOP dasar; 7.2 Comprehension/generator; 7.3 Unit test & 7 \\
+\hline
+\end{tabular}
+}
+
+\section{Matriks CPMK ke CPL (ringkas)}
+
+{\small
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\textbf{CPMK} & \textbf{C1} & \textbf{C2} & \textbf{C3} & \textbf{C4} & \textbf{C5} \\
+\hline
+1--7 & $\checkmark$ & $\checkmark$ & $\checkmark$ & bervariasi & bervariasi \\
+\hline
+\end{tabular}
+}
+
+\noindent\textit{Catatan:} C1--C5 menyamai CPL-1--CPL-5; tanda $\checkmark$ pada baris tunggal menandakan semua CPMK berkontribusi pada capaian tersebut dengan bobot berbeda; detail penilaian di RPS dan rubrik lampiran.
+
+\section{Keterkaitan dengan Rencana Pembelajaran Semester (RPS)}
+
+Acuan waktu per sesi praktikum mengikuti RPS TIF-105: \textbf{$\sim$170 menit} per minggu per SKS praktikum (sesuaikan dengan slot jadwal prodi).
+
+{\footnotesize
+\begingroup\setlength{\tabcolsep}{5pt}%
+\begin{longtable}{|c|>{\raggedright\arraybackslash}p{2.8cm}|c|p{7.0cm}|c|}
+\hline
+\textbf{Mgg} & \textbf{Sub-CPMK utama} & \textbf{Bab modul} & \textbf{Judul ringkas} & \textbf{Waktu} \\
+\hline
+\endfirsthead
+\hline
+\textbf{Mgg} & \textbf{Sub-CPMK utama} & \textbf{Bab modul} & \textbf{Judul ringkas} & \textbf{Waktu} \\
+\hline
+\endhead
+\hline
+\endfoot
+1 & 1.1, K3, etika & 0 & Orientasi, K3, kontrak & $\sim$170' \\
+\hline
+2 & 1.1--1.2 & 1 & Lingkungan, editor, identifier & $\sim$170' \\
+\hline
+3 & 1.2--1.3 & 2 & Variabel, operator, I/O & $\sim$170' \\
+\hline
+4 & 2.1 & 3 & Percabangan & $\sim$170' \\
+\hline
+5 & 2.2 & 4 & Perulangan & $\sim$170' \\
+\hline
+6 & 3.1 & 5 & Fungsi (dasar) & $\sim$170' \\
+\hline
+7 & 3.2 & 5 & Fungsi lanjut & $\sim$170' \\
+\hline
+8 & 4.1--4.2 & 6 & Struktur data, string & $\sim$170' \\
+\hline
+9 & 5.1--5.2 & 7 & Berkas, JSON, kesalahan & $\sim$170' \\
+\hline
+10 & 6.1--6.2 & 8 & Modul, \texttt{pip}, \texttt{venv} & $\sim$170' \\
+\hline
+11 & 7.1 & 9 & OOP dasar & $\sim$170' \\
+\hline
+12 & 7.2 & 10 & Comprehension, generator & $\sim$170' \\
+\hline
+13 & 7.3 & 11 & Unit testing & $\sim$170' \\
+\hline
+14 & UTS & --- & Ujian tengah & $\sim$170' \\
+\hline
+15 & Proyek & 12 & Proyek integratif & $\sim$170' \\
+\hline
+16 & UAS & --- & Ujian akhir & $\sim$170' \\
+\hline
+\end{longtable}%
+\endgroup
+}
+
+\section{Keselamatan Kerja, Etika, dan K3 di Laboratorium}
+
+\begin{itemize}[leftmargin=*]
+  \item Patuhi tata tertib laboratorium; jangan membawa makanan/minuman ke area peralatan sensitif.
+  \item Periksa kabel, ventilasi, dan posisi duduk ergonomis; laporkan kerusakan perangkat ke petugas.
+  \item \textbf{Etika perangkat lunak:} gunakan Python dan editor sesuai lisensi; tidak menyalin tugas tanpa atribusi (plagiarisme).
+  \item \textbf{Data dan jaringan:} ikuti kebijakan prodi untuk instalasi paket (\texttt{pip}); hindari mengunggah kode pribadi orang lain.
+\end{itemize}
+
+\section{Petunjuk Penggunaan Modul dan Pengumpulan Tugas}
+
+\begin{enumerate}[leftmargin=*]
+  \item Baca kotak \textbf{Sub-CPMK} di setiap bab sebelum praktikum.
+  \item Kerjakan \textbf{aktivitas} dan \textbf{latihan}; simpan artefak sesuai konvensi penamaan.
+  \item Format pengumpulan (placeholder --- sesuaikan LMS prodi):
+  \begin{itemize}
+    \item Berkas kode: \texttt{NIM\_TIF105\_M\textit{nn}\_tugas.py}\newline atau notebook \texttt{NIM\_TIF105\_M\textit{nn}.ipynb}
+    \item Laporan (jika diminta): PDF dengan cover identitas dan ringkasan hasil
+    \item Batas waktu: sesuai pengumuman dosen per minggu
+  \end{itemize}
+  \item Gunakan \textbf{checklist} di akhir bab untuk swalai; rujuk \textbf{Lampiran} untuk rubrik dan glosarium.
+\end{enumerate}
+
+\section{Tujuan Modul Praktikum}
+
+Setelah menyelesaikan rangkaian bab dan tugas, mahasiswa diharapkan mampu:
+
+\begin{itemize}[leftmargin=*]
+  \item Menyiapkan lingkungan Python 3 dan menulis program konsol atau Jupyter sesuai petunjuk laboratorium.
+  \item Mengimplementasikan algoritme dengan percabangan, perulangan, dan fungsi untuk masalah sederhana hingga menengah.
+  \item Menggunakan struktur data, string, berkas, JSON, modul, dan lingkungan virtual pada tugas praktis.
+  \item Menerapkan OOP dasar, gaya idiomatik (\textit{comprehension}/\textit{generator}), dan tes unit pengenalan.
+\end{itemize}
+
+\section{Keterkaitan dengan RPS Berbasis OBE}
+
+Modul ini memetakan secara eksplisit ke \textbf{CPMK} dan \textbf{Sub-CPMK} pada RPS resmi TIF-105: setiap bab memuat kotak Sub-CPMK, informasi sesi, sarana/prasarana, prosedur kerja, materi, aktivitas, latihan, asesmen formatif, checklist; dilanjutkan (pada bab tertentu) contoh kode, referensi sesi, dan rangkuman sebagai penutup isi bab.
+
+\section{Ringkasan Konteks Kurikulum OBE}
+
+Dalam OBE, penilaian menekankan bukti kinerja (program benar, laporan jelas, refleksi) dan umpan balik berkelanjutan. Praktikum melatih pemecahan masalah, \textit{debugging}, dan kebiasaan menulis kode konsisten.
+
+\begin{rangkuman}
+Bab ini menyampaikan identitas MK, CPL/CPMK, pemetaan Sub-CPMK, jadwal sinkron RPS, K3/etika, dan petunjuk pengumpulan. Gunakan tabel mingguan sebagai panduan urutan belajar.
+
+\textbf{Poin kunci:} setiap pertemuan punya capaian terukur; dokumentasikan pekerjaan; patuhi etika akademik dan K3.
+
+\textbf{Kata kunci:} OBE, Sub-CPMK, RPS, K3, TIF-105
+\end{rangkuman}
+
+\end{document}

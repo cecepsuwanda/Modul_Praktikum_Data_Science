@@ -1,0 +1,129 @@
+\documentclass[../main.tex]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{11}}{}
+\begin{document}
+
+\chapter{Pengujian Unit dengan \texttt{unittest} dan \texttt{pytest} (Pengenalan)}
+
+\begin{subcpmk}
+  \item Sub-CPMK 7.3: Menulis tes unit sederhana untuk fungsi murni menggunakan \texttt{unittest} atau \texttt{pytest} serta menjalankan tes dari terminal
+\end{subcpmk}
+
+\SesiRPS{13}{7.3}{$\sim$170 menit}{CPMK-7}
+
+\section{Sarana dan prasarana}
+
+Python 3.10+ dengan pustaka standar \texttt{unittest}; \texttt{pytest} opsional (\texttt{pip install pytest} di \texttt{venv} laboratorium jika diizinkan).
+
+\section{Keselamatan kerja dan etika}
+
+Tes harus mencerminkan perilaku yang diharapkan, bukan ``memalsukan'' lolos dengan mengosongkan asersi. Kejujuran akademik berlaku penuh.
+
+\section{Prosedur kerja}
+
+\begin{enumerate}[leftmargin=*]
+  \item Pilih 2--3 fungsi murni (tanpa I/O berat) dari latihan sebelumnya atau buat baru.
+  \item Tulis berkas \texttt{test\_*.py} dengan kasus normal dan tepi (\textit{edge case}).
+  \item Jalankan \texttt{python -m unittest} atau \texttt{pytest -q}; perbaiki kode/fungsi hingga hijau.
+\end{enumerate}
+
+\section{Tes dengan unittest}
+
+\begin{lstlisting}[caption=unittest dasar]
+import unittest
+
+def tambah(a, b):
+    return a + b
+
+class TestTambah(unittest.TestCase):
+    def test_positif(self):
+        self.assertEqual(tambah(2, 3), 5)
+
+    def test_negatif(self):
+        self.assertEqual(tambah(-1, 1), 0)
+
+if __name__ == "__main__":
+    unittest.main()
+\end{lstlisting}
+
+\section{Gaya pytest (opsional)}
+
+\begin{lstlisting}[caption=pytest ringkas]
+# test_contoh_pytest.py
+def kali(a, b):
+    return a * b
+
+def test_kali():
+    assert kali(3, 4) == 12
+\end{lstlisting}
+
+\noindent Jalankan: \texttt{pytest -q test\_contoh\_pytest.py}.
+
+\section{Studi Kasus dan Contoh Kode}
+
+Berikut adalah contoh-contoh program Python yang mengimplementasikan konsep-konsep pada modul ini.
+
+\subsection{Kode: \texttt{test\_matematika.py}}
+\begin{lstlisting}[language=Python,caption={\texttt{test\_matematika.py}}]
+"""Contoh pengujian unit sederhana dengan unittest."""
+import unittest
+
+
+def tambah(a: int, b: int) -> int:
+    return a + b
+
+def bagi(a: float, b: float) -> float:
+    if b == 0:
+        raise ValueError("Pembagi tidak boleh nol")
+    return a / b
+
+class TestMatematika(unittest.TestCase):
+    def test_tambah(self) -> None:
+        self.assertEqual(tambah(2, 3), 5)
+        self.assertEqual(tambah(-1, 1), 0)
+
+    def test_bagi(self) -> None:
+        self.assertEqual(bagi(10, 2), 5.0)
+        with self.assertRaises(ValueError):
+            bagi(10, 0)
+
+if __name__ == "__main__":
+    unittest.main()
+\end{lstlisting}
+
+\section{Referensi sesi}
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{[19]} Real Python --- pengujian dan \texttt{pytest}/\texttt{unittest}.
+  \item \textbf{[8]} \textit{The Python Tutorial} --- modul \texttt{unittest}.
+  \item \textbf{[13]} \textit{Think Python} --- pengujian dan asersi (bab terkait).
+\end{itemize}
+
+\begin{aktivitas}
+  \item Implementasikan fungsi \texttt{palindrome(s)} yang mengembalikan \texttt{True} jika string sama jika dibalik (abaikan spasi opsional sesuai spesifikasi dosen).
+  \item Tulis minimal tiga kasus uji (positif, negatif, string kosong) dengan \texttt{unittest}.
+  \item Jika prodi mengizinkan \texttt{pytest}, duplikasikan satu kasus dalam sintaks \texttt{assert}.
+  \item Kumpulkan \texttt{NIM\_TIF105\_M13\_test.py} (dan modul yang diuji jika terpisah).
+\end{aktivitas}
+
+\begin{latihan}
+  \item Apa beda tes formatif saat coding dengan suite \texttt{unittest}?
+  \item Mengapa \texttt{if \_\_name\_\_ == "\_\_main\_\_"}\newline sering dipasangkan dengan \texttt{unittest.main()}?
+\end{latihan}
+
+\begin{asesmen}
+\textbf{Formatif:} suite tes dapat dijalankan; minimal tiga asersi bermakna; satu kasus gagal disengaja kemudian diperbaiki (demonstrasi di laporan singkat).
+\end{asesmen}
+
+\begin{checklist}
+  \item Saya dapat menulis kelas turunan \texttt{TestCase}
+  \item Saya dapat menjalankan tes dari baris perintah
+  \item Saya memahami peran asersi dalam dokumentasi perilaku fungsi
+\end{checklist}
+
+\begin{rangkuman}
+Pengujian unit membantu memastikan fungsi berperilaku sesuai kontrak; \texttt{unittest} built-in; \texttt{pytest} populer untuk sintaks ringkas.
+
+\textbf{Kata kunci:} \code{unittest}, \code{pytest}, asersi, kasus uji
+\end{rangkuman}
+
+\end{document}

@@ -1,0 +1,897 @@
+--------------- Begin Program ke 1 ----------------------
+uses crt; 
+
+begin 
+   writeln(‘Hello, dunia’); 
+   readkey; 
+end.
+--------------- End Program ke 1 ----------------------
+
+--------------- Begin Program ke 2 ----------------------
+
+(* Nama Program : hello2.pas                           *) 
+(* NPM         : …                                      *) 
+(* Nama        : …                                      *)  
+(* Tgl buat    : …                                      *) 
+(* Deskripsi   : Menulis Hello dengan assigment        *) 
+(* --------------------------------------------------- *)  
+uses crt; 
+
+var 
+  i : integer; 
+  Shello : string; 
+
+begin 
+  Shello := ‘Hello, dunia’;  
+  i:=1234; 
+  writeln(SHello); 
+  writeln(‘Nilai i = ’,i); 
+  readkey; 
+end.
+--------------- End Program ke 2 ----------------------
+
+--------------- Begin Program ke 3 ----------------------
+uses crt; 
+(* KAMUS *) 
+var 
+  i : integer; 
+  j : word; 
+  k : byte; 
+  l : real; 
+  Shello : string; 
+(* ALGORITMA *)  
+begin 
+  Shello := ‘Hello, dunia’;  
+  i:=-1234; 
+  j:=60000; 
+  k:=3; 
+  l:=3.14; 
+  writeln(SHello); 
+  writeln(‘Nilai i (integer)= ’,i:5); 
+  writeln(‘Nilai j (word)   = ’,j:5); 
+  writeln(‘Nilai k (byte)   = ’,k:5); 
+  writeln(‘Nilai l (real)   = ’,l:5:2); 
+  readkey; 
+end.
+--------------- End Program ke 3 ----------------------
+
+--------------- Begin Program ke 4 ----------------------
+uses crt; 
+var 
+  i : integer; 
+  j : real; 
+  kar : char; 
+  NString : string; 
+
+begin 
+  clrscr; 
+  writeln(‘Contoh membaca dan menulis’);  
+  write(‘Masukkan nilai integer  : ’);readln(i); 
+  write(‘Masukkan nilai real     : ‘);readln(j); 
+  write(‘Masukkan nilai karakter : ‘);readln(kar); 
+  write(‘Masukkan nilai string   : ‘);readln(Nstring); 
+  writeln(‘Nilai integer yang dibaca  =‘,i); 
+  writeln(‘Nilai real yang dibaca     =‘,j); 
+  writeln(‘Nilai karakter yang dibaca =‘,kar); 
+  writeln(‘Nilai string yang dibaca   =‘,NString); 
+  readkey;  
+end.
+--------------- End Program ke 4 ----------------------
+
+--------------- Begin Program ke 5 ----------------------
+uses crt; 
+var 
+  TF : boolean; 
+  i,j,hsl : integer; 
+  x,y  : real; 
+  hsl1 : integer; 
+  hsl2 : real;  
+
+begin 
+  clrscr; 
+  (* proses boolean *) 
+  writeln('tabel kebenaran'); 
+  writeln('-----------------------------------------------------'); 
+  writeln('|   x1  |   x2  |     x1 and x2     |    x1 or x2  |'); 
+  writeln('----------------------------------------------------'); 
+  writeln('| true  | true  |',(true and true):12,'|':8, 
+          (true or true):10,'|':8); 
+  writeln('| true  | false |',(true and false):12,'|':8, 
+          (true or false):10,'|':8); 
+  writeln('| false | true  |',(false and true):12,'|':8, 
+          (false or true):10,'|':8); 
+  writeln('| false | false |',(false and false):12,'|':8, 
+          (false or false):10,'|':8); 
+  writeln('----------------------------------------------------'); 
+
+  (* proses operasi numerik *) 
+  i:=5;j:=2; 
+  writeln('operasi numerik pada tipe data integer'); 
+  writeln('---------------------------'); 
+  writeln('| operasi | hasil operasi |'); 
+  writeln('---------------------------'); 
+  writeln('| ',i,' + ',j,'   | ',(i+j):6,'        |'); 
+  writeln('| ',i,' - ',j,'   | ',(i-j):6,'        |'); 
+  writeln('| ',i,' * ',j,'   | ',(i*j):6,'        |'); 
+  writeln('| ',i,' / ',j,'   | ',(i/j):6:2,'        |'); 
+  writeln('| ',i,' div ',j,' | ',(i div j):6,'        |'); 
+  writeln('| ',i,' mod ',j,' | ',(i mod j):6,'        |'); 
+  writeln('---------------------------'); 
+  writeln(‘Tekan enter untuk meneruskan . . .’); 
+  readkey; 
+
+ x:=5.0;y:=2.0; 
+  writeln('operasi numerik pada tipe data float'); 
+  writeln('---------------------------'); 
+  writeln('| operasi | hasil operasi |'); 
+  writeln('---------------------------'); 
+  writeln('| ',x:3:1,' + ',y:3:1,'   | ',(x+y):6:1,'    |'); 
+  writeln('| ',x:3:1,' - ',y:3:1,'   | ',(x-y):6:1,'    |'); 
+  writeln('| ',x:3:1,' * ',y:3:1,'   | ',(x*y):6:1,'    |'); 
+  writeln('| ',x:3:1,' / ',y:3:1,'   | ',(x/y):6:1,'    |'); 
+  writeln('---------------------------'); 
+
+ (* operator relasi numerik *) 
+ TF := x<>y; 
+ writeln(‘5.0 <> 2.0 adalah=’,TF); 
+ TF := x<y; 
+ writeln(‘5.0 < 2.0 adalah=’,TF); 
+ readkey; 
+end.
+--------------- End Program ke 5 ----------------------
+
+--------------- Begin Program ke 6 ----------------------
+uses crt; 
+var 
+  i,b,c,d: real; 
+begin 
+  i:=3.0; 
+  b:=2.0;    
+  c:=0.0; 
+  i:=i+i; 
+  b:=b+i; 
+  c:=c*i; 
+  write('Nilai i=',i,' b=',b,' c=',c); 
+end.
+--------------- End Program ke 6 ----------------------
+
+--------------- Begin Program ke 7 ----------------------
+uses crt; 
+var 
+  JumlahAnak : integer; 
+  GajiKotor,Tunjangan,PersenTunjangan : real ; 
+begin 
+  PersenTunjangan:=0.2; 
+  write(‘Gaji Kotor ?’);readln(GajiKotor); 
+  write(‘Jumlah Anak ?’);readln(JumlahAnak); 
+  if JumlahAnak>2 then  
+     PersenTunjangan:=0.3; 
+  Tunjangan := PersenTunjangan*GajiKotor; 
+  writeln(‘Besar Tunjangan = Rp ’,Tunjangan:10:2); 
+  readkey;   
+end.
+--------------- End Program ke 7 ----------------------
+
+--------------- Begin Program ke 8 ----------------------
+uses crt; 
+var 
+  JumlahAnak : integer; 
+  GajiKotor,Tunjangan,PersenTunjangan,PersenPotongan : real ; 
+  Potongan:Real; 
+begin 
+  PersenTunjangan:=0.2; 
+  PersenPotongan:=0.05; 
+  write(‘Gaji Kotor ?’);readln(GajiKotor); 
+  write(‘Jumlah Anak ?’);readln(JumlahAnak); 
+  if JumlahAnak>2 then  
+   begin 
+     PersenTunjangan:=0.3; 
+     PersenPotongan:=0.07;  
+   end; 
+  Tunjangan := PersenTunjangan*GajiKotor; 
+  Potongan:= PersenPotongan*GajiKotor; 
+  writeln(‘Besar Tunjangan = Rp ’,Tunjangan:10:2);   
+  writeln(‘Besar Potongan  = Rp ’,Potongan:10:2);   
+  readkey;  
+end.
+--------------- End Program ke 8 ----------------------
+
+--------------- Begin Program ke 9 ----------------------
+uses crt; 
+var 
+  A : char; 
+begin 
+  write(‘Masukkan Suatu Karakter :’); 
+  A:=readkey; 
+  writeln; 
+  if A=’A’ then  
+     writeln(‘Anda menekan A besar’) 
+  else 
+     writeln(‘Anda tidak menekan A besar’); 
+  readkey; 
+end.
+--------------- End Program ke 9 ----------------------
+
+--------------- Begin Program ke 10 ----------------------
+uses crt; 
+var 
+  A : char; 
+begin 
+  write(‘Masukkan Suatu Karakter :’); 
+  A:=readkey; 
+  writeln; 
+  if (A>=’A’)and(A<=’Z’) then  
+    begin  
+     writeln(‘Anda menekan huruf besar’); 
+     writeln(‘Huruf yang anda tekan, Huruf ’,A); 
+    end 
+  else 
+    begin  
+     writeln(‘Anda tidak menekan huruf besar’); 
+     writeln(‘Karakter yang anda tekan, Karakter ’,A); 
+    end; 
+  readkey; 
+end.
+--------------- End Program ke 10 ----------------------
+
+--------------- Begin Program ke 11 ----------------------
+uses crt; 
+var 
+  a,b,c,D : real; 
+begin 
+  writeln(‘Menentukan Jenis Akar Persamaan Kuadrat’); 
+  writeln(‘      Persamaan Umum : ax^2+bx+c       ’); 
+  writeln; 
+  write(‘a = ’);readln(a); 
+  write(‘b = ’);readln(b); 
+  write(‘c = ’);readln(c); 
+  writeln; 
+  D:=(b*b)-(4*a*c); 
+  writeln(‘Nilai Diskriminan : ’,D);  
+  write(‘Jenis Akar : ’); 
+  if D=0 then  
+     write(‘Kembar’) 
+  else 
+    if D>0 then  
+     write(‘Berlainan’) 
+    else 
+    if D<0 then  
+     write(‘imajiner berlainan’); 
+  readkey; 
+end.
+--------------- End Program ke 11 ----------------------
+
+--------------- Begin Program ke 12 ----------------------
+uses crt; 
+var 
+  a,b,c,D,x1,x2 : real; 
+begin 
+  writeln(‘    Mencari Akar Persamaan Kuadrat     ’); 
+  writeln(‘      Persamaan Umum : ax^2+bx+c       ’); 
+  writeln; 
+  write(‘a = ’);readln(a); 
+  write(‘b = ’);readln(b); 
+  write(‘c = ’);readln(c); 
+  writeln; 
+  D:=(b*b)-(4*a*c); 
+  writeln(‘Nilai Diskriminan : ’,D);  
+  write(‘Jenis Akar : ’); 
+  if D=0 then  
+    begin  
+     X1:=(-b)/(2*a); 
+     writeln(‘Kembar’); 
+     writeln(‘x1=x2=’,x1:10:2); 
+    end 
+  else 
+    if D>0 then  
+      begin  
+        x1:=((-b)+ sqrt(D))/(2*a); 
+        x2:=((-b)+ sqrt(D))/(2*a); 
+        writeln(‘Berlainan’); 
+        writeln(‘x1 = ’,x1:10:2); 
+        writeln(‘x2 = ’,x2:10:2); 
+      end 
+    else 
+    if D<0 then  
+     begin  
+        x1:=(-b)/(2*a); 
+        x2:=sqrt(-d)/(2*a); 
+        writeln(‘2 akar imajiner berlainan’); 
+        writeln(‘x1 = ’,x1:5:2,’+‘,x2:5:2,’i’); 
+        writeln(‘x2 = ’,x1:5:2,’-’,x2:5:2,’i’); 
+      end; 
+
+end.
+--------------- End Program ke 12 ----------------------
+
+--------------- Begin Program ke 13 ----------------------
+uses crt; 
+var 
+  Nama : string; 
+  Gol  : char; 
+  JmlAnak : integer; 
+  Upahkotor,upahbersih : real; 
+  PersenTunjangan:real; 
+Begin 
+  Write(‘Nama        : ’);readln(Nama); 
+  Write(‘Gol (A - D) : ’);readln(Gol); 
+  Write(‘Jumlah Anak : ’);readln(JmlAnak); 
+
+  Case Gol of 
+  ‘A’ : Upahkotor:=1000000; 
+  ‘B’ : Upahkotor:=800000; 
+  ‘C’ : Upahkotor:=600000; 
+  ‘D’ : Upahkotor:=400000; 
+  end;   
+
+  if(JmlAnak>2)then  
+    PersenTunjangan := 0.3   
+  else 
+   PersenTunjangan := 0.2; 
+
+  Upahbersih:= upahkotor – (upahkotor*persentunjangan); 
+  writeln(‘Upah        : ’,upahbersih); 
+end.
+--------------- End Program ke 13 ----------------------
+
+--------------- Begin Program ke 14 ----------------------
+uses crt; 
+const 
+   pi = 3.14; 
+var 
+  pilih : integer; 
+  sisi,jari,tinggi : real; 
+begin 
+  writeln(‘         <<< Menu >>>        ’); 
+  writeln; 
+  writeln(‘1. Menghitung Isi Kubus’); 
+  writeln(‘2. Menghitung Luas Lingkaran’); 
+  writeln(‘3. Menghitung Isi Silisnde’); 
+  writeln; 
+  write(‘Pilih Nomor : ’);readln(pilih); 
+  case pilih of 
+  1 : begin 
+       write(‘Panjang Sisi Kubus : ’);readln(sisi); 
+       writeln(‘Isi Kubus : ’,sisi*sisi*sisi); 
+      end; 
+  2 : begin 
+       write(‘Jari-jari lingkaran : ’);readln(jari); 
+       writeln(‘Luas Lingkaran : ’,pi*jari*jari); 
+      end; 
+  3 : begin 
+       write(‘Jari-jari lingkaran : ’);readln(jari); 
+       write(‘Tinggi Silinder : ’);readln(tinggi); 
+       writeln(‘Isi Silinder : ’,pi*jari*jari*tinggi); 
+      end; 
+  end;  
+end.
+--------------- End Program ke 14 ----------------------
+
+--------------- Begin Program ke 15 ----------------------
+Uses crt; 
+var  
+ nilai,quiz,absen,uts,uas,tugas:real; 
+ Huruf_Mutu:char; 
+begin 
+  quiz:=40;absen:=100;uts:=60;uas:=50;tugas:=80; 
+  writeln(‘Absen = ‘,absen:5:2,’ UTS = ‘,uts:5:2); 
+  writeln(‘Tugas = ‘,tugas:5:2,’ UAS = ‘,uas:5:2); 
+  writeln(‘Quiz = ‘,quiz:5:2); 
+  nilai:=((0.1*absen)+(0.2*tugas)+(0.3*quiz) 
+         +(0.4*uts)+(0.5*uas))/2; 
+  if (nilai>85) and (nilai<=100) then  
+     Huruf_Mutu:=’A’ 
+  else if (nilai>70) and (nilai<=85) then  
+          Huruf_Mutu:=’B’ 
+       else if (nilai>55) and (nilai<=70) then  
+               Huruf_Mutu:=’C’ 
+            else if (nilai>40) and (nilai<=55) then  
+                     Huruf_Mutu:=’D’ 
+                 else if (nilai>=0) and (nilai<=40) then  
+                         Huruf_Mutu:=’E’; 
+  writeln(‘Huruf Mutu : ‘,Huruf_Mutu); 
+end.
+--------------- End Program ke 15 ----------------------
+
+--------------- Begin Program ke 16 ----------------------
+uses crt; 
+var 
+  i,pangkat:integer;   
+  hasilpangkat,dipangkatkan:real; 
+begin   
+ write(‘Bilangan yang akan dipangkatkan : ‘); 
+ readln(dipangkatkan); 
+ write(‘Masukkan pangkatnya : ‘);readln(pangkat); 
+ hasilpangkat:=1; 
+ for i:=1 to pangkat do  
+    hasilpangkat:=hasilpangkat*dipangkatkan; 
+ write(dipangkatkan,‘^’,pangkat,’ : ‘,hasilpangkat); 
+readkey; 
+end.
+--------------- End Program ke 16 ----------------------
+
+--------------- Begin Program ke 17 ----------------------
+uses crt; 
+Var 
+  N : integer; (* angka awal *) 
+  i: integer;(* counter *) 
+begin 
+ write(‘Masukan angka : ‘);readln(N); 
+ for i:=N downto 1 do 
+ write(i,’, ’); 
+ write(‘0’); 
+end.
+--------------- End Program ke 17 ----------------------
+
+--------------- Begin Program ke 18 ----------------------
+uses crt; 
+Var 
+  i,N : integer;(* counter dan jumlah data *) 
+  Data,Rata,Total : real;  
+begin 
+  write(‘Banyaknya data : ’);readln(N); 
+  for i:=1 to N do 
+    begin 
+       write(‘Data ke ’,i,’ : ‘);readln(Data); 
+       Total:=Total+Data; 
+    end; 
+    Rata:=Total/N; 
+  writeln(‘Banyaknya Data       : ‘,N); 
+  writeln(‘Total Nilai Data     : ‘,Total:5:2); 
+  writeln(‘Rata-rata nilai Data : ’,Rata:5:2)  
+end.
+--------------- End Program ke 18 ----------------------
+
+--------------- Begin Program ke 19 ----------------------
+uses crt; 
+Var 
+  N : integer; (* u *) 
+  I,j: integer;(* counter *) 
+begin 
+ write(‘Masukan jumlah awal bintang : ‘);readln(N); 
+ for i:=N downto 0 do 
+  begin  
+   for j:=1 to i do  
+     write(‘*’); 
+  writeln; 
+  end;     
+end.
+--------------- End Program ke 19 ----------------------
+
+--------------- Begin Program ke 20 ----------------------
+uses crt; 
+var 
+  x,i,pangkat,hasilpangkat:integer; 
+begin  
+  writeln(‘  x      1/x        x^2      x^3’); 
+  writeln(‘-----------------------------------’); 
+  x:=1; 
+  while (x<=10) do 
+  begin 
+   write(x:5,(1.0/x):8:5); 
+   pangkat:=2; 
+   while(pangkat<=3) do 
+     begin 
+       hasilpangkat:=1; 
+       for i:=1 to pangkat do  
+             hasilpangkat:=hasilpangkat*x; 
+      write(hasilpangkat:8);    
+      pangkat:=pangkat+1; 
+     end; 
+  writeln;   
+  x:=x+1; 
+  end; 
+end.
+--------------- End Program ke 20 ----------------------
+
+--------------- Begin Program ke 21 ----------------------
+uses crt; 
+const 
+   pi = 3.14; 
+var 
+  pilih : integer; 
+  sisi,jari,tinggi : real; 
+begin 
+repeat   
+  writeln(‘         <<< Menu >>>        ’); 
+  writeln; 
+  writeln(‘1. Menghitung Isi Kubus’); 
+  writeln(‘2. Menghitung Luas Lingkaran’); 
+  writeln(‘3. Menghitung Isi Silinder’); 
+  writeln(‘0. Keluar Program‘); 
+  write(‘Pilih Nomor : ’);readln(pilih); 
+  case pilih of 
+  1 : begin 
+       write(‘Panjang Sisi Kubus : ’);readln(sisi); 
+       writeln(‘Isi Kubus : ’,sisi*sisi*sisi); 
+      end; 
+  2 : begin 
+       write(‘Jari-jari lingkaran : ’);readln(jari); 
+       writeln(‘Luas Lingkaran : ’,pi*jari*jari); 
+      end; 
+  3 : begin 
+       write(‘Jari-jari lingkaran : ’);readln(jari); 
+       write(‘Tinggi Silinder : ’);readln(tinggi); 
+       writeln(‘Isi Silinder : ’,pi*jari*jari*tinggi); 
+      end; 
+  end;  
+ readkey; 
+until pilih=0; 
+end.
+--------------- End Program ke 21 ----------------------
+
+--------------- Begin Program ke 22 ----------------------
+Uses crt; 
+var  
+ i:integer; 
+begin 
+ i:=2345; 
+ writeln(‘Bilangan : ’,i); 
+ write(‘Dibalik  : ‘); 
+ while(i<>0)do 
+ begin 
+   write(i mod 10); 
+   i:=i div 10; 
+ end; 
+end.
+--------------- End Program ke 22 ----------------------
+
+--------------- Begin Program ke 23 ----------------------
+uses crt; 
+function fpangkat(dipangkatkan:real;pangkat:integer):real; 
+var  
+  (* variabelnya anda tentukan sendiri  *) 
+begin 
+  (* pahami program pangkat.pas dan kemudian lengkapi bagian 
+ini*) 
+end; 
+
+var 
+  (* lengkapi bagian ini *) 
+begin 
+  write(‘Bilangan yang akan dipangkatkan : ‘); 
+  readln(dipangkatkan); 
+  write(‘Masukkan pangkatnya : ‘);readln(pangkat);  
+  write(dipangkatkan,‘^’,pangkat,’ : ‘, 
+        fpangkat(dipangkatkan,pangkat)); 
+  readkey; 
+end.
+--------------- End Program ke 23 ----------------------
+
+--------------- Begin Program ke 24 ----------------------
+uses crt; 
+function fakt(n:longint):longint; 
+begin 
+  if (n=0) then 
+     fakt:=1 
+  else 
+     begin 
+       n:=n*fakt(n-1); 
+       fakt:=n; 
+     end;  
+end; 
+var 
+ n:longint; 
+begin 
+  write(‘Masukkan n : ‘);readln(n); 
+  writeln(n,‘! = ‘,fakt(n)); 
+end.
+--------------- End Program ke 24 ----------------------
+
+--------------- Begin Program ke 25 ----------------------
+uses crt; 
+function fpangkat(dipangkatkan:real;pangkat:integer):real; 
+var  
+  (* variabelnya anda tentukan sendiri  *) 
+begin 
+  (* pahami program tabel.pas dan kemudian lengkapi bagian 
+ini*) 
+end; 
+procedure cetak(x:integer); 
+var  
+  (* variabelnya anda tentukan sendiri  *) 
+begin 
+  writeln(‘  x      1/x        x^2      x^3’); 
+  writeln(‘-----------------------------------’); 
+(* pahami program tabel.pas dan kemudian lengkapi bagian ini*) 
+end; 
+
+var 
+(* variabelnya anda tentukan sendiri  *) 
+begin  
+  write(‘Masukkan banyaknya data : ’);readln(x); 
+  cetak(x); 
+  readkey; 
+end.
+--------------- End Program ke 25 ----------------------
+
+--------------- Begin Program ke 26 ----------------------
+uses crt; 
+
+procedure input(var Nama:String;var gol:char;var 
+jmlanak:integer); 
+begin 
+ (* definisikan sendiri *)   
+end; 
+
+function Upahkotor(gol:char):real; 
+begin 
+  (* definisikan sendiri *) 
+end; 
+
+function Persentunjangan(jmlanak:integer)real; 
+begin 
+  (* definisikan sendiri *) 
+end; 
+
+var 
+  (* definisikan sendiri *) 
+Begin 
+  input(Nama,Gol,jmlanak); 
+  Upahbersih:= upahkotor(Gol) –  
+               (upahkotor(Gol)*persentunjangan(jmlanak)); 
+  writeln(‘Upah        : ’,upahbersih); 
+end.
+--------------- End Program ke 26 ----------------------
+
+--------------- Begin Program ke 27 ----------------------
+uses crt; 
+
+var 
+ i : integer; 
+ nilai:array[1..3]of integer; 
+begin   
+  writeln(‘Mengisi elemen array’); 
+  i:=1; 
+  while(i<=3)  do  
+  begin  
+   write(‘Nilai ke ‘,i,’ = ‘);readln(nilai[i]); 
+   i:=i+1;  
+  end; 
+  writeln(‘Mencetak elemen array’); 
+  for i:=1 to 3 do 
+  writeln(‘Nilai ke ‘,i,’ = ‘,nilai[i]); 
+end.
+--------------- End Program ke 27 ----------------------
+
+--------------- Begin Program ke 28 ----------------------
+uses crt; 
+type 
+  Tarray=array[1..3] of integer; 
+
+procedure isi(var nilai:Tarray); 
+var 
+  i:integer; 
+begin 
+  i:=1; 
+  while (i<=3) do 
+  begin  
+   write(‘Nilai ke ‘,i,’ = ‘);readln(nilai[i]); 
+   i:=i+1;  
+  end; 
+end; 
+
+procedure cetak(nilai:Tarray); 
+var 
+ i:integer; 
+begin 
+ for i:=1 to 3 do 
+ begin 
+  writeln(‘Nilai ke ‘,i,’ = ‘,nilai[i]); 
+ end; 
+end; 
+
+var 
+ nilai:Tarray; 
+ n:integer;(*data yang dicari*) 
+begin 
+  writeln(‘Mengisi elemen array’); 
+  isi(nilai); 
+  writeln(‘Mencetak elemen array’); 
+  cetak(nilai); 
+end.
+--------------- End Program ke 28 ----------------------
+
+--------------- Begin Program ke 29 ----------------------
+uses crt; 
+type  
+  tmatrik=array[1..3,1..3]of integer; 
+
+procedure isi(var matrik:tmatrik); 
+var 
+ i,j:integer; 
+begin 
+ for i:=1 to 3 do   
+  for j:=1 to 3 do 
+    begin   
+     write(‘A[‘,i,’,’,j,’] = ‘);readln(matrik[i,j]); 
+    end; 
+end; 
+
+procedure cetak(matrik:tmatrik); 
+var 
+ i,j:integer; 
+begin  
+ for i:=1 to 3 do 
+ begin   
+  for j:=1 to 3 do   
+     write(matrik[i,j]:3); 
+  writeln; 
+ end; 
+end; 
+
+var 
+ matrik:tmatrik; 
+begin 
+  writeln(‘Mengisi elemen matrik A’); 
+  isi(matrik); 
+  writeln(‘Mencetak elemen matrik A’); 
+  cetak(matrik); 
+end.
+--------------- End Program ke 29 ----------------------
+
+--------------- Begin Program ke 30 ----------------------
+uses crt; 
+type 
+  Tpegawai=record 
+           Nama : string[20]; 
+           Gol  : char; 
+           JmlAnak : integer; 
+           end; 
+var 
+  pegawai:tpegawai; 
+  Upahkotor,upahbersih : real; 
+  PersenTunjangan:real; 
+Begin 
+  Write(‘Nama        : ’);readln(pegawai.Nama); 
+  Write(‘Gol (A - D) : ’);readln(pegawai.Gol); 
+  Write(‘Jumlah Anak : ’);readln(pegawai.JmlAnak); 
+
+  Case pegawai.Gol of 
+  ‘A’ : Upahkotor:=1000000; 
+  ‘B’ : Upahkotor:=800000; 
+  ‘C’ : Upahkotor:=600000; 
+  ‘D’ : Upahkotor:=400000; 
+  end;   
+
+  if(pegawai.JmlAnak>2)then  
+    PersenTunjangan := 0.3   
+  else 
+   PersenTunjangan := 0.2; 
+
+  Upahbersih:= upahkotor – (upahkotor*persentunjangan); 
+  writeln(‘Upah        : ’,upahbersih); 
+end.
+--------------- End Program ke 30 ----------------------
+
+--------------- Begin Program ke 31 ----------------------
+uses crt; 
+type 
+  Tpegawai=record 
+           Nama : string[20]; 
+           Gol  : char; 
+           JmlAnak : integer; 
+           end; 
+procedure input(var pegawai:tpegawai); 
+begin 
+ with pegawai do 
+ begin  
+  write(‘Nama        : ’);readln(Nama); 
+  write(‘Gol (A - D) : ’);readln(Gol); 
+  write(‘Jumlah Anak : ’);readln(JmlAnak); 
+ end; 
+end; 
+
+function upahkotor(gol:char):real; 
+begin 
+  Case Gol of 
+  ‘A’ : upahkotor:=1000000; 
+  ‘B’ : upahkotor:=800000; 
+  ‘C’ : upahkotor:=600000; 
+  ‘D’ : upahkotor:=400000; 
+  end;   
+end; 
+
+function persentunjangan(jmlanak:integer):real; 
+begin 
+  if(JmlAnak>2)then  
+    persenTunjangan := 0.3   
+  else 
+   persenTunjangan := 0.2; 
+end; 
+
+procedure cetak(pegawai:tpegawai); 
+var 
+upahbersih : real; 
+begin 
+ clrscr; 
+ with pegawai do 
+ begin  
+  writeln(‘Nama        : ’,Nama); 
+  writeln(‘Gol (A - D) : ’,Gol); 
+  writeln(‘Jumlah Anak : ’,JmlAnak); 
+  upahbersih:= upahkotor(gol) – 
+(upahkotor(gol)*persentunjangan(jmlanak)); 
+  writeln(‘Upah        : ’,upahbersih:5:2); 
+ end; 
+end; 
+
+var 
+  pegawai:tpegawai; 
+Begin 
+  input(pegawai); 
+  cetak(pegawai); 
+end.
+--------------- End Program ke 31 ----------------------
+
+--------------- Begin Program ke 32 ----------------------
+uses crt; 
+type 
+  Tpegawai=record 
+           Nama : string[20]; 
+           Gol  : char; 
+           JmlAnak : integer; 
+           end; 
+  Tdaf_peg=array[1..5]of Tpegawai; 
+
+procedure input(var pegawai:tpegawai); 
+begin 
+ with pegawai do 
+ begin  
+  write(‘Nama        : ’);readln(Nama); 
+  write(‘Gol (A - D) : ’);readln(Gol); 
+  write(‘Jumlah Anak : ’);readln(JmlAnak); 
+ end; 
+end; 
+
+function upahkotor(gol:char):real; 
+begin 
+  Case Gol of 
+  ‘A’ : upahkotor:=1000000; 
+  ‘B’ : upahkotor:=800000; 
+  ‘C’ : upahkotor:=600000; 
+  ‘D’ : upahkotor:=400000; 
+  end;   
+end; 
+
+function persentunjangan(jmlanak:integer):real; 
+begin 
+  if(JmlAnak>2)then  
+    persenTunjangan := 0.3   
+  else 
+   persenTunjangan := 0.2; 
+end; 
+
+procedure cetak(pegawai:tpegawai); 
+var 
+upahbersih : real; 
+begin 
+ clrscr; 
+ with pegawai do 
+ begin  
+  writeln(‘Nama        : ’,Nama); 
+  writeln(‘Gol (A - D) : ’,Gol); 
+  writeln(‘Jumlah Anak : ’,JmlAnak); 
+  upahbersih:= upahkotor(gol) – 
+(upahkotor(gol)*persentunjangan(jmlanak)); 
+  writeln(‘Upah        : ’,upahbersih:5:2); 
+ end; 
+end; 
+
+var 
+  daf_pegawai:tdaf_peg; 
+  i:integer; 
+Begin 
+For i:=1 to 5 do   
+begin 
+  writeln('Data ke ',i,':'); 
+  input(daf_pegawai[i]); 
+end; 
+For i:=1 to 5 do   
+ begin 
+   writeln('Data ke ',i,':'); 
+   cetak(daf_pegawai[i]); 
+   readkey; 
+ end; 
+end.
+--------------- End Program ke 32 ----------------------

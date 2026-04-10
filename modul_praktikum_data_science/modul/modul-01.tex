@@ -1,0 +1,141 @@
+\documentclass[../main.tex]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{1}}{}
+\begin{document}
+
+\chapter{Jupyter, Kernel, Markdown; CRISP-DM Ringkas; Etika \& Lisensi Data}
+
+\begin{subcpmk}
+  \item \textbf{Sub-CPMK-P1:} Mengoperasikan \jupyter{}, mengelola kernel, menjelaskan etika dan lisensi penggunaan data pada tugas praktikum (selaras RPS Mg.\ 1).
+\end{subcpmk}
+
+\SesiRPS{1}{P1}{$\sim$170 menit}{CPMK-P1}
+
+\section{Kemampuan akhir sesi}
+
+Setelah sesi, mahasiswa mampu: (1) membuat notebook baru dan mengeksekusi sel Markdown serta sel kode Python; (2) menjelaskan enam fase CRISP-DM secara ringkas dan mengaitkannya dengan satu studi kasus; (3) mendokumentasikan sumber data, lisensi, dan batasan penggunaan di Markdown; (4) menyimpan berkas \texttt{.ipynb} sesuai konvensi penamaan.
+
+\section{Teori dan bahan kajian}
+
+\subsection{Sel, kernel, dan urutan eksekusi}
+
+\begin{konsep}
+\jupyter{} menggabungkan narasi (\textbf{sel Markdown}) dan kode (\textbf{sel kode}). \textbf{Kernel} adalah proses Python yang menjalankan kode. Urutan angka di sisi sel menunjukkan urutan eksekusi terakhir---bukan urutan di halaman. Setelah mengubah banyak sel, gunakan \textbf{Restart Kernel and Run All} untuk memverifikasi reproduktifitas.
+\end{konsep}
+
+\subsection{CRISP-DM dalam satu halaman}
+
+\textit{Cross-Industry Standard Process for Data Mining} memetakan proyek data ke enam fase: \textbf{Business Understanding} (tujuan bisnis), \textbf{Data Understanding} (koleksi, kualitas), \textbf{Data Preparation} (cleaning, fitur), \textbf{Modeling}, \textbf{Evaluation}, \textbf{Deployment}. Pada praktikum 1 SKS, fokus kita adalah memahami bahwa notebook yang baik mencerminkan alur ini meskipun tidak semua fase dieksekusi penuh setiap minggu.
+
+\subsection{Etika dan lisensi data}
+
+\begin{catatan}
+Cantumkan \textbf{URL sumber}, \textbf{lisensi} (CC, domain publik, syarat Kaggle, dll.), dan hindari mengunggah data yang berisi \textbf{PII} (data pribadi) tanpa persetujuan. Jika memakai data sintetis, tulis secara eksplisit bahwa data sintetis.
+\end{catatan}
+
+\section{Keselamatan kerja, etika, dan K3}
+
+Tata tertib laboratorium; tidak makan/minum di dekat keyboard; matikan perangkat dengan benar; laporkan kabel longgar atau perangkat panas. Etika akademik: kutip tutorial dengan atribusi; tidak plagiasi notebook rekan.
+
+\section{Sarana dan prasarana}
+
+Python 3.10 atau lebih baru; \texttt{jupyter}, \texttt{notebook} atau JupyterLab; alternatif Google Colab; browser terkini; ruang penyimpanan untuk mengunduh \texttt{.ipynb}.
+
+\section{Prosedur kerja (di lab)}
+
+\begin{enumerate}[leftmargin=*]
+  \item Verifikasi Python: buka terminal, jalankan perintah versi interpreter.
+  \item Buka Jupyter atau VS Code dengan ekstensi Jupyter / unggah notebook ke Colab.
+  \item Buat notebook baru: judul, NIM, nama, tanggal di sel Markdown pertama.
+  \item Tulis paragraf CRISP-DM: untuk skenario yang Anda pilih, jelaskan minimal tiga fase yang paling relevan.
+  \item Tambahkan sel kode yang mencetak string identitas dan operasi aritmetika sederhana.
+  \item Cantumkan satu contoh tautan dataset terbuka beserta kalimat lisensi/atribusi.
+  \item Simpan sebagai \texttt{Minggu01\_NIM\_Nama.ipynb} dan salin isi inti ke \texttt{notebooks/minggu\_01.ipynb}.
+\end{enumerate}
+
+\section{Contoh kode dan studi kasus}
+
+\subsection{Memeriksa versi Python di notebook}
+
+\begin{lstlisting}[caption=Versi Python dan path executable]
+import sys
+print(sys.version)
+print(sys.executable)
+\end{lstlisting}
+
+\subsection{Markdown vs kode}
+
+\begin{lstlisting}[caption=Operasi sederhana di sel kode]
+# Judul sel: perkenalan
+nama_kampus = "Universitas Bale Bandung"
+semester = 2026
+print(f"Praktikum Data Science | {nama_kampus} | {semester}")
+\end{lstlisting}
+
+\subsection{Struktur dictionary untuk CRISP-DM ringkas}
+
+\begin{lstlisting}[caption=Mapping fase CRISP-DM ke catatan proyek mini]
+crisp_dm = {
+    "business_understanding": "Mengurangi churn pelanggan e-commerce",
+    "data_understanding": "Dataset transaksi terbuka, cek missing",
+    "data_prep": "Imputasi, encoding kategori",
+    "modeling": "Klasifikasi churn dengan RandomForest",
+    "evaluation": "F1-score, confusion matrix",
+    "deployment": "Dashboard internal (di luar cakupan praktikum)",
+}
+for fase, catatan in crisp_dm.items():
+    print(f"{fase}: {catatan}")
+\end{lstlisting}
+
+\subsection{Menyimpan metadata sumber data (etika)}
+
+\begin{lstlisting}[caption=Blok dokumentasi sumber data di notebook]
+Sumber_data = {
+    "url": "https://www.kaggle.com/datasets/...",
+    "lisensi": "CC0 / sesuai halaman dataset",
+    "tanggal_unduh": "2026-04-10",
+    "catatan": "Tidak untuk komersial tanpa izin pemilik dataset.",
+}
+import json
+print(json.dumps(Sumber_data, indent=2, ensure_ascii=False))
+\end{lstlisting}
+
+\section{Referensi sesi}
+
+\begin{itemize}[leftmargin=*]
+  \item Microsoft Learn --- Jupyter Notebook untuk Python. \url{https://learn.microsoft.com/en-us/training/modules/python-create-run-jupyter-notebook/}
+  \item IBM --- CRISP-DM overview. \url{https://www.ibm.com/docs/en/spss-modeler/saas?topic=dm-crisp-help-overview}
+  \item Kaggle Learn Python (landasan sintaks). \url{https://www.kaggle.com/learn/python}
+  \item \texttt{sumber\_materi.md} di repositori modul.
+\end{itemize}
+
+\begin{aktivitas}
+  \item Buat notebook dengan minimal \textbf{empat sel Markdown} dan \textbf{empat sel kode} yang saling mendukung narasi CRISP-DM.
+  \item Jalankan \textbf{Restart Kernel and Run All}; perbaiki error hingga bersih.
+  \item Tulis refleksi etika (150--250 kata) tentang risiko salahgunakan data tabular.
+\end{aktivitas}
+
+\begin{latihan}
+  \item Apa beda kernel mati dan kernel sibuk? Bagaimana gejalanya di Jupyter?
+  \item Sebutkan dua risiko jika sel dijalankan tidak berurutan saat demo ke dosen.
+  \item Jelaskan kapan fase \textit{Evaluation} CRISP-DM paling erat hubungannya dengan metrik praktikum minggu 11--12.
+\end{latihan}
+
+\begin{asesmen}
+\textbf{Formatif (observasi):} minimal tiga sel kode dan tiga sel Markdown bebas error; ada blok teks yang menyebut sumber data dan lisensi; \texttt{minggu\_01.ipynb} dapat di-\textit{run all}.
+
+\textbf{Rubrik jejak:} kejelasan CRISP-DM; kelengkapan etika data; konsistensi nama berkas pengumpulan.
+\end{asesmen}
+
+\begin{checklist}
+  \item Saya dapat membuat dan menjalankan notebook dari awal hingga akhir
+  \item Saya menjelaskan CRISP-DM dengan bahasa saya sendiri
+  \item Saya mendokumentasikan sumber dan lisensi data
+\end{checklist}
+
+\begin{rangkuman}
+Minggu 1 menegaskan fondasi lingkungan Jupyter, dokumentasi CRISP-DM, dan etika data sebelum masuk ke Pandas.
+
+\textbf{Kata kunci:} kernel, Markdown, CRISP-DM, lisensi, reproduktifitas
+\end{rangkuman}
+
+\end{document}

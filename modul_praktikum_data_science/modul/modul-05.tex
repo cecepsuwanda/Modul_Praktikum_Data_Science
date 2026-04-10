@@ -1,0 +1,81 @@
+\documentclass[../main.tex]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{5}}{}
+\begin{document}
+
+\chapter{EDA Univariat dan Bivariat; Matplotlib dan Seaborn}
+
+\begin{subcpmk}
+  \item \textbf{Sub-CPMK-P4:} EDA dan visualisasi pola dengan minimal empat jenis plot berbeda serta interpretasi singkat (RPS Mg.\ 5).
+\end{subcpmk}
+
+\SesiRPS{5}{P4}{$\sim$170 menit}{CPMK-P2}
+
+\section{Kemampuan akhir sesi}
+
+Menghasilkan histogram/KDE, scatter atau boxplot kategori, heatmap korelasi; setiap plot memiliki judul dan label sumbu; merumuskan satu hipotesis pemodelan.
+
+\section{Teori}
+
+\begin{konsep}
+EDA menjawab ``apa yang data ceritakan'' sebelum asumsi model. Visual yang baik memiliki \textbf{judul}, \textbf{label sumbu}, dan \textbf{skala} yang terbaca; hindari chart junk berlebihan.
+\end{konsep}
+
+\section{Sarana}
+
+\texttt{matplotlib.pyplot}, \texttt{seaborn}, \texttt{pandas}.
+
+\section{Contoh kode}
+
+\begin{lstlisting}[caption=Histogram dan KDE]
+import matplotlib.pyplot as plt
+import seaborn as sns
+# df, kolom numerik n1, n2
+fig, ax = plt.subplots(1, 2, figsize=(10, 4))
+sns.histplot(df["n1"], kde=True, ax=ax[0])
+ax[0].set_title("Distribusi n1")
+sns.scatterplot(data=df, x="n1", y="n2", ax=ax[1])
+ax[1].set_title("n1 vs n2")
+plt.tight_layout()
+plt.show()
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Boxplot per kategori]
+plt.figure(figsize=(8, 4))
+sns.boxplot(data=df, x="kategori", y="n1")
+plt.title("Sebaran n1 per kategori")
+plt.xticks(rotation=30)
+plt.show()
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Heatmap korelasi]
+num = df.select_dtypes(include="number")
+plt.figure(figsize=(7, 5))
+sns.heatmap(num.corr(), annot=False, cmap="vlag", center=0)
+plt.title("Korelasi antar fitur numerik")
+plt.show()
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Pairplot subset kecil]
+cols = ["n1", "n2", "n3"]
+sns.pairplot(df[cols].dropna(), corner=True)
+plt.show()
+\end{lstlisting}
+
+\section{Referensi}
+
+\begin{itemize}[leftmargin=*]
+  \item Microsoft Explore data. \url{https://learn.microsoft.com/en-us/training/modules/explore-analyze-data-with-python/}
+  \item Seaborn tutorial. \url{https://seaborn.pydata.org/tutorial.html}
+\end{itemize}
+
+\begin{asesmen}
+\textbf{Tugas modul:} empat jenis visual berbeda + satu kalimat interpretasi per plot + satu hipotesis model.
+\end{asesmen}
+
+\begin{rangkuman}
+Minggu 5 menghubungkan statistik deskriptif dengan visual untuk pertanyaan analitik.
+
+\textbf{Kata kunci:} histogram, boxplot, heatmap, pairplot
+\end{rangkuman}
+
+\end{document}

@@ -1,0 +1,440 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[indonesian]{babel}
+\usepackage{geometry}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[hidelinks,breaklinks]{hyperref}
+\geometry{margin=2.5cm}
+
+\begin{document}
+
+\begin{center}
+\textbf{\Large RENCANA PEMBELAJARAN SEMESTER (RPS)}\\
+\textbf{Berbasis Outcome-Based Education (OBE)}\\[0.5cm]
+\textbf{MATA KULIAH PRAKTIKUM / LABORATORIUM}\\[0.25cm]
+\textbf{PROGRAM STUDI TEKNIK INFORMATIKA}\\
+\textbf{FAKULTAS TEKNOLOGI INFORMASI}\\
+\textbf{UNIVERSITAS BALE BANDUNG}\\
+\end{center}
+
+\vspace{0.75cm}
+
+% ============================================================
+% 1. IDENTITAS MATA KULIAH (BAGIAN A — KERANGKA OBE PRAKTIKUM)
+% ============================================================
+\section*{1. Identitas Mata Kuliah}
+
+\begin{tabular}{ll}
+Nama Program Studi & : Teknik Informatika (S1) \\
+Nama Mata Kuliah & : Praktikum Data Science \\
+Kode Mata Kuliah & : TIF-xxx-prak \\
+Semester & : [Ganjil/Genap] --- diselaraskan dengan penjadwalan kurikulum \\
+SKS / Bobot Kredit & : 1 SKS (100\% praktikum; komponen teori = 0 SKS) \\
+Rincian bentuk & : Praktikum = 1 SKS (setara \textbf{P = 1}) \\
+Jumlah Pertemuan & : 16 (enam belas) sesi praktikum efektif \\
+Dosen Pengampu & : [Nama Dosen, M.Kom.] \\
+Koordinator Praktikum & : [Nama Koordinator, M.Kom.] (opsional) \\
+Tim Asisten Lab & : [Nama asisten] (opsional) \\
+Tanggal Penyusunan / Revisi & : [Tanggal] / [Revisi ke-...] \\
+\end{tabular}
+
+\vspace{0.45cm}
+
+\noindent\textbf{Prasyarat dan ko-requisit:} Mahasiswa telah mengambil atau \textbf{sedang mengikuti secara bersamaan} mata kuliah \textit{Data Science} (atau setara) agar konsep teori (algoritma, metrik, metodologi) dapat dihubungkan dengan praktik di laboratorium.
+
+\vspace{0.35cm}
+
+\noindent\textbf{Deskripsi mata kuliah:} Praktikum Data Science memberikan pengalaman terstruktur dalam menerapkan alur kerja \textit{data science} menggunakan \textbf{Python} dan \textbf{Jupyter Notebook} (alternatif: JupyterLab, notebook di VS Code, atau Google Colab). Mahasiswa membangun \textit{notebook} yang merekam langkah dari pemahaman data, prapemrosesan, analisis eksploratif, pemodelan dengan \texttt{scikit-learn}, evaluasi, hingga penyampaian \textit{insight} sederhana. Mata kuliah mendukung profil lulusan yang mampu mengimplementasikan komputasi dan algoritma pada bahasa pemrograman untuk permasalahan berbasis data.
+
+\vspace{0.35cm}
+
+\noindent\textbf{Beban waktu (acuan nasional \& lokal):} Sesuai standar umum penyusunan beban kredit di perguruan tinggi, \textbf{1 SKS praktikum} lazim setara dengan sekitar \textbf{170 menit kegiatan terstruktur per minggu} selama satu semester untuk komponen praktikum; rincian jam tatap muka di lab dapat dipecah sesuai jadwal prodi (mis.\ 170 menit kontinyu atau dua slot) dengan tetap memenuhi \textbf{ketentuan akademik Universitas Bale Bandung}.
+
+\vspace{0.35cm}
+
+\noindent\textbf{Ruang, perangkat lunak, dan fasilitas wajib:} Laboratorium komputer dengan Python 3.x, Jupyter Notebook/JupyterLab, paket: NumPy, Pandas, Matplotlib, Seaborn, scikit-learn; koneksi internet untuk dokumentasi dan dataset terbuka; penyimpanan untuk mengumpulkan berkas \texttt{.ipynb} dan data. \textbf{K3 dan etika:} penggunaan peralatan listrik yang aman, tidak memakan/minum di dekat perangkat, dan kepatuhan terhadap \textbf{lisensi dataset} serta \textbf{privasi data}.
+
+\vspace{0.5cm}
+
+% ============================================================
+% 2. CPL PRODI
+% ============================================================
+\section*{2. CPL Prodi yang Dibebankan pada Mata Kuliah}
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{CPL01} --- Kemampuan menganalisis persoalan \textit{computing} yang kompleks serta menerapkan prinsip-prinsip \textit{computing} dan disiplin ilmu relevan lainnya untuk mengidentifikasi solusi, dengan mempertimbangkan wawasan perkembangan ilmu transdisiplin.
+
+  \item \textbf{CPL03} --- Kemampuan merancang dan menganalisis algoritma untuk menyelesaikan permasalahan organisasi secara optimal, serta memilih dan menerapkannya pada bahasa pemrograman tertentu.
+\end{itemize}
+
+\vspace{0.5cm}
+
+% ============================================================
+% 3. CPMK PRAKTIKUM (KEMAMPUAN AKHIR MK) & PEMETAAN KE MK TEORI
+% ============================================================
+\section*{3. Capaian Pembelajaran Mata Kuliah (CPMK) --- Praktikum}
+
+CPMK berikut adalah kemampuan \textbf{psikomotorik/keterampilan komputasi} di akhir mata kuliah praktikum. Disusun agar \textbf{selaras} dengan CPMK mata kuliah teori \textit{Data Science} (lihat \texttt{silabus\_data\_science.tex}): CPMK-P berfokus pada implementasi di Python/Jupyter.
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{CPMK-P1} --- (CPL01; jembatan ke CPMK1 teori) Mahasiswa mampu menyiapkan lingkungan praktik Python/Jupyter, menerapkan K3 laboratorium dasar, serta merumuskan permasalahan sederhana dan tahapan \textit{CRISP-DM} ringkas untuk eksperimen berbasis data.
+
+  \item \textbf{CPMK-P2} --- (CPL01, CPL03; CPMK2 teori) Mahasiswa mampu memuat data dari sumber tabular, melakukan prapemrosesan (\textit{cleaning}, transformasi, rekayasa fitur dasar), serta mengeksekusi Analisis Data Eksploratif (EDA) dan visualisasi menggunakan Pandas, Matplotlib, dan Seaborn dalam notebook.
+
+  \item \textbf{CPMK-P3} --- (CPL03; CPMK3 teori) Mahasiswa mampu membangun, melatih, dan memprediksi dengan model \textit{machine learning} (regresi, klasifikasi, \textit{ensemble} ringkas, klastering) menggunakan API \texttt{scikit-learn} secara konsisten (\texttt{fit}/\texttt{predict}/\texttt{transform}).
+
+  \item \textbf{CPMK-P4} --- (CPL01, CPL03; CPMK4 teori) Mahasiswa mampu menghitung dan menginterpretasikan metrik evaluasi, menerapkan validasi silang dan penyetelan hiperparameter sederhana, serta menyusun narasi dan visual \textit{insight} di notebook untuk mendukung pengambilan keputusan.
+\end{itemize}
+
+\vspace{0.5cm}
+
+% ============================================================
+% 4. SUB-CPMK PRAKTIKUM (AGREGAT)
+% ============================================================
+\section*{4. Sub-CPMK / Indikator Pencapaian (Praktikum)}
+
+Indikator berikut merangkum tahapan keterampilan lab (lebih ringkas dari 14 sub teori pada MK Data Science, tetap konsisten secara substansi).
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Sub-CPMK-P1:} Mahasiswa mampu mengoperasikan Jupyter Notebook, mengelola kernel, dan menjelaskan etika serta lisensi penggunaan data pada tugas praktikum.
+
+  \item \textbf{Sub-CPMK-P2:} Mahasiswa mampu memuat data (CSV/Excel, \textit{upload} lokal) dan menginspeksi struktur, tipe, serta kualitas awal dengan Pandas.
+
+  \item \textbf{Sub-CPMK-P3:} Mahasiswa mampu menangani \textit{missing values}, duplikasi, \textit{outlier} dasar, serta melakukan \textit{encoding}, \textit{scaling}, dan rekayasa fitur sederhana.
+
+  \item \textbf{Sub-CPMK-P4:} Mahasiswa mampu melaksanakan EDA (univariat/bivariat) dan memvisualisasikan pola dengan Matplotlib/Seaborn.
+
+  \item \textbf{Sub-CPMK-P5:} Mahasiswa mampu menjelaskan perbedaan \textit{supervised} dan \textit{unsupervised}, memecah data latih/uji, dan menggunakan estimators \texttt{scikit-learn} secara benar.
+
+  \item \textbf{Sub-CPMK-P6:} Mahasiswa mampu mengimplementasikan regresi (mis.\ regresi linear) dan menafsirkan kesalahan prediksi.
+
+  \item \textbf{Sub-CPMK-P7:} Mahasiswa mampu mengimplementasikan klasifikasi dasar (mis.\ regresi logistik, K-NN, pohon keputusan).
+
+  \item \textbf{Sub-CPMK-P8:} Mahasiswa mampu menerapkan \textit{ensemble} ringkas (mis.\ Random Forest) dan klastering (mis.\ K-Means) pada data yang relevan.
+
+  \item \textbf{Sub-CPMK-P9:} Mahasiswa mampu menggunakan metrik klasifikasi/regresi, matriks konfusi, kurva ROC-AUC (jika relevan), \textit{cross-validation}, dan \textit{grid search}/\textit{random search} sederhana.
+
+  \item \textbf{Sub-CPMK-P10:} Mahasiswa mampu menyusun ringkasan eksekutif dalam notebook (teks + visual) dan mendemonstrasikan alur \textit{end-to-end} mini (\textit{pipeline} dari data mentah ke evaluasi).
+\end{itemize}
+
+\vspace{0.5cm}
+
+% ============================================================
+% MATRIKS PEMETAAN OBE
+% ============================================================
+\section*{5. Matriks Pemetaan Capaian}
+
+\textbf{Tabel 5.a. CPMK Praktikum $\rightarrow$ CPL Prodi}
+
+\vspace{0.25cm}
+{\small
+\begin{tabular}{|l|p{9.5cm}|}
+\hline
+\textbf{CPMK} & \textbf{CPL yang dilayani} \\
+\hline
+CPMK-P1 & CPL01 \\
+\hline
+CPMK-P2 & CPL01, CPL03 \\
+\hline
+CPMK-P3 & CPL03 \\
+\hline
+CPMK-P4 & CPL01, CPL03 \\
+\hline
+\end{tabular}
+}
+
+\vspace{0.45cm}
+
+\textbf{Tabel 5.b. Sub-CPMK Praktikum $\rightarrow$ CPMK Praktikum}
+
+\vspace{0.25cm}
+{\small
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Sub-CPMK} & \textbf{CPMK Praktikum} \\
+\hline
+Sub-CPMK-P1 & CPMK-P1 \\
+\hline
+Sub-CPMK-P2 & CPMK-P2 \\
+\hline
+Sub-CPMK-P3 & CPMK-P2 \\
+\hline
+Sub-CPMK-P4 & CPMK-P2 \\
+\hline
+Sub-CPMK-P5 & CPMK-P3 \\
+\hline
+Sub-CPMK-P6 & CPMK-P3 \\
+\hline
+Sub-CPMK-P7 & CPMK-P3 \\
+\hline
+Sub-CPMK-P8 & CPMK-P3 \\
+\hline
+Sub-CPMK-P9 & CPMK-P4 \\
+\hline
+Sub-CPMK-P10 & CPMK-P4 (dan CPMK-P1 untuk komunikasi masalah) \\
+\hline
+\end{tabular}
+}
+
+\vspace{0.45cm}
+
+\textbf{Tabel 5.c. CPMK Praktikum $\rightarrow$ CPMK Mata Kuliah Teori \textit{Data Science} (referensi silabus teori)}
+
+\vspace{0.25cm}
+{\small
+\begin{tabular}{|l|l|}
+\hline
+\textbf{CPMK Praktikum} & \textbf{CPMK teori terkait (\texttt{silabus\_data\_science.tex})} \\
+\hline
+CPMK-P1 & CPMK1 \\
+\hline
+CPMK-P2 & CPMK2 \\
+\hline
+CPMK-P3 & CPMK3 \\
+\hline
+CPMK-P4 & CPMK4 \\
+\hline
+\end{tabular}
+}
+
+\vspace{0.45cm}
+
+\noindent\textbf{Strategi urutan pembelajaran praktikum:} Urutan minggu mengikuti alur \textbf{prosedural pipeline}: orientasi lingkungan $\rightarrow$ pemahaman data $\rightarrow$ prapemrosesan $\rightarrow$ EDA $\rightarrow$ API pemodelan $\rightarrow$ regresi $\rightarrow$ klasifikasi $\rightarrow$ \textit{ensemble}/klastering $\rightarrow$ evaluasi dan optimasi $\rightarrow$ komunikasi \textit{insight} $\rightarrow$ integrasi \textit{end-to-end}. Struktur ini membangun keterampilan prasyarat sebelum tugas proyek mini.
+
+\vspace{0.5cm}
+
+% ============================================================
+% 6. METODE PEMBELAJARAN
+% ============================================================
+\section*{6. Metode Pembelajaran}
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Briefing dan demonstrasi:} Dosen/asisten mendemonstrasikan prosedur di Jupyter sebelum praktik mandiri.
+  \item \textbf{Praktikum terbimbing:} Mahasiswa menyelesaikan latihan terstruktur di notebook dengan konsultasi.
+  \item \textbf{Praktik mandiri / berpasangan:} Pengerjaan modul atau tugas mingguan dengan kolaborasi terbatas sesuai aturan prodi.
+  \item \textbf{Tutor sebaya / \textit{peer review}:} Pengecekan rekan terhadap kejelasan notebook dan reproduktifitas ringkas.
+  \item \textbf{Proyek berbasis masalah:} Studi kasus dataset terbuka (\textit{e.g.} Kaggle, \texttt{data.go.id}) menutup alur kerja.
+\end{itemize}
+
+\vspace{0.5cm}
+
+% ============================================================
+% 7. PENGALAMAN BELAJAR MAHASISWA
+% ============================================================
+\section*{7. Pengalaman Belajar Mahasiswa}
+
+\begin{itemize}[leftmargin=*]
+  \item Menginstal atau mengakses lingkungan Jupyter (lokal atau Colab) dan mengunggah notebook ke sistem pengumpulan prodi.
+  \item Menyimpan setiap sesi dalam berkas \texttt{.ipynb} yang dapat dijalankan ulang (\textit{restart kernel and run all}) tanpa error pada sel utama.
+  \item Mengumpulkan dataset dengan atribusi sumber dan mematuhi lisensi.
+  \item Mendokumentasikan langkah prapemrosesan dan keputusan analitik dalam sel Markdown.
+  \item Mengekspor visualisasi yang mendukung narasi \textit{insight}.
+  \item Menyusun proyek mini akhir semester berupa satu notebook atau repositori kecil sesuai panduan dosen.
+\end{itemize}
+
+\vspace{0.5cm}
+
+% ============================================================
+% 8. KRITERIA, INDIKATOR, DAN BOBOT PENILAIAN
+% ============================================================
+\section*{8. Kriteria, Indikator, dan Bobot Penilaian}
+
+Mata kuliah \textbf{100\% praktikum}; tidak terdapat UTS/UAS tertulis terpisah kecuali ditetapkan lain oleh prodi. Bobot berikut total \textbf{100\%}.
+
+\begin{longtable}{|>{\raggedright\arraybackslash}p{3cm}|>{\raggedright\arraybackslash}p{4.2cm}|>{\raggedright\arraybackslash}p{5.8cm}|c|}
+\hline
+\textbf{Komponen} & \textbf{Teknik Asesmen} & \textbf{Indikator / capaian utama} & \textbf{Bobot (\%)} \\
+\hline
+\endfirsthead
+\hline
+\textbf{Komponen} & \textbf{Teknik Asesmen} & \textbf{Indikator / capaian utama} & \textbf{Bobot (\%)} \\
+\hline
+\endhead
+\hline
+\endfoot
+
+Kinerja lab / tugas notebook & Rubrik notebook per minggu atau paket modul & Sub-CPMK-P1 s.d.\ P9; CPMK-P2, P3, P4 parsial & 40 \\
+\hline
+Proyek mini \textit{end-to-end} & Satu notebook/repositori: data $\rightarrow$ model $\rightarrow$ evaluasi $\rightarrow$ insight & Sub-CPMK-P10; CPMK-P2, P3, P4 & 40 \\
+\hline
+Laporan ringkas \& presentasi & Dokumen ringkas (2--4 halaman) + presentasi singkat (5--10 menit) & CPMK-P4; komunikasi insight & 20 \\
+\hline
+\textbf{Total} & & & \textbf{100} \\
+\hline
+\end{longtable}
+
+\textbf{Kriteria huruf (contoh):}
+\begin{itemize}[leftmargin=*]
+  \item A (85--100): Notebook rapi, reproduktif, analisis dan metrik tepat, insight jelas.
+  \item B (70--84): Sebagian besar tujuan praktikum tercapai dengan kesalahan kecil.
+  \item C (60--69): Tujuan dasar tercapai; ada kekurangan pada dokumentasi atau evaluasi.
+  \item D (50--59): Hanya sebagian kecil capaian yang memadai.
+  \item E ($<$50): Tidak memadai untuk kelulusan.
+\end{itemize}
+
+\textbf{Batas kelulusan:} Sesuai kebijakan fakultas/prodi (umumnya nilai akhir $\geq$ 55 atau C).
+
+\vspace{0.5cm}
+
+% ============================================================
+% 9. EVALUASI DAN REFLEKSI PEMBELAJARAN
+% ============================================================
+\section*{9. Evaluasi dan Refleksi Pembelajaran}
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Formatif:} ceklis asisten saat sesi lab, umpan balik cepat pada notebook.
+  \item \textbf{Sumatif:} pengumpulan tugas notebook dan penilaian proyek mini.
+  \item \textbf{Refleksi:} mahasiswa mencatat kendala teknis dan pelajaran etika data di bagian akhir notebook proyek.
+  \item \textbf{Perbaikan berkelanjutan:} revisi RPS berdasarkan hasil asesmen dan survei singkat akhir semester.
+\end{itemize}
+
+\vspace{0.5cm}
+
+% ============================================================
+% 10. RENCANA PEMBELAJARAN MINGGUAN (INTI RPS PRAKTIKUM)
+% ============================================================
+\section*{10. Rencana Pembelajaran Mingguan}
+
+{\footnotesize
+\setlength{\tabcolsep}{3pt}%
+\begin{longtable}{|>{\raggedright\arraybackslash}p{0.55cm}|>{\raggedright\arraybackslash}p{1.35cm}|>{\raggedright\arraybackslash}p{2.05cm}|>{\raggedright\arraybackslash}p{1.75cm}|>{\raggedright\arraybackslash}p{2.15cm}|>{\raggedright\arraybackslash}p{0.85cm}|>{\raggedright\arraybackslash}p{1.45cm}|>{\raggedright\arraybackslash}p{2.05cm}|}
+\hline
+\textbf{Mg.} & \textbf{Sub-CPMK} & \textbf{Bahan kajian / topik lab} & \textbf{Metode} & \textbf{Pengalaman belajar / artefak} & \textbf{Waktu} & \textbf{Asesmen} & \textbf{Ref.\ singkat} \\
+\hline
+\endfirsthead
+\hline
+\textbf{Mg.} & \textbf{Sub-CPMK} & \textbf{Bahan kajian / topik lab} & \textbf{Metode} & \textbf{Pengalaman belajar / artefak} & \textbf{Waktu} & \textbf{Asesmen} & \textbf{Ref.\ singkat} \\
+\hline
+\endhead
+\hline
+\endfoot
+
+1 & P1 & Jupyter, kernel, Markdown; CRISP-DM ringkas; etika \& lisensi data. & Demo, praktik mandiri. & Notebook ``Hello Jupyter'' + refleksi etika. & 170' & Formatif & Microsoft Learn Jupyter; IBM CRISP-DM \\
+\hline
+2 & P2 & Pandas: baca CSV/Excel; \texttt{head}, \texttt{info}, \texttt{describe}, tipe data. & Demo, latihan. & Notebook inspeksi dataset. & 170' & Tugas modul & Kaggle Pandas; Pandas IO \\
+\hline
+3 & P3 & \textit{Missing}, duplikat, \textit{outlier} dasar; strategi imputasi sederhana. & PBL singkat. & Notebook cleaning. & 170' & Tugas modul & Pandas missing data; Kaggle Intermediate ML \\
+\hline
+4 & P3 & \textit{One-hot}, label encoding; normalisasi; fitur sederhana. & Demo, latihan. & Notebook transformasi. & 170' & Formatif & sklearn preprocessing \\
+\hline
+5 & P4 & EDA univariat/bivariat; distribusi, korelasi; Seaborn. & Praktik berpasangan. & Notebook EDA + minimal 4 visual. & 170' & Tugas modul & Microsoft Explore data; Seaborn tutorial \\
+\hline
+6 & P5 & Supervised vs unsupervised; \texttt{train\_test\_split}; alur \texttt{fit}/\texttt{predict}. & Demo, latihan. & Notebook API sklearn. & 170' & Kuis praktik singkat & sklearn tutorial; Kaggle Intro ML \\
+\hline
+7 & P6 & Regresi linear; interpretasi koefisien/ residual ringkas. & Praktik mandiri. & Notebook regresi + metrik RMSE/MAE. & 170' & Tugas modul & ISLR; VanderPlas handbook \\
+\hline
+8 & P7 & Klasifikasi: logistik, K-NN, pohon; dataset terbuka. & PBL. & Notebook klasifikasi + matriks konfusi. & 170' & Tugas modul & sklearn supervised; SciPy 2018 nb \\
+\hline
+9 & P8 & Random Forest singkat; perbandingan dengan baseline. & Demo, latihan. & Notebook ensemble. & 170' & Formatif & sklearn supervised \\
+\hline
+10 & P8 & K-Means; elbow/silhouette konsep praktik. & Praktik mandiri. & Notebook klastering. & 170' & Tugas modul & sklearn unsupervised; silhouette contoh \\
+\hline
+11 & P9 & Akurasi, presisi, recall, F1; ROC-AUC opsional. & Latihan terpandu. & Notebook metrik. & 170' & Rubrik sesi & sklearn model\_evaluation \\
+\hline
+12 & P9 & \textit{Cross-validation}; \textit{GridSearchCV} sederhana. & Demo, latihan. & Notebook tuning. & 170' & Tugas modul & sklearn CV; grid\_search \\
+\hline
+13 & P10 & Struktur narasi di Markdown; ringkasan untuk pemangku kepentingan. & Diskusi, praktik. & Notebook ``story'' dari minggu 7--12. & 170' & Formatif & IBM CRISP-DM \\
+\hline
+14 & P10 & \textit{Peer review} notebook; perbaikan reproduktifitas. & Peer review. & Revisi notebook + lembar review. & 170' & Lembar review & --- \\
+\hline
+15 & P10 & Proyek mini \textit{end-to-end} (individu/pasangan). & Konsultasi. & Draft proyek (\texttt{.ipynb}). & 170' & Proyek (parsial) & data.go.id; Kaggle \\
+\hline
+16 & P10 & Presentasi hasil proyek; umpan balik. & Presentasi. & Slides singkat + notebook final. & 170' & Presentasi \& proyek akhir & INRIA sklearn MOOC \\
+\hline
+\end{longtable}
+}
+
+\vspace{0.5cm}
+
+% ============================================================
+% 11. CHECKLIST SELARAS SN-DIKTI / OBE (BAGIAN F)
+% ============================================================
+\section*{11. Checklist Verifikasi RPS Praktikum}
+
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Standar isi:} Bahan kajian selaras IPTEKS; capaian praktik diukur lewat notebook dan rubrik, bukan sekadar daftar software.
+  \item \textbf{Standar proses:} Metode menonjolkan aktivitas mahasiswa di lab; tugas dan artefak jelas.
+  \item \textbf{Standar penilaian:} Bobot 100\% dengan indikator pada Sub-CPMK/CPMK; instrumen rubrik tersedia bagi dosen/asisten.
+  \item \textbf{Standar sarana:} Fasilitas lab dan alternatif Colab tercantum; rencana cadangan jika server lab gangguan (opsional prodi).
+  \item \textbf{Kemutakhiran:} Tanggal revisi dicatat; RPS ditinjau per semester.
+  \item \textbf{Penjajaran OBE:} Setiap minggu memiliki Sub-CPMK, kegiatan, dan asesmen yang konsisten.
+\end{enumerate}
+
+\vspace{0.5cm}
+
+% ============================================================
+% 12. DAFTAR REFERENSI (sumber terbuka; selaras sumber_materi.md)
+% ============================================================
+\section*{12. Daftar Referensi}
+
+\begin{enumerate}[leftmargin=*]
+  \item IBM. \textit{CRISP-DM Help Overview}. \url{https://www.ibm.com/docs/en/spss-modeler/saas?topic=dm-crisp-help-overview}.
+
+  \item IBM. \textit{SPSS Modeler CRISP-DM Guide} (PDF). \url{https://public.dhe.ibm.com/software/analytics/spss/documentation/modeler/18.0/en/ModelerCRISPDM.pdf}.
+
+  \item Kaggle. \textit{Learn Python}. \url{https://www.kaggle.com/learn/python}.
+
+  \item Kaggle. \textit{Learn Pandas}. \url{https://www.kaggle.com/learn/pandas}.
+
+  \item Kaggle. \textit{Intro to Machine Learning}. \url{https://www.kaggle.com/learn/intro-to-machine-learning}.
+
+  \item Kaggle. \textit{Intermediate Machine Learning}. \url{https://www.kaggle.com/learn/intermediate-machine-learning}.
+
+  \item VanderPlas, J. \textit{Python Data Science Handbook}. \url{https://jakevdp.github.io/PythonDataScienceHandbook/}.
+
+  \item James, G., dkk. \textit{An Introduction to Statistical Learning}. \url{https://www.statlearning.com/}.
+
+  \item Microsoft Learn. \textit{Get started with Jupyter notebooks for Python}. \url{https://learn.microsoft.com/en-us/training/modules/python-create-run-jupyter-notebook/}.
+
+  \item Microsoft Learn. \textit{Introduction to the pandas library for data science}. \url{https://learn.microsoft.com/en-us/training/modules/pandas-data-science/}.
+
+  \item Microsoft Learn. \textit{Explore and analyze data with Python}. \url{https://learn.microsoft.com/en-us/training/modules/explore-analyze-data-with-python/}.
+
+  \item INRIA. \textit{Machine learning in Python with scikit-learn} (materi terbuka). \url{https://inria.github.io/scikit-learn-mooc/}.
+
+  \item VanderPlas, J. \textit{scikit-learn tutorial} (nbviewer). \url{https://nbviewer.org/github/jakevdp/sklearn_tutorial/blob/master/notebooks/Index.ipynb}.
+
+  \item Mueller, A. SciPy 2018. \textit{Supervised Learning --- Classification} (notebook). \url{https://nbviewer.org/github/amueller/scipy-2018-sklearn/blob/master/notebooks/05.Supervised_Learning-Classification.ipynb}.
+
+  \item scikit-learn developers. \textit{Tutorial --- Basic}. \url{https://scikit-learn.org/stable/tutorial/basic/tutorial.html}.
+
+  \item pandas development team. \textit{User Guide: IO tools}. \url{https://pandas.pydata.org/docs/user_guide/io.html}.
+
+  \item pandas development team. \textit{User Guide: Missing data}. \url{https://pandas.pydata.org/docs/user_guide/missing_data.html}.
+
+  \item scikit-learn developers. \textit{Preprocessing data}. \url{https://scikit-learn.org/stable/modules/preprocessing.html}.
+
+  \item Matplotlib development team. \textit{Matplotlib Tutorials}. \url{https://matplotlib.org/stable/tutorials/index.html}.
+
+  \item Seaborn developers. \textit{Seaborn tutorial}. \url{https://seaborn.pydata.org/tutorial.html}.
+
+  \item scikit-learn developers. \textit{Supervised learning}. \url{https://scikit-learn.org/stable/supervised_learning.html}.
+
+  \item scikit-learn developers. \textit{Unsupervised learning}. \url{https://scikit-learn.org/stable/unsupervised_learning.html}.
+
+  \item scikit-learn developers. \textit{Metrics and scoring}. \url{https://scikit-learn.org/stable/model_evaluation.html}.
+
+  \item scikit-learn developers. \textit{Cross-validation}; \textit{Hyper-parameter tuning}. \url{https://scikit-learn.org/stable/modules/cross_validation.html} dan \url{https://scikit-learn.org/stable/modules/grid_search.html}.
+
+  \item scikit-learn developers. Contoh \textit{silhouette analysis} K-Means. \url{https://scikit-learn.org/stable/auto_examples/cluster/plot_kmeans_silhouette_analysis.html}.
+
+  \item Pemerintah Indonesia. \textit{Data Terbuka Indonesia}. \url{https://data.go.id/}.
+
+  \item \textit{Perbandingan kurikulum RPS PT} (opsional dosen): contoh halaman MK \textit{Praktikum Data Science} UPN Veteran Yogyakarta. \url{https://if.upnyk.ac.id/mata-kuliah/123210411}. PDF RPS \textit{Data Wrangling} UNESA. \url{https://sindig.unesa.ac.id/rps-pdf/s1-sains-data/data-wrangling.pdf}.
+\end{enumerate}
+
+\vspace{1cm}
+
+\begin{flushright}
+\begin{tabular}{c}
+Disusun oleh,\\[2cm]
+\textbf{[Nama Dosen, M.Kom.]}\\
+NIP. [NIP]
+\end{tabular}
+\end{flushright}
+
+\end{document}

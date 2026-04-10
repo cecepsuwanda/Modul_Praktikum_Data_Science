@@ -1,0 +1,71 @@
+\documentclass[../main.tex]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{9}}{}
+\begin{document}
+
+\chapter{Ensemble Ringkas: Random Forest}
+
+\begin{subcpmk}
+  \item \textbf{Sub-CPMK-P8:} Melatih Random Forest; membandingkan metrik dengan baseline; membaca \texttt{feature\_importances\_} secara kritis (RPS Mg.\ 9).
+\end{subcpmk}
+
+\SesiRPS{9}{P8}{$\sim$170 menit}{CPMK-P3}
+
+\section{Teori}
+
+\begin{konsep}
+Random Forest menggabungkan banyak pohon pada bootstrap sampel dan subset fitur acak; mengurangi varians dibanding satu pohon dalam. \texttt{feature\_importances\_} adalah proxy berbasis penurunan impurity---bukan kausalitas.
+\end{konsep}
+
+\section{Contoh kode}
+
+\begin{lstlisting}[caption=RandomForestClassifier pada Iris]
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+
+X, y = load_iris(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=42, stratify=y
+)
+rf = RandomForestClassifier(n_estimators=200, random_state=42)
+rf.fit(X_train, y_train)
+print("RF score", rf.score(X_test, y_test))
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Importansi fitur (urutkan)]
+import pandas as pd
+imp = pd.Series(rf.feature_importances_)
+print(imp.sort_values(ascending=False))
+\end{lstlisting}
+
+\begin{lstlisting}[caption=RandomForestRegressor (diabetes)]
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.datasets import load_diabetes
+X, y = load_diabetes(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+rfr = RandomForestRegressor(n_estimators=200, random_state=42)
+rfr.fit(X_train, y_train)
+print("R2 test", rfr.score(X_test, y_test))
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Catatan interpretasi di Markdown]
+# Importansi tinggi != fitur penyebab; bisa karena korelasi atau leakage
+\end{lstlisting}
+
+\section{Referensi}
+
+\begin{itemize}[leftmargin=*]
+  \item sklearn ensemble. \url{https://scikit-learn.org/stable/modules/ensemble.html}
+\end{itemize}
+
+\begin{asesmen}
+\textbf{Formatif:} perbandingan RF vs model minggu lalu; plot atau tabel importansi.
+\end{asesmen}
+
+\begin{rangkuman}
+Minggu 9 memperkenalkan ensemble pohon untuk akurasi dan stabilitas relatif.
+
+\textbf{Kata kunci:} RandomForest, feature importances
+\end{rangkuman}
+
+\end{document}

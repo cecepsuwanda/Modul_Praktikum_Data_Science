@@ -1,0 +1,143 @@
+\documentclass[../main.tex]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{0}}{}
+\begin{document}
+
+\chapter{Pendahuluan, Identitas Modul, dan Pemetaan OBE}
+
+\section{Identitas Mata Kuliah Praktikum}
+
+\begin{description}[style=nextline, widest=Dosen pengampu / koordinator praktikum:, itemsep=0.35em]
+  \item[Nama mata kuliah:] Praktikum Data Science
+  \item[Kode:] TIF-xxx-prak
+  \item[Bobot:] 1 SKS (100\% praktikum; P = 1; setara $\sim$170 menit terstruktur per minggu)
+  \item[Program studi:] Teknik Informatika (S1) --- Universitas Bale Bandung
+  \item[Semester / tahun akademik:] \ldots
+  \item[Dosen pengampu / koordinator praktikum:] \ldots
+  \item[Prasyarat / ko-requisit:] MK \textbf{Data Science} (teori) bersamaan atau telah lulus (atau setara)
+\end{description}
+
+\noindent\textbf{Versi modul:} 2.0 \quad \textbf{Revisi terakhir:} 2026 \quad \textbf{Artefak latihan:} folder \texttt{notebooks/minggu\_01.ipynb} s.d.\ \texttt{minggu\_16.ipynb}.
+
+\section{Deskripsi dan Ruang Lingkup}
+
+Modul ini mendukung \textbf{CPMK-P1--P4} dan \textbf{Sub-CPMK-P1--P10} untuk praktikum berbasis \textbf{OBE}. Lingkup: Python 3, \jupyter{} (atau Colab/VS Code), NumPy, Pandas, Matplotlib, Seaborn, \sklearn{}. Alur: pemahaman masalah (CRISP-DM), data, prapemrosesan, EDA, pemodelan, evaluasi, komunikasi \textit{insight}. RPS resmi: \texttt{silabus\_praktikum\_data\_science.tex}.
+
+\section{CPL Prodi yang Dibebankan}
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{CPL01:} Menganalisis persoalan \textit{computing} kompleks dan menerapkan prinsip \textit{computing} serta disiplin relevan untuk mengidentifikasi solusi, dengan wawasan transdisiplin.
+  \item \textbf{CPL03:} Merancang dan menganalisis algoritma untuk permasalahan organisasi, memilih dan menerapkannya pada bahasa pemrograman tertentu.
+\end{itemize}
+
+\section{CPMK Praktikum (kemampuan akhir MK)}
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{CPMK-P1:} Lingkungan Python/\jupyter{}, K3, CRISP-DM ringkas.
+  \item \textbf{CPMK-P2:} Muat data, prapemrosesan, EDA, visualisasi di notebook.
+  \item \textbf{CPMK-P3:} Model ML (regresi, klasifikasi, ensemble ringkas, klastering) dengan \sklearn{}.
+  \item \textbf{CPMK-P4:} Metrik, validasi silang, tuning sederhana, narasi \textit{insight}.
+\end{itemize}
+
+\section{Sub-CPMK Praktikum P1--P10 (indikator ringkas)}
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{P1} --- \jupyter{}, kernel, etika \& lisensi data
+  \item \textbf{P2} --- Muat data; inspeksi Pandas
+  \item \textbf{P3} --- Cleaning, encoding, scaling, fitur sederhana
+  \item \textbf{P4} --- EDA; Seaborn
+  \item \textbf{P5} --- Supervised vs unsupervised; \texttt{train\_test\_split}; API estimator
+  \item \textbf{P6} --- Regresi linear; error prediksi
+  \item \textbf{P7} --- Klasifikasi (logistik, K-NN, pohon)
+  \item \textbf{P8} --- Random Forest; K-Means
+  \item \textbf{P9} --- Metrik, confusion matrix, ROC-AUC opsional; CV; GridSearchCV
+  \item \textbf{P10} --- Ringkasan eksekutif; pipeline end-to-end mini
+\end{itemize}
+
+\section{\texorpdfstring{Matriks Sub-CPMK $\rightarrow$ CPMK $\rightarrow$ CPL}{Matriks Sub-CPMK ke CPMK ke CPL}}
+
+{\small
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Sub-CPMK} & \textbf{CPMK} & \textbf{CPL} \\
+\hline
+P1 & P1 & CPL01 \\
+\hline
+P2, P3, P4 & P2 & CPL01, CPL03 \\
+\hline
+P5, P6, P7, P8 & P3 & CPL03 \\
+\hline
+P9, P10 & P4 & CPL01, CPL03 \\
+\hline
+\end{tabular}
+}
+
+\section{Sinkronisasi 16 Minggu dengan RPS (Bagian 10)}
+
+{\footnotesize
+\begingroup\setlength{\tabcolsep}{3pt}%
+\begin{longtable}{|c|p{1.4cm}|p{4.8cm}|c|}
+\hline
+\textbf{Mg} & \textbf{Sub} & \textbf{Topik lab} & \textbf{Wkt} \\
+\hline
+\endfirsthead
+\hline
+\textbf{Mg} & \textbf{Sub} & \textbf{Topik lab} & \textbf{Wkt} \\
+\hline
+\endhead
+\hline
+\endfoot
+1 & P1 & Jupyter, CRISP-DM, etika data & 170' \\
+\hline
+2 & P2 & Pandas: CSV/Excel, head, info, describe & 170' \\
+\hline
+3 & P3 & Missing, duplikat, outlier & 170' \\
+\hline
+4 & P3 & Encoding, scaling, fitur & 170' \\
+\hline
+5 & P4 & EDA univariat/bivariat, Seaborn & 170' \\
+\hline
+6 & P5 & train\_test\_split, fit/predict & 170' \\
+\hline
+7 & P6 & Regresi linear, RMSE/MAE & 170' \\
+\hline
+8 & P7 & Klasifikasi: logistik, K-NN, pohon & 170' \\
+\hline
+9 & P8 & Random Forest vs baseline & 170' \\
+\hline
+10 & P8 & K-Means, elbow/silhouette & 170' \\
+\hline
+11 & P9 & Presisi, recall, F1; ROC-AUC opsional & 170' \\
+\hline
+12 & P9 & Cross-validation, GridSearchCV & 170' \\
+\hline
+13 & P10 & Narasi Markdown, ringkasan eksekutif & 170' \\
+\hline
+14 & P10 & Peer review, reproduktifitas & 170' \\
+\hline
+15 & P10 & Proyek mini end-to-end (draft) & 170' \\
+\hline
+16 & P10 & Presentasi \& penyerahan akhir & 170' \\
+\hline
+\end{longtable}%
+\endgroup
+}
+
+\section{K3, Etika Data, dan Tata Tertib Lab}
+
+Larangan makan/minum di workstation; laporkan kerusakan; patuhi lisensi dataset; tidak menyebarkan data pribadi tanpa izin; atribusi tutorial dan sumber data wajib di Markdown.
+
+\section{Petunjuk Penggunaan Modul}
+
+\begin{enumerate}[leftmargin=*]
+  \item Baca \textbf{Informasi sesi praktikum} dan \textbf{Sub-CPMK} di tiap bab.
+  \item Kerjakan \texttt{notebooks/minggu\_NN.ipynb} paralel dengan membaca bab PDF.
+  \item Kumpulkan \texttt{.ipynb} yang lulus \textit{Restart Kernel and Run All}.
+\end{enumerate}
+
+\begin{rangkuman}
+Bab 0 memuat identitas MK, CPL/CPMK/Sub-CPMK P1--P10, jadwal 16 minggu selaras RPS, K3, etika data, dan alur notebook.
+
+\textbf{Kata kunci:} OBE, CRISP-DM, \jupyter{}, TIF-xxx-prak
+\end{rangkuman}
+
+\end{document}

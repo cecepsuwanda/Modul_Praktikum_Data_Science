@@ -1,0 +1,541 @@
+\documentclass[../main.tex]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{6}}{}
+\begin{document}
+
+\chapter{Struktur Data dan Pemrosesan String Lanjut}
+
+\begin{subcpmk}
+  \item Sub-CPMK 4.1: Mengoperasikan \texttt{list}, \texttt{tuple}, \texttt{dict}, dan \texttt{set} secara lanjut (mutasi, metode, komposisi)
+  \item Sub-CPMK 4.2: Memanipulasi string dengan \textit{slicing}, metode lanjut, dan pemformatan keluaran
+\end{subcpmk}
+
+\SesiRPS{8}{4.1 dan 4.2}{$\sim$170 menit}{CPMK-4}
+
+\section{Sarana dan prasarana}
+
+Python 3.10+, editor, terminal.
+
+\section{Prosedur kerja}
+
+\begin{enumerate}[leftmargin=*]
+  \item Eksplorasi metode \texttt{list}, \texttt{dict}, \texttt{set}, \texttt{tuple} dari dokumentasi ringkas modul.
+  \item Latih teknik iterasi lanjut dan manipulasi string.
+  \item Selesaikan aktivitas dengan data terstruktur sederhana.
+\end{enumerate}
+
+\section{List: Lebih Dalam}
+
+\texttt{list} adalah struktur data \textit{mutable} paling sering digunakan. Indeks dimulai dari 0; irisan \texttt{s[a:b]} eksklusif di ujung kanan.
+
+\begin{lstlisting}[caption=Metode list lengkap (Tutorial Python ss5.1)]
+angka = [3, 1, 4, 1, 5, 9, 2, 6]
+angka.append(7)          # tambah di akhir
+angka.insert(2, 99)      # sisipkan di indeks 2
+angka.remove(1)          # hapus kemunculan pertama nilai 1
+dikeluarkan = angka.pop()    # hapus & kembalikan elemen terakhir
+dikeluarkan2 = angka.pop(0)  # hapus & kembalikan di indeks 0
+angka.sort()             # urut ascending (in-place)
+angka.reverse()          # balik urutan (in-place)
+salinan = angka.copy()   # buat salinan dangkal
+print(angka.count(1))    # hitung kemunculan nilai 1
+print(angka.index(5))    # indeks pertama nilai 5
+\end{lstlisting}
+
+\subsection{List sebagai Stack (LIFO)}
+
+Stack menggunakan \texttt{append()} untuk push dan \texttt{pop()} untuk pop (Tutorial Python §5.1.1):
+
+\begin{lstlisting}[caption=List sebagai stack]
+stack = []
+stack.append("halaman_1")
+stack.append("halaman_2")
+stack.append("halaman_3")
+print(stack.pop())   # "halaman_3" -- LIFO
+print(stack.pop())   # "halaman_2"
+\end{lstlisting}
+
+\subsection{List sebagai Queue (FIFO)}
+
+Untuk queue efisien, gunakan \texttt{collections.deque} karena \texttt{list.pop(0)} lambat untuk list besar (Tutorial Python §5.1.2):
+
+\begin{lstlisting}[caption=Queue dengan collections.deque]
+from collections import deque
+antrian = deque(["pelanggan_1", "pelanggan_2", "pelanggan_3"])
+antrian.append("pelanggan_4")     # masuk di belakang
+print(antrian.popleft())          # keluar dari depan: "pelanggan_1"
+print(antrian.popleft())          # "pelanggan_2"
+\end{lstlisting}
+
+\subsection{List Comprehension}
+
+List comprehension menyediakan cara ringkas untuk membuat list (Tutorial Python §5.1.3):
+
+\begin{lstlisting}[caption=List comprehension]
+# Cara lama: loop biasa
+kuadrat = []
+for i in range(10):
+    kuadrat.append(i ** 2)
+
+# List comprehension -- lebih ringkas
+kuadrat = [i ** 2 for i in range(10)]
+print(kuadrat)   # [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+
+# Dengan kondisi filter
+genap_kuadrat = [i ** 2 for i in range(10) if i % 2 == 0]
+print(genap_kuadrat)   # [0, 4, 16, 36, 64]
+
+# Manipulasi string
+kata = ["  apel  ", "  JERUK  ", " mangga "]
+bersih = [k.strip().lower() for k in kata]
+print(bersih)   # ['apel', 'jeruk', 'mangga']
+\end{lstlisting}
+
+\section{Pernyataan \texttt{del}}
+
+\texttt{del} menghapus elemen dari list berdasarkan indeks atau slice, atau menghapus variabel (Tutorial Python §5.2):
+
+\begin{lstlisting}[caption=Pernyataan del]
+a = [1, 2, 3, 4, 5, 6]
+del a[0]       # hapus elemen pertama -> [2, 3, 4, 5, 6]
+del a[2:4]     # hapus slice -> [2, 3, 6]
+print(a)
+
+# Menghapus variabel dari namespace
+x = 100
+del x
+# print(x)  # akan menghasilkan NameError
+\end{lstlisting}
+
+\section{Tuple dan Sequences}
+
+\texttt{tuple} tidak dapat diubah (\textit{immutable}). Berguna untuk data yang tidak boleh dimodifikasi (Tutorial Python §5.3):
+
+\begin{lstlisting}[caption=Tuple: packing dan unpacking]
+# Tuple packing
+titik = 3, 7      # atau titik = (3, 7)
+
+# Tuple unpacking
+x, y = titik
+print(f"x={x}, y={y}")
+
+# Multiple assignment
+a, b, c = 1, 2, 3
+
+# Swap nilai tanpa variabel sementara
+a, b = b, a
+print(a, b)   # 2 1
+
+# Tuple satu elemen memerlukan koma
+satu = (42,)
+print(type(satu))   # <class 'tuple'>
+\end{lstlisting}
+
+\section{Set}
+
+Koleksi unik tanpa urutan tetap; berguna untuk menghapus duplikasi atau uji keanggotaan cepat (Tutorial Python §5.4):
+
+\begin{lstlisting}[caption=Operasi set]
+A = {1, 2, 3, 4, 5}
+B = {4, 5, 6, 7, 8}
+
+print(A | B)   # union:        {1,2,3,4,5,6,7,8}
+print(A & B)   # intersection: {4, 5}
+print(A - B)   # difference:   {1, 2, 3}
+print(A ^ B)   # symmetric diff: {1,2,3,6,7,8}
+
+# Cek keanggotaan O(1)
+print(3 in A)     # True
+print(9 not in A) # True
+
+# Hapus duplikasi dari list
+data = [1, 2, 2, 3, 3, 3, 4]
+unik = list(set(data))
+print(sorted(unik))   # [1, 2, 3, 4]
+\end{lstlisting}
+
+\section{Dictionary}
+
+Memetakan kunci ke nilai; kunci harus \textit{hashable} (Tutorial Python §5.5):
+
+\begin{lstlisting}[caption=Dictionary: operasi lanjut]
+# Membuat dict
+mahasiswa = {"nim": "12345", "nama": "Aulia", "ipk": 3.5}
+
+# Akses aman dengan get (tidak memunculkan Error)
+print(mahasiswa.get("alamat", "Tidak ada"))  # Tidak ada
+
+# Iterasi
+for kunci, nilai in mahasiswa.items():
+    print(f"  {kunci}: {nilai}")
+
+# Dict comprehension
+kuadrat_dict = {x: x**2 for x in range(6)}
+print(kuadrat_dict)  # {0:0, 1:1, 2:4, 3:9, 4:16, 5:25}
+
+# Menggabungkan dua dict (Python 3.9+)
+info1 = {"a": 1, "b": 2}
+info2 = {"c": 3, "d": 4}
+gabungan = info1 | info2
+\end{lstlisting}
+
+\section{Teknik Iterasi Lanjut}
+
+Python menyediakan fungsi bawaan yang membuat iterasi lebih ekspresif (Tutorial Python §5.6):
+
+\begin{lstlisting}[caption=enumerate zip dan items]
+# enumerate: indeks + nilai sekaligus
+buah = ["apel", "jeruk", "mangga"]
+for i, b in enumerate(buah, start=1):
+    print(f"{i}. {b}")
+
+# zip: iterasi dua list bersamaan
+nama = ["Andi", "Budi", "Citra"]
+nilai = [85, 72, 91]
+for n, v in zip(nama, nilai):
+    print(f"{n}: {v}")
+
+# sorted: mengembalikan list terurut
+angka = [3, 1, 4, 1, 5, 9, 2]
+print(sorted(angka))              # ascending
+print(sorted(angka, reverse=True))# descending
+
+# reversed: iterasi terbalik
+for x in reversed(range(1, 6)):
+    print(x, end=" ")   # 5 4 3 2 1
+\end{lstlisting}
+
+\section{String: Slicing dan Metode Lanjut}
+
+String adalah sequence immutable. \texttt{f-string} memudahkan interpolasi dengan format:
+
+\begin{lstlisting}[caption=f-string dengan format specification]
+pi = 3.14159
+nama = "Bayu"
+print(f"Halo {nama}!")
+print(f"Pi = {pi:.2f}")         # 2 desimal: 3.14
+print(f"Pi = {pi:8.3f}")        # lebar 8, 3 desimal
+print(f"Biner 42 = {42:b}")     # representasi biner
+print(f"{'kiri':<10}|{'kanan':>10}")  # perataan
+\end{lstlisting}
+
+\section{Studi Kasus dan Contoh Kode}
+
+Berikut adalah contoh-contoh program Python yang mengimplementasikan konsep-konsep pada modul ini.
+
+\subsection{Kode: \texttt{matriks\_3x3.py}}
+\begin{lstlisting}[language=Python,caption={\texttt{matriks\_3x3.py}}]
+"""Matriks 3x3: isi dan cetak."""
+
+# mat[i][j] untuk i,j in 1..3 - baris/kolom 0 tidak dipakai.
+
+
+def isi(matrik: list[list[int]]) -> None:
+    for i in range(1, 4):
+        for j in range(1, 4):
+            matrik[i][j] = int(input(f"A[{i},{j}] = "))
+
+
+def cetak(matrik: list[list[int]]) -> None:
+    for i in range(1, 4):
+        for j in range(1, 4):
+            print(f"{matrik[i][j]:3d}", end="")
+        print()
+
+
+def main() -> None:
+    matrik = [[0] * 4 for _ in range(4)]
+    print("Mengisi elemen matrik A")
+    isi(matrik)
+    print("Mencetak elemen matrik A")
+    cetak(matrik)
+
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+\subsection{Kode: \texttt{array\_isi\_cetak.py}}
+\begin{lstlisting}[language=Python,caption={\texttt{array\_isi\_cetak.py}}]
+"""Array 1..3: isi dengan while, cetak dengan for."""
+
+# Indeks 1..3 dipetakan ke list panjang 4 (slot 0 tidak dipakai).
+
+
+def main() -> None:
+    nilai = [0] * 4
+    print("Mengisi elemen array")
+    i = 1
+    while i <= 3:
+        nilai[i] = int(input(f"Nilai ke {i} = "))
+        i += 1
+    print("Mencetak elemen array")
+    for i in range(1, 4):
+        print(f"Nilai ke {i} = ", nilai[i])
+
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+\subsection{Kode: \texttt{array\_prosedur.py}}
+\begin{lstlisting}[language=Python,caption={\texttt{array\_prosedur.py}}]
+"""Prosedur isi dan cetak array [1..3]."""
+
+
+def isi(nilai: list[int]) -> None:
+    i = 1
+    while i <= 3:
+        nilai[i] = int(input(f"Nilai ke {i} = "))
+        i += 1
+
+
+def cetak(nilai: list[int]) -> None:
+    for i in range(1, 4):
+        print(f"Nilai ke {i} = ", nilai[i])
+
+
+def main() -> None:
+    nilai = [0] * 4
+    print("Mengisi elemen array")
+    isi(nilai)
+    print("Mencetak elemen array")
+    cetak(nilai)
+
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+\subsection{Kode: \texttt{daf\_pegawai\_array.py}}
+\begin{lstlisting}[language=Python,caption={\texttt{daf\_pegawai\_array.py}}]
+"""Daftar 5 pegawai: input lalu cetak satu per satu."""
+
+from dataclasses import dataclass
+
+
+@dataclass
+class Pegawai:
+    nama: str = ""
+    gol: str = " "
+    jml_anak: int = 0
+
+
+def input_pegawai(pegawai: Pegawai) -> None:
+    pegawai.nama = input("Nama        : ")
+    pegawai.gol = input("Gol (A - D) : ").strip().upper()[:1]
+    pegawai.jml_anak = int(input("Jumlah Anak : "))
+
+
+def upah_kotor(gol: str) -> float:
+    g = gol.upper()
+    if g == "A":
+        return 1_000_000.0
+    if g == "B":
+        return 800_000.0
+    if g == "C":
+        return 600_000.0
+    if g == "D":
+        return 400_000.0
+    return 0.0
+
+
+def persen_tunjangan(jml_anak: int) -> float:
+    if jml_anak > 2:
+        return 0.3
+    return 0.2
+
+
+def cetak(pegawai: Pegawai) -> None:
+    print("Nama        :", pegawai.nama)
+    print("Gol (A - D) :", pegawai.gol)
+    print("Jumlah Anak :", pegawai.jml_anak)
+    uk = upah_kotor(pegawai.gol)
+    upah_bersih = uk - (uk * persen_tunjangan(pegawai.jml_anak))
+    print(f"Upah        : {upah_bersih:5.2f}")
+
+
+def main() -> None:
+    daf_pegawai = [Pegawai() for _ in range(5)]
+    for i in range(5):
+        print("Data ke ", i + 1, ":", sep="")
+        input_pegawai(daf_pegawai[i])
+    for i in range(5):
+        print("Data ke ", i + 1, ":", sep="")
+        cetak(daf_pegawai[i])
+        input("Tekan Enter untuk melanjutkan...")
+
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+\subsection{Kode: \texttt{record\_upah.py}}
+\begin{lstlisting}[language=Python,caption={\texttt{record\_upah.py}}]
+"""Record pegawai: upah kotor menurut gol dan tunjangan anak."""
+
+from dataclasses import dataclass
+
+
+@dataclass
+class Pegawai:
+    nama: str = ""
+    gol: str = " "
+    jml_anak: int = 0
+
+
+def main() -> None:
+    pegawai = Pegawai()
+    pegawai.nama = input("Nama        : ")
+    pegawai.gol = input("Gol (A - D) : ").strip().upper()[:1]
+    pegawai.jml_anak = int(input("Jumlah Anak : "))
+
+    if pegawai.gol == "A":
+        upah_kotor = 1_000_000.0
+    elif pegawai.gol == "B":
+        upah_kotor = 800_000.0
+    elif pegawai.gol == "C":
+        upah_kotor = 600_000.0
+    elif pegawai.gol == "D":
+        upah_kotor = 400_000.0
+    else:
+        upah_kotor = 0.0
+
+    if pegawai.jml_anak > 2:
+        persen_tunjangan = 0.3
+    else:
+        persen_tunjangan = 0.2
+
+        upah_bersih = upah_kotor - (upah_kotor * persen_tunjangan)
+    print("Upah        :", upah_bersih)
+
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+\subsection{Kode: \texttt{record\_prosedur.py}}
+\begin{lstlisting}[language=Python,caption={\texttt{record\_prosedur.py}}]
+"""Input dan cetak pegawai dengan fungsi upah (setara record_prosedur.pas)."""
+
+from dataclasses import dataclass
+
+
+@dataclass
+class Pegawai:
+    nama: str = ""
+    gol: str = " "
+    jml_anak: int = 0
+
+
+def input_pegawai(pegawai: Pegawai) -> None:
+    pegawai.nama = input("Nama        : ")
+    pegawai.gol = input("Gol (A - D) : ").strip().upper()[:1]
+    pegawai.jml_anak = int(input("Jumlah Anak : "))
+
+
+def upah_kotor(gol: str) -> float:
+    g = gol.upper()
+    if g == "A":
+        return 1_000_000.0
+    if g == "B":
+        return 800_000.0
+    if g == "C":
+        return 600_000.0
+    if g == "D":
+        return 400_000.0
+    return 0.0
+
+
+def persen_tunjangan(jml_anak: int) -> float:
+    # Pascal memakai nama variabel campur huruf pada badan fungsi
+    if jml_anak > 2:
+        return 0.3
+    return 0.2
+
+
+def cetak(pegawai: Pegawai) -> None:
+    print("Nama        :", pegawai.nama)
+    print("Gol (A - D) :", pegawai.gol)
+    print("Jumlah Anak :", pegawai.jml_anak)
+    uk = upah_kotor(pegawai.gol)
+    upah_bersih = uk - (uk * persen_tunjangan(pegawai.jml_anak))
+    print(f"Upah        : {upah_bersih:5.2f}")
+
+
+def main() -> None:
+    pegawai = Pegawai()
+    input_pegawai(pegawai)
+    cetak(pegawai)
+
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+\section{Referensi sesi}
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{[15]} Google, \textit{Python Class}.
+  \item \textbf{[8, 9]} \textit{The Python Tutorial}, struktur data.
+\end{itemize}
+
+\begin{aktivitas}
+  \item Diberikan list nilai, hitung rata-rata menggunakan list comprehension untuk menyaring nilai di atas rata-rata.
+  \item Hitung frekuensi kata sederhana pada string menggunakan \texttt{dict} dan \texttt{split()}.
+  \item Konversi list yang berisi duplikasi menjadi \texttt{set}, lalu kembali ke list terurut.
+  \item Gunakan \texttt{enumerate} untuk mencetak menu bernomor dari list pilihan.
+  \item Buat dict comprehension yang memetakan nama buah ke panjang namanya.
+  \item Implementasikan stack sederhana dengan list untuk mensimulasikan tombol ``undo'' editor teks.
+\end{aktivitas}
+
+\begin{latihan}
+  \item Jelaskan perbedaan \texttt{list} dan \texttt{tuple}. Kapan \texttt{tuple} lebih tepat?
+  \item Apa yang terjadi jika kunci dict tidak ada saat diakses dengan \texttt{[]}? Bagaimana cara aman mengaksesnya?
+  \item Tulis list comprehension yang menghasilkan angka ganjil dari 1 sampai 20.
+  \item Apa perbedaan antara \texttt{list.sort()} dan \texttt{sorted(list)}?
+  \item Refleksi: kapan \texttt{set} lebih tepat daripada \texttt{list}?
+\end{latihan}
+
+\begin{asesmen}
+\textbf{Soal singkat}
+
+\begin{enumerate}
+  \item List comprehension \texttt{[x*2 for x in range(5) if x\%2==0]} menghasilkan:
+  \begin{enumerate}
+    \item \texttt{[0, 4, 8]}
+    \item \texttt{[0, 2, 4, 6, 8]}
+    \item \texttt{[2, 4, 6, 8, 10]}
+    \item \texttt{[0, 1, 4]}
+  \end{enumerate}
+  \item Ekspresi manakah yang menghasilkan \texttt{[2, 4]}?
+  \begin{enumerate}
+    \item \texttt{[1,2,3,4][1:3]}
+    \item \texttt{[1,2,3,4][1:4]}
+    \item \texttt{[1,2,3,4][0:2]}
+    \item \texttt{[1,2,3,4][2]}
+  \end{enumerate}
+\end{enumerate}
+
+\textbf{Tugas}: program yang membaca beberapa baris (NIM,nama,nilai), menyimpan ke \texttt{dict} dengan kunci NIM, dan mencetak rekap termasuk rata-rata nilai kelas. Gunakan list comprehension untuk mendapatkan daftar mahasiswa dengan nilai di atas rata-rata.
+\end{asesmen}
+
+\begin{checklist}
+  \item Saya dapat membuat dan mengubah \texttt{list} dengan metode seperti \texttt{append}, \texttt{pop}, \texttt{sort}
+  \item Saya dapat menggunakan list comprehension
+  \item Saya memahami \texttt{del} untuk menghapus elemen dan variabel
+  \item Saya dapat mensimulasikan stack dan queue dengan \texttt{list} dan \texttt{deque}
+  \item Saya dapat memakai \texttt{dict} untuk struktur data asosiatif
+  \item Saya dapat menggunakan \texttt{set} untuk operasi himpunan dan menghapus duplikasi
+  \item Saya dapat memakai \texttt{enumerate} dan \texttt{zip} dalam iterasi
+  \item Saya dapat memformat string dengan \texttt{f-string} dan format specification
+\end{checklist}
+
+\begin{rangkuman}
+Struktur data memilih representasi yang tepat untuk masalah: urutan mutable (\texttt{list}), urutan tidak berubah (\texttt{tuple}), pemetaan kunci-nilai (\texttt{dict}), koleksi unik (\texttt{set}). List comprehension dan fungsi \texttt{enumerate}/\texttt{zip} membuat iterasi lebih ringkas dan ekspresif.
+
+\textbf{Referensi:} {\small Python Tutorial §5 \url{https://docs.python.org/3/tutorial/datastructures.html}}
+
+\textbf{Kata kunci:} \code{list}, \code{tuple}, \code{dict}, \code{set}, \code{del}, \code{enumerate}, \code{zip}, \code{sorted}, \code{f-string}, list comprehension
+\end{rangkuman}
+
+\end{document}

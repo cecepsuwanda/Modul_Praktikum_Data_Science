@@ -1,0 +1,165 @@
+\documentclass[../main.tex]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{1}}{}
+\begin{document}
+
+\chapter{Lingkungan Python 3, Editor, dan Identifier}
+
+\begin{subcpmk}
+  \item Sub-CPMK 1.1: Menginstal interpreter Python 3 dan menjalankan skrip dari editor atau lingkungan Jupyter sesuai petunjuk praktikum
+\end{subcpmk}
+
+\SesiRPS{2}{1.1}{$\sim$170 menit}{CPMK-1}
+
+\section{Sarana dan prasarana}
+
+Komputer laboratorium dengan Python 3.10+ (atau versi yang ditetapkan prodi), terminal, editor/IDE, Jupyter Notebook (opsional).
+
+\section{Prosedur kerja}
+
+\begin{enumerate}[leftmargin=*]
+  \item Verifikasi versi interpreter (\texttt{python --version}).
+  \item Ikuti contoh REPL, skrip \texttt{.py}, dan Jupyter pada modul ini.
+  \item Kerjakan aktivitas dan unggah artefak sesuai konvensi Bab 0 / Lampiran F.
+\end{enumerate}
+
+\section{Pengenalan Python 3}
+
+Python adalah bahasa tingkat tinggi yang banyak dipakai untuk pembelajaran, sains data, otomasi, dan pengembangan web. Versi yang digunakan pada modul ini adalah \textbf{Python 3}. Pastikan perintah \texttt{python --version} atau \texttt{python3 --version} menampilkan 3.x.
+
+\section{Menjalankan Program}
+
+\subsection{REPL (Read--Eval--Print Loop)}
+
+Buka terminal, jalankan \texttt{python} atau \texttt{python3}, lalu ketik ekspresi:
+
+\begin{lstlisting}[caption=Contoh sesi REPL]
+>>> 2 + 3
+5
+>>> print("Halo laboratorium")
+Halo laboratorium
+\end{lstlisting}
+
+\subsection{Skrip Berkas \texttt{.py}}
+
+Simpan kode ke berkas \texttt{halo.py}, lalu jalankan dari folder yang sama:
+
+\begin{lstlisting}[caption=Skrip sederhana]
+# halo.py
+print("Halo dari berkas")
+\end{lstlisting}
+
+Perintah: \texttt{python halo.py} (atau \texttt{python3 halo.py}).
+
+\subsection{Jupyter Notebook}
+
+Jupyter menyediakan sel kode dan dokumentasi.\newline Setelah instalasi (\texttt{pip install notebook}),\newline jalankan \texttt{jupyter notebook} dan buat buku kerja baru. Sel kode dieksekusi dengan Shift+Enter.
+
+\section{Editor dan Konvensi}
+
+Gunakan editor yang mendukung indentasi konsisten (VS Code, PyCharm, Neovim, dll.). Python memakai \textbf{indentasi} untuk blok, bukan kurung kurawal.
+
+\section{Identifier dan Gaya Penamaan}
+
+Nama variabel/fungsi (\textit{identifier}) memakai huruf, angka, dan garis bawah; tidak boleh diawali angka. Konvensi umum: \texttt{snake\_case} untuk fungsi dan variabel, hindari kata cadangan seperti \keyword{if}, \keyword{for}, \keyword{class}.
+
+\begin{contoh}
+Nama yang baik: \texttt{nilai\_tugas}, \texttt{hitung\_rata}. Hindari: \texttt{1nilai}, \texttt{if} (konflik kata kunci).
+\end{contoh}
+
+\section{Studi Kasus dan Contoh Kode}
+
+Berikut adalah contoh-contoh program Python yang mengimplementasikan konsep-konsep pada modul ini.
+
+\subsection{Kode: \texttt{hello.py}}
+\begin{lstlisting}[language=Python,caption={\texttt{hello.py}}]
+"""Menampilkan Hello dunia (cuplikan minimal)."""
+
+
+def main() -> None:
+    print("Hello, dunia")
+    input("Tekan Enter untuk melanjutkan...")
+
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+\subsection{Kode: \texttt{hello2.py}}
+\begin{lstlisting}[language=Python,caption={\texttt{hello2.py}}]
+"""Hello dengan variabel string dan integer (setara hello2.pas)."""
+
+
+def main() -> None:
+    # Nama Program : hello2.pas - cuplikan dari modul Pascal
+    shello = "Hello, dunia"
+    i = 1234
+    print(shello)
+    print("Nilai i = ", i)
+    input("Tekan Enter untuk melanjutkan...")
+
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+\section{Referensi sesi}
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{[8, 9]} \textit{The Python Tutorial} (Python 3, EN/ID).
+  \item \textbf{[10]} Python Wiki, \textit{BeginnersGuide}.
+  \item \textbf{[11]} Severance, C. \textit{Python for Everybody (PY4E)}.
+\end{itemize}
+
+\begin{aktivitas}
+  \item Verifikasi versi Python di stasiun lab dan catat pada lembar observasi.
+  \item Buat berkas \texttt{perkenalan.py} yang mencetak nama NIM dan kelas Anda.
+  \item Buka Jupyter, buat satu sel yang mencetak hasil \texttt{7 * 6}, dan simpan buku kerja sebagai \texttt{latihan01.ipynb}.
+  \item Diskusi singkat: apa perbedaan menjalankan kode di REPL versus berkas?
+\end{aktivitas}
+
+\begin{latihan}
+  \item Jelaskan dua cara menjalankan program Python yang telah Anda praktikkan.
+  \item Sebutkan aturan penamaan identifier yang valid dan beri masing-masing satu contoh salah.
+  \item Apa fungsi komentar dengan tanda \texttt{\#}? Tulis contoh satu baris komentar pada kode.
+  \item Refleksi: bagian mana dari lingkungan lab yang paling membingungkan pada pertemuan ini?
+\end{latihan}
+
+\begin{asesmen}
+\textbf{Instrumen singkat (formatif)}
+
+\begin{enumerate}
+  \item Perintah mana yang menampilkan versi Python di terminal?
+  \begin{enumerate}
+    \item \texttt{python --help}
+    \item \texttt{python --version}
+    \item \texttt{pip install python}
+    \item \texttt{jupyter --run}
+  \end{enumerate}
+  \item Manakah identifier yang \textbf{tidak} valid?
+  \begin{enumerate}
+    \item \texttt{data2024}
+    \item \texttt{\_nilai}
+    \item \texttt{for\_loop}
+    \item \texttt{2nilai}
+  \end{enumerate}
+\end{enumerate}
+
+\textbf{Rubrik}: jawaban benar + bukti pengumpulan berkas \texttt{.py} atau \texttt{.ipynb} sesuai instruksi dosen.
+\end{asesmen}
+
+\begin{checklist}
+  \item Saya dapat menjalankan Python di terminal atau Jupyter
+  \item Saya dapat membuat dan menjalankan berkas \texttt{.py}
+  \item Saya memahami aturan identifier dasar
+  \item Saya menyimpan pekerjaan sesuai format penamaan yang diminta
+\end{checklist}
+
+\begin{rangkuman}
+Bab ini membahas instalasi/verifikasi Python 3, menjalankan kode lewat REPL, skrip, dan Jupyter, serta konvensi identifier.
+
+\textbf{Poin Kunci:} Python 3; jalankan skrip dengan \texttt{python nama\_berkas.py}; indentasi penting; nama variabel mengikuti aturan identifier.
+
+\textbf{Kata kunci:} \code{REPL}, \code{Jupyter}, \code{.py}, \code{identifier}
+\end{rangkuman}
+
+\end{document}

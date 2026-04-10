@@ -1,0 +1,74 @@
+\documentclass[../main.tex]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{6}}{}
+\begin{document}
+
+\chapter{Supervised vs Unsupervised; \texttt{train\_test\_split}; Alur \texttt{fit}/\texttt{predict}}
+
+\begin{subcpmk}
+  \item \textbf{Sub-CPMK-P5:} Memecah data latih/uji; melatih estimator \sklearn{} dengan pola API konsisten (RPS Mg.\ 6).
+\end{subcpmk}
+
+\SesiRPS{6}{P5}{$\sim$170 menit}{CPMK-P3}
+
+\section{Kemampuan akhir sesi}
+
+Menjelaskan beda supervised/unsupervised; menggunakan \texttt{train\_test\_split} dengan \texttt{random\_state}; memanggil \texttt{fit}, \texttt{predict}, \texttt{score} pada data uji; mengenali gejala overfitting konsep.
+
+\section{Teori}
+
+\begin{konsep}
+Estimator \sklearn{} memiliki antarmuka seragam: \texttt{fit(X, y)} untuk supervised dengan label; \texttt{predict} atau \texttt{predict\_proba}; \texttt{transform} untuk prapemrosesan. Data uji tidak boleh dipakai untuk \texttt{fit} estimator atau scaler.
+\end{konsep}
+
+\section{Contoh kode}
+
+\begin{lstlisting}[caption=Split dan baseline DummyClassifier]
+from sklearn.model_selection import train_test_split
+from sklearn.dummy import DummyClassifier
+from sklearn.datasets import load_iris
+
+X, y = load_iris(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+base = DummyClassifier(strategy="most_frequent")
+base.fit(X_train, y_train)
+print("akurasi baseline", base.score(X_test, y_test))
+\end{lstlisting}
+
+\begin{lstlisting}[caption=LogisticRegression sederhana]
+from sklearn.linear_model import LogisticRegression
+clf = LogisticRegression(max_iter=200)
+clf.fit(X_train, y_train)
+print("akurasi model", clf.score(X_test, y_test))
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Prediksi dan bentuk array]
+import numpy as np
+pred = clf.predict(X_test)
+print(pred[:5], y_test[:5])
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Catatan Markdown di notebook]
+# Setelah split, semua fit/scaling hanya pada X_train
+# X_test hanya untuk evaluasi akhir
+\end{lstlisting}
+
+\section{Referensi}
+
+\begin{itemize}[leftmargin=*]
+  \item sklearn basic tutorial. \url{https://scikit-learn.org/stable/tutorial/basic/tutorial.html}
+  \item Kaggle Intro ML. \url{https://www.kaggle.com/learn/intro-to-machine-learning}
+\end{itemize}
+
+\begin{asesmen}
+\textbf{Kuis singkat:} definisi overfitting satu kalimat + baris split terlihat di notebook.
+\end{asesmen}
+
+\begin{rangkuman}
+Minggu 6 menstandarkan alur latih/uji dan API \sklearn{}.
+
+\textbf{Kata kunci:} \texttt{train\_test\_split}, \texttt{fit}, \texttt{predict}
+\end{rangkuman}
+
+\end{document}

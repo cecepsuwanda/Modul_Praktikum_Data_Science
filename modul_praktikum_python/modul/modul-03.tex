@@ -1,0 +1,444 @@
+﻿\documentclass[../main.tex]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{3}}{}
+\begin{document}
+
+\chapter{Struktur Kontrol Percabangan}
+
+\begin{subcpmk}
+  \item Sub-CPMK 2.1: Menyusun program dengan \texttt{if}/\texttt{elif}/\texttt{else} untuk percabangan
+\end{subcpmk}
+
+\SesiRPS{4}{2.1}{$\sim$170 menit}{CPMK-2}
+
+\section{Sarana dan prasarana}
+
+Python 3.10+, editor, terminal.
+
+\section{Prosedur kerja}
+
+\begin{enumerate}[leftmargin=*]
+  \item Pelajari pola percabangan dan \texttt{match} pengenalan.
+  \item Kerjakan soal bertahap dari sederhana ke bersarang.
+  \item Verifikasi dengan beberapa kasus uji manual.
+\end{enumerate}
+
+\section{Sintaks Percabangan \texttt{if}/\texttt{elif}/\texttt{else}}
+
+Struktur dasar percabangan di Python:
+
+\begin{lstlisting}[caption=if / elif / else (Tutorial Python ss4.1)]
+nilai = int(input("Nilai: "))
+if nilai >= 80:
+    print("A")
+elif nilai >= 70:
+    print("B")
+elif nilai >= 60:
+    print("C")
+else:
+    print("E")
+\end{lstlisting}
+
+Indentasi menandai blok yang termasuk dalam cabang \keyword{if}. Tidak ada tanda kurung kurawal seperti bahasa lain --- indentasi \textbf{adalah} struktur program.
+
+\section{Kondisi Bertingkat dan Bersarang}
+
+Percabangan dapat bersarang untuk logika yang lebih kompleks. Hindari terlalu dalam tanpa komentar; pertimbangkan memecah ke fungsi pada modul berikutnya.
+
+\begin{lstlisting}[caption=Contoh percabangan bersarang]
+x = int(input("x: "))
+if x >= 0:
+    if x == 0:
+        print("nol")
+    else:
+        print("positif")
+else:
+    print("negatif")
+\end{lstlisting}
+
+\section{Ekspresi Kondisional (Ternary)}
+
+Python mendukung bentuk singkat \texttt{a if kondisi else b} yang menghasilkan nilai berdasarkan kondisi:
+
+\begin{lstlisting}[caption=Ekspresi ternary]
+x = int(input("x: "))
+label = "genap" if x % 2 == 0 else "ganjil"
+print(x, "adalah", label)
+\end{lstlisting}
+
+\begin{catatan}
+Prioritas logika harus jelas: gunakan tanda kurung pada kondisi kompleks agar mudah dibaca.
+\end{catatan}
+
+\section{Pernyataan \texttt{pass}}
+
+Pernyataan \keyword{pass} tidak melakukan apa-apa. Berguna sebagai \textit{placeholder} ketika sintaks mensyaratkan sebuah pernyataan tetapi program belum memerlukan aksi apapun. Ini sering digunakan selama pembuatan kode (prototyping).
+
+\begin{lstlisting}[caption=Penggunaan pass sebagai placeholder (Tutorial Python ss4.6)]
+def fungsi_belum_jadi():
+    pass   # akan diimplementasikan nanti
+
+# Dalam blok if yang belum diisi:
+pilihan = input("Pilih (a/b): ")
+if pilihan == "a":
+    print("Anda memilih a")
+elif pilihan == "b":
+    pass   # TODO: implementasikan opsi b
+else:
+    print("Pilihan tidak valid")
+\end{lstlisting}
+
+\section{Pernyataan \texttt{match} (Pattern Matching)}
+
+Sejak Python 3.10, tersedia pernyataan \keyword{match} sebagai alternatif dari rantai \texttt{if}/\texttt{elif} yang panjang. \texttt{match} mencocokkan nilai dengan sejumlah \textit{pattern} (pola) dan membuat kode lebih mudah dibaca.
+
+\begin{lstlisting}[caption=Pernyataan match dasar (Tutorial Python ss4.7)]
+perintah = input("Perintah (berhenti/mulai/jeda): ")
+match perintah:
+    case "berhenti":
+        print("Program dihentikan.")
+    case "mulai":
+        print("Program dimulai.")
+    case "jeda":
+        print("Program dijeda.")
+    case _:              # wildcard, cocok dengan apapun
+        print(f"Perintah '{perintah}' tidak dikenal.")
+\end{lstlisting}
+
+\subsection{match dengan Beberapa Pola dalam Satu Case}
+
+Beberapa pola dapat digabung menggunakan \texttt{|} (OR):
+
+\begin{lstlisting}[caption=Gabungan pola dengan OR]
+kode_status = 404
+match kode_status:
+    case 200 | 201 | 204:
+        print("Sukses")
+    case 400:
+        print("Permintaan tidak valid")
+    case 404:
+        print("Tidak ditemukan")
+    case 500 | 503:
+        print("Kesalahan server")
+    case _:
+        print("Kode tidak dikenal")
+\end{lstlisting}
+
+\begin{konsep}
+\texttt{match} lebih ekspresif daripada rantai \texttt{if/elif} saat mencocokkan satu variabel dengan banyak nilai tetap. Namun \texttt{if/elif} tetap diperlukan untuk kondisi dengan ekspresi boolean yang lebih kompleks (misalnya rentang nilai).
+\end{konsep}
+
+\section{Studi Kasus dan Contoh Kode}
+
+Berikut adalah contoh-contoh program Python yang mengimplementasikan konsep-konsep pada modul ini.
+
+\subsection{Kode: \texttt{akar\_persamaan\_kuadrat.py}}
+\begin{lstlisting}[language=Python,caption={\texttt{akar\_persamaan\_kuadrat.py}}]
+"""Mencari akar persamaan kuadrat (rumus benar; kode Pascal sumber berisi typo)."""
+
+import math
+
+
+def main() -> None:
+    print("    Mencari Akar Persamaan Kuadrat     ")
+    print("      Persamaan Umum : ax^2+bx+c       ")
+    print()
+    a = float(input("a = "))
+    b = float(input("b = "))
+    c = float(input("c = "))
+    print()
+    d = (b * b) - (4 * a * c)
+    print("Nilai Diskriminan :", d)
+    print("Jenis Akar : ", end="")
+    if d == 0:
+        x1 = (-b) / (2 * a)
+        print("Kembar")
+        print(f"x1=x2={x1:10.2f}")
+    elif d > 0:
+        # Pascal salah menulis kedua akar dengan +sqrt(D); di sini dipakai + dan -
+        x1 = (-b + math.sqrt(d)) / (2 * a)
+        x2 = (-b - math.sqrt(d)) / (2 * a)
+        print("Berlainan")
+        print(f"x1 = {x1:10.2f}")
+        print(f"x2 = {x2:10.2f}")
+    else:
+        # sqrt(-D), bukan -d kecil (typo Pascal)
+        x1 = (-b) / (2 * a)
+        x2 = math.sqrt(-d) / (2 * a)
+        print("2 akar imajiner berlainan")
+        print(f"x1 = {x1:5.2f}+{x2:5.2f}i")
+        print(f"x2 = {x1:5.2f}-{x2:5.2f}i")
+
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+\subsection{Kode: \texttt{diskriminan\_kuadrat.py}}
+\begin{lstlisting}[language=Python,caption={\texttt{diskriminan\_kuadrat.py}}]
+"""Menentukan jenis akar persamaan kuadrat dari diskriminan."""
+
+
+def main() -> None:
+    print("Menentukan Jenis Akar Persamaan Kuadrat")
+    print("      Persamaan Umum : ax^2+bx+c       ")
+    print()
+    a = float(input("a = "))
+    b = float(input("b = "))
+    c = float(input("c = "))
+    print()
+    d = (b * b) - (4 * a * c)
+    print("Nilai Diskriminan :", d)
+    print("Jenis Akar : ", end="")
+    if d == 0:
+        print("Kembar", end="")
+    elif d > 0:
+        print("Berlainan", end="")
+    elif d < 0:
+        print("imajiner berlainan", end="")
+    print()
+    input("Tekan Enter untuk melanjutkan...")
+
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+\subsection{Kode: \texttt{cek\_huruf\_besar.py}}
+\begin{lstlisting}[language=Python,caption={\texttt{cek\_huruf\_besar.py}}]
+"""Cek apakah karakter termasuk huruf besar A..Z."""
+
+
+def main() -> None:
+    s = input("Masukkan Suatu Karakter :").strip()
+    a = s[0] if s else ""
+    print()
+    if "A" <= a <= "Z":
+        print("Anda menekan huruf besar")
+        print("Huruf yang anda tekan, Huruf ", a)
+    else:
+        print("Anda tidak menekan huruf besar")
+        print("Karakter yang anda tekan, Karakter ", a)
+    input("Tekan Enter untuk melanjutkan...")
+
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+\subsection{Kode: \texttt{huruf\_mutu.py}}
+\begin{lstlisting}[language=Python,caption={\texttt{huruf\_mutu.py}}]
+"""Konversi nilai akhir ke huruf mutu A-E."""
+
+
+def main() -> None:
+    quiz = 40.0
+    absen = 100.0
+    uts = 60.0
+    uas = 50.0
+    tugas = 80.0
+    print(f"Absen = {absen:5.2f} UTS = {uts:5.2f}")
+    print(f"Tugas = {tugas:5.2f} UAS = {uas:5.2f}")
+    print(f"Quiz = {quiz:5.2f}")
+    nilai = (
+        (0.1 * absen) + (0.2 * tugas) + (0.3 * quiz) + (0.4 * uts) + (0.5 * uas)
+    ) / 2
+    huruf_mutu = ""
+    if 85 < nilai <= 100:
+        huruf_mutu = "A"
+    elif 70 < nilai <= 85:
+        huruf_mutu = "B"
+    elif 55 < nilai <= 70:
+        huruf_mutu = "C"
+    elif 40 < nilai <= 55:
+        huruf_mutu = "D"
+    elif 0 <= nilai <= 40:
+        huruf_mutu = "E"
+    print("Huruf Mutu : ", huruf_mutu)
+
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+\subsection{Kode: \texttt{menu\_geometri\_case.py}}
+\begin{lstlisting}[language=Python,caption={\texttt{menu\_geometri\_case.py}}]
+"""Menu hitung kubus, luas lingkaran, isi silinder (satu kali pilihan)."""
+
+PI = 3.14
+
+
+def main() -> None:
+    print("         <<< Menu >>>        ")
+    print()
+    print("1. Menghitung Isi Kubus")
+    print("2. Menghitung Luas Lingkaran")
+    print("3. Menghitung Isi Silisnde")
+    print()
+    pilih = int(input("Pilih Nomor : "))
+    if pilih == 1:
+        sisi = float(input("Panjang Sisi Kubus : "))
+        print("Isi Kubus :", sisi * sisi * sisi)
+    elif pilih == 2:
+        jari = float(input("Jari-jari lingkaran : "))
+        print("Luas Lingkaran :", PI * jari * jari)
+    elif pilih == 3:
+        jari = float(input("Jari-jari lingkaran : "))
+        tinggi = float(input("Tinggi Silinder : "))
+        print("Isi Silinder :", PI * jari * jari * tinggi)
+
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+\subsection{Kode: \texttt{upah\_golongan.py}}
+\begin{lstlisting}[language=Python,caption={\texttt{upah\_golongan.py}}]
+"""Upah bersih dari golongan dan jumlah anak (perbaikan nama variabel vs Pascal)."""
+
+
+def main() -> None:
+    nama = input("Nama        : ")
+    gol = input("Gol (A - D) : ").strip().upper()[:1]
+    jml_anak = int(input("Jumlah Anak : "))
+
+    if gol == "A":
+        upah_kotor = 1_000_000.0
+    elif gol == "B":
+        upah_kotor = 800_000.0
+    elif gol == "C":
+        upah_kotor = 600_000.0
+    elif gol == "D":
+        upah_kotor = 400_000.0
+    else:
+        upah_kotor = 0.0
+
+    if jml_anak > 2:
+        persen_tunjangan = 0.3
+    else:
+        persen_tunjangan = 0.2
+
+        upah_bersih = upah_kotor - (upah_kotor * persen_tunjangan)
+    print("Upah        :", upah_bersih)
+
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+\subsection{Kode: \texttt{tunjangan\_dan\_potongan.py}}
+\begin{lstlisting}[language=Python,caption={\texttt{tunjangan\_dan\_potongan.py}}]
+"""Tunjangan dan potongan gaji berdasarkan jumlah anak."""
+
+
+def main() -> None:
+    persen_tunjangan = 0.2
+    persen_potongan = 0.05
+    gaji_kotor = float(input("Gaji Kotor ?"))
+    jumlah_anak = int(input("Jumlah Anak ?"))
+    if jumlah_anak > 2:
+        persen_tunjangan = 0.3
+        persen_potongan = 0.07
+    tunjangan = persen_tunjangan * gaji_kotor
+    potongan = persen_potongan * gaji_kotor
+    print(f"Besar Tunjangan = Rp {tunjangan:10.2f}")
+    print(f"Besar Potongan  = Rp {potongan:10.2f}")
+    input("Tekan Enter untuk melanjutkan...")
+
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+\subsection{Kode: \texttt{tunjangan\_anak.py}}
+\begin{lstlisting}[language=Python,caption={\texttt{tunjangan\_anak.py}}]
+"""Hitung tunjangan berdasarkan gaji kotor dan jumlah anak."""
+
+
+def main() -> None:
+    persen_tunjangan = 0.2
+    gaji_kotor = float(input("Gaji Kotor ?"))
+    jumlah_anak = int(input("Jumlah Anak ?"))
+    if jumlah_anak > 2:
+        persen_tunjangan = 0.3
+    tunjangan = persen_tunjangan * gaji_kotor
+    print(f"Besar Tunjangan = Rp {tunjangan:10.2f}")
+    input("Tekan Enter untuk melanjutkan...")
+
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+\section{Referensi sesi}
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{[5]} Univ. Pancasila, \textit{Modul praktikum Python} (percabangan).
+  \item \textbf{[17]} Programiz, \textit{Python Programming Tutorial}.
+  \item \textbf{[8, 9]} \textit{The Python Tutorial}, bagian alur kontrol.
+\end{itemize}
+
+\begin{aktivitas}
+  \item Buat program yang menentukan bilangan ganjil/genap dari masukan integer.
+  \item Buat menu sederhana (1: luas persegi, 2: luas lingkaran) menggunakan \texttt{if}/\texttt{elif}, kemudian ubah versinya dengan \texttt{match}.
+  \item Implementasikan aturan nilai huruf (A--E) dari rentang nilai angka menggunakan \texttt{if}/\texttt{elif}.
+  \item Buat program kalkulator sederhana yang membaca dua angka dan satu operator (\texttt{+}, \texttt{-}, \texttt{*}, \texttt{/}) lalu gunakan \texttt{match} untuk menentukan operasi yang dijalankan.
+  \item Tambahkan blok \texttt{pass} sebagai placeholder untuk menu yang belum diimplementasikan.
+\end{aktivitas}
+
+\begin{latihan}
+  \item Jelaskan kapan \texttt{elif} lebih tepat daripada banyak \texttt{if} independen.
+  \item Apa perilaku program jika semua kondisi \texttt{if}/\texttt{elif} salah dan tidak ada \texttt{else}?
+  \item Tulis pseudokode lalu kode Python untuk membandingkan tiga bilangan dan mencetak yang terbesar.
+  \item Kapan lebih baik menggunakan \texttt{match} daripada \texttt{if}/\texttt{elif}? Sebutkan satu kasus yang cocok untuk masing-masing.
+  \item Apa fungsi \texttt{case \_:} dalam blok \texttt{match}? Apa padanannya dalam struktur \texttt{if}/\texttt{elif}?
+  \item Refleksi: bagaimana percabangan membantu menangani kasus ujung (\textit{edge cases})?
+\end{latihan}
+
+\begin{asesmen}
+\textbf{Praktik di lab}
+
+\begin{enumerate}
+  \item Diberikan \texttt{x} bilangan bulat, kondisi manakah yang benar untuk ``x habis dibagi 3 tetapi bukan habis dibagi 2''?
+  \begin{enumerate}
+    \item \texttt{x \% 3 == 0 and x \% 2 != 0}
+    \item \texttt{x \% 3 == 0 or x \% 2 != 0}
+    \item \texttt{x // 3 == 0}
+    \item \texttt{x \% 6 == 0}
+  \end{enumerate}
+  \item Pernyataan \texttt{pass} digunakan untuk:
+  \begin{enumerate}
+    \item Menghentikan loop
+    \item Melewati iterasi berikutnya
+    \item Menjadi placeholder kosong yang valid secara sintaks
+    \item Mengembalikan nilai dari fungsi
+  \end{enumerate}
+  \item Fitur \texttt{match} tersedia mulai Python versi:
+  \begin{enumerate}
+    \item 3.8
+    \item 3.9
+    \item 3.10
+    \item 3.12
+  \end{enumerate}
+\end{enumerate}
+
+\textbf{Tugas}: program \texttt{tugas03.py} yang membaca tahun dan menentukan tahun kabisat (aturan: habis dibagi 4, kecuali abad kecuali habis dibagi 400). Kemudian buat program kalkulator \texttt{kalkulator.py} yang menggunakan \texttt{match} untuk memilih operasi aritmatika.
+\end{asesmen}
+
+\begin{checklist}
+  \item Saya dapat menulis rantai \texttt{if}/\texttt{elif}/\texttt{else} yang benar secara indentasi
+  \item Saya dapat menggabungkan kondisi dengan operator logika
+  \item Saya dapat menggunakan \texttt{pass} sebagai placeholder blok kosong
+  \item Saya dapat menuliskan \texttt{match} untuk pencocokan pola sederhana
+  \item Saya dapat menggabungkan beberapa pola dengan \texttt{|} dalam \texttt{case}
+  \item Saya dapat menyelesaikan masalah pemilihan dengan lebih dari dua cabang
+\end{checklist}
+
+\begin{rangkuman}
+Percabangan mengarahkan eksekusi berdasarkan kondisi boolean. \texttt{elif} mengurangi \textit{nesting} yang tidak perlu. \texttt{pass} adalah pernyataan kosong yang berguna saat prototyping. \texttt{match} (Python 3.10+) menyederhanakan pencocokan nilai tunggal dengan banyak kasus.
+
+\textbf{Referensi:} {\small Python Tutorial §4.1--4.7 \url{https://docs.python.org/3/tutorial/controlflow.html}}
+
+\textbf{Kata kunci:} \code{if}, \code{elif}, \code{else}, \code{pass}, \code{match}, \code{case}, \code{and}, \code{or}, \code{not}
+\end{rangkuman}
+
+\end{document}

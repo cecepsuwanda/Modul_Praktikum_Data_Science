@@ -1,0 +1,81 @@
+\documentclass[../main.tex]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{8}}{}
+\begin{document}
+
+\chapter{Klasifikasi: Regresi Logistik, K-NN, dan Pohon Keputusan}
+
+\begin{subcpmk}
+  \item \textbf{Sub-CPMK-P7:} Melatih minimal dua algoritma klasifikasi; menampilkan matriks konfusi pada data uji (RPS Mg.\ 8).
+\end{subcpmk}
+
+\SesiRPS{8}{P7}{$\sim$170 menit}{CPMK-P3}
+
+\section{Kemampuan akhir sesi}
+
+Membangun pipeline prapemrosesan sederhana; melatih klasifikasi; membandingkan akurasi atau F1; menampilkan \texttt{confusion\_matrix}.
+
+\section{Teori}
+
+\begin{konsep}
+Klasifikasi memprediksi kelas diskrit. Regresi logistik memodelkan log-odds linear; K-NN berbasis jarak; pohon keputusan memecah ruang fitur secara hierarkis. Untuk kelas tidak seimbang, akurasi bisa menyesatkan---pertimbangkan F1 per kelas.
+\end{konsep}
+
+\section{Contoh kode}
+
+\begin{lstlisting}[caption=Data dan split (Iris)]
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+X, y = load_iris(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=42, stratify=y
+)
+\end{lstlisting}
+
+\begin{lstlisting}[caption=LogisticRegression]
+from sklearn.linear_model import LogisticRegression
+log_reg = LogisticRegression(max_iter=200)
+log_reg.fit(X_train, y_train)
+print("logreg score", log_reg.score(X_test, y_test))
+\end{lstlisting}
+
+\begin{lstlisting}[caption=KNeighborsClassifier dan DecisionTree]
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
+
+knn = KNeighborsClassifier(n_neighbors=5)
+knn.fit(X_train, y_train)
+tree = DecisionTreeClassifier(max_depth=3, random_state=42)
+tree.fit(X_train, y_train)
+print("knn", knn.score(X_test, y_test))
+print("tree", tree.score(X_test, y_test))
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Confusion matrix]
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+import matplotlib.pyplot as plt
+pred = log_reg.predict(X_test)
+cm = confusion_matrix(y_test, pred)
+disp = ConfusionMatrixDisplay(cm)
+disp.plot()
+plt.title("Confusion matrix (LogReg)")
+plt.show()
+\end{lstlisting}
+
+\section{Referensi}
+
+\begin{itemize}[leftmargin=*]
+  \item sklearn supervised learning. \url{https://scikit-learn.org/stable/supervised_learning.html}
+  \item Notebook klasifikasi SciPy 2018 (Mueller). \url{https://nbviewer.org/github/amueller/scipy-2018-sklearn/blob/master/notebooks/05.Supervised_Learning-Classification.ipynb}
+\end{itemize}
+
+\begin{asesmen}
+\textbf{Tugas modul:} minimal dua model + confusion matrix + narasi model terbaik.
+\end{asesmen}
+
+\begin{rangkuman}
+Minggu 8 membandingkan beberapa classifier dasar pada dataset yang sama.
+
+\textbf{Kata kunci:} LogisticRegression, KNN, DecisionTree, confusion matrix
+\end{rangkuman}
+
+\end{document}

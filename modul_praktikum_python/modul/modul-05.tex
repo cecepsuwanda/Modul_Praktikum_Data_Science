@@ -1,0 +1,347 @@
+﻿\documentclass[../main.tex]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{5}}{}
+\begin{document}
+
+\chapter{Fungsi dan Modularitas}
+
+\begin{subcpmk}
+  \item Sub-CPMK 3.1: Mendefinisikan fungsi dengan parameter, nilai balik, dan ruang lingkup variabel lokal
+  \item Sub-CPMK 3.2: Menggunakan argumen variadik (\texttt{*args}, \texttt{**kwargs}), ekspresi \textit{lambda}, dan anotasi tipe dasar pada fungsi
+\end{subcpmk}
+
+\SesiRPS{6--7}{3.1 dan 3.2}{$\sim$340 menit (dua sesi praktikum)}{CPMK-3}
+
+\section{Sarana dan prasarana}
+
+Python 3.10+, editor, terminal.
+
+\section{Prosedur kerja}
+
+\begin{enumerate}[leftmargin=*]
+  \item Definisikan fungsi dengan parameter dan nilai balik; uji dari REPL.
+  \item Tambahkan \texttt{*args}/\texttt{**kwargs}, \textit{lambda}, dan anotasi tipe sesuai contoh modul.
+  \item Refaktor program monolitik menjadi fungsi-fungsi kecil.
+\end{enumerate}
+
+\section{Definisi Fungsi}
+
+Fungsi memecah program menjadi bagian yang dapat digunakan kembali. Didefinisikan dengan \keyword{def}:
+
+\begin{lstlisting}[caption=Fungsi sederhana (Tutorial Python ss4.8)]
+def kuadrat(x):
+    """Mengembalikan kuadrat dari x."""
+    return x * x
+
+def salam(nama):
+    """Mencetak salam kepada nama."""
+    print("Halo,", nama)
+
+print(kuadrat(5))   # 25
+salam("Aulia")      # Halo, Aulia
+\end{lstlisting}
+
+Pernyataan \textbf{pertama} dari badan fungsi bisa berupa \textit{docstring} (dokumentasi fungsi dalam string literal). Gunakan \texttt{help(kuadrat)} di REPL untuk membacanya.
+
+\section{Parameter dan Nilai Balik}
+
+Fungsi dapat mengembalikan beberapa nilai sekaligus dalam bentuk tuple:
+
+\begin{lstlisting}[caption=Nilai balik berganda]
+def statistik(data):
+    """Mengembalikan (minimum, maksimum, rata-rata)."""
+    return min(data), max(data), sum(data) / len(data)
+
+nilai = [75, 90, 60, 85, 78]
+mn, mx, rata = statistik(nilai)
+print(f"Min={mn}, Max={mx}, Rata={rata:.2f}")
+\end{lstlisting}
+
+\section{Nilai Argumen Default}
+
+Parameter dapat memiliki nilai \textit{default} yang digunakan bila argumen tidak diberikan saat pemanggilan (Tutorial Python §4.9.1):
+
+\begin{lstlisting}[caption=Nilai argumen default]
+def hitung_pangkat(basis, eksponen=2):
+    """Menghitung basis ** eksponen (default: kuadrat)."""
+    return basis ** eksponen
+
+print(hitung_pangkat(3))      # 9  (eksponen=2 default)
+print(hitung_pangkat(3, 3))   # 27
+print(hitung_pangkat(2, 10))  # 1024
+\end{lstlisting}
+
+\begin{catatan}
+Nilai default dievaluasi \textbf{sekali} saat definisi fungsi, bukan setiap kali dipanggil. Jangan gunakan objek \textit{mutable} (seperti \texttt{list}) sebagai nilai default karena bisa menyebabkan bug halus.
+
+\textbf{Salah:} \texttt{def tambah(data, daftar=[]):} --- daftar yang sama dipakai ulang!\\
+\textbf{Benar:} \texttt{def tambah(data, daftar=None): if daftar is None: daftar = []}
+\end{catatan}
+
+\section{Keyword Arguments}
+
+Saat memanggil fungsi, argumen dapat dilewatkan dengan nama parameter secara eksplisit (Tutorial Python §4.9.2):
+
+\begin{lstlisting}[caption=Keyword arguments]
+def cetak_info(nama, umur, kota="Jakarta"):
+    print(f"{nama}, {umur} tahun, dari {kota}")
+
+# Pemanggilan dengan keyword args
+cetak_info("Budi", 20)
+cetak_info("Sari", umur=22, kota="Bandung")
+cetak_info(kota="Surabaya", nama="Andi", umur=19)
+\end{lstlisting}
+
+\section{Argumen Tak Tentu: \texttt{*args} dan \texttt{**kwargs}}
+
+Untuk fungsi yang menerima jumlah argumen tak tentu (Tutorial Python §4.9.4):
+
+\begin{lstlisting}[caption=*args dan **kwargs]
+def jumlahkan(*angka):
+    """Menjumlahkan semua argumen yang diberikan."""
+    total = 0
+    for n in angka:
+        total += n
+    return total
+
+print(jumlahkan(1, 2, 3))           # 6
+print(jumlahkan(10, 20, 30, 40))    # 100
+
+def cetak_profil(**info):
+    """Mencetak pasangan kunci-nilai."""
+    for kunci, nilai in info.items():
+        print(f"  {kunci}: {nilai}")
+
+cetak_profil(nama="Rini", nim="12345", ipk=3.8)
+\end{lstlisting}
+
+\section{Ekspresi Lambda}
+
+Lambda adalah fungsi kecil anonim (tanpa nama) yang ditulis dalam satu baris (Tutorial Python §4.9.6):
+
+\begin{lstlisting}[caption=Lambda expressions]
+# Fungsi biasa
+def kali_dua(x):
+    return x * 2
+
+# Ekuivalen lambda
+kali_dua = lambda x: x * 2
+print(kali_dua(5))   # 10
+
+# Lambda berguna sebagai argumen ke fungsi lain
+nilai = [("Andi", 85), ("Budi", 72), ("Citra", 90)]
+nilai.sort(key=lambda item: item[1])   # sort berdasarkan nilai
+print(nilai)
+
+# sorted dengan lambda
+angka = [5, 1, 8, 3, 9, 2]
+terurut = sorted(angka, key=lambda x: -x)  # urutan menurun
+print(terurut)   # [9, 8, 5, 3, 2, 1]
+\end{lstlisting}
+
+\begin{konsep}
+Lambda terbatas pada \textbf{satu ekspresi}. Untuk logika yang lebih kompleks, gunakan fungsi biasa dengan \keyword{def}. Lambda paling berguna saat dipakai sebagai argumen pada fungsi seperti \texttt{sorted()}, \texttt{map()}, \texttt{filter()}.
+\end{konsep}
+
+\section{Anotasi Fungsi (Type Hints)}
+
+Python mendukung anotasi tipe untuk mendokumentasikan tipe parameter dan nilai balik (Tutorial Python §4.9.8). Anotasi tidak mempengaruhi eksekusi program, tetapi membantu pembaca dan alat analisis statis:
+
+\begin{lstlisting}[caption=Anotasi fungsi / type hints]
+def hitung_luas(panjang: float, lebar: float) -> float:
+    """Menghitung luas persegi panjang."""
+    return panjang * lebar
+
+def sapa(nama: str, formal: bool = False) -> str:
+    """Membuat kalimat salam."""
+    if formal:
+        return f"Selamat pagi, {nama}."
+    return f"Halo, {nama}!"
+
+print(hitung_luas(5.0, 3.0))     # 15.0
+print(sapa("Budi", formal=True))  # Selamat pagi, Budi.
+\end{lstlisting}
+
+\section{Ruang Lingkup Variabel}
+
+Variabel yang diberi nilai di dalam fungsi bersifat \textit{lokal} kecuali dinyatakan lain dengan \keyword{global} atau \keyword{nonlocal}. Penggunaan \keyword{global} jarang disarankan karena membuat kode sulit dilacak:
+
+\begin{lstlisting}[caption=Ruang lingkup lokal]
+x = 10   # variabel global
+
+def ubah_lokal():
+    x = 99   # variabel lokal, berbeda dari global x
+    print("Dalam fungsi:", x)
+
+ubah_lokal()
+print("Di luar fungsi:", x)   # masih 10
+\end{lstlisting}
+
+\section{Studi Kasus dan Contoh Kode}
+
+Berikut adalah contoh-contoh program Python yang mengimplementasikan konsep-konsep pada modul ini.
+
+\subsection{Kode: \texttt{faktorial.py}}
+\begin{lstlisting}[language=Python,caption={\texttt{faktorial.py}}]
+"""Faktorial rekursif (rumus Pascal sumber salah; di Python dipakai n * fakt(n-1))."""
+
+
+def fakt(n: int) -> int:
+    if n == 0:
+        return 1
+    return n * fakt(n - 1)
+
+
+def main() -> None:
+    n = int(input("Masukkan n : "))
+    print(n, "! = ", fakt(n), sep="")
+
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+\subsection{Kode: \texttt{prosedur\_upah\_latihan.py}}
+\begin{lstlisting}[language=Python,caption={\texttt{prosedur\_upah\_latihan.py}}]
+"""Latihan prosedur/fungsi upah - modul Pascal tidak lengkap; stub di Python."""
+
+
+def input_pegawai(nama: str, gol: str, jml_anak: int) -> None:
+    # TODO: definisikan sendiri (parameter seharusnya diisi via input)
+    raise NotImplementedError("Lengkapi input_pegawai.")
+
+
+def upah_kotor(gol: str) -> float:
+    # TODO: definisikan sendiri
+    raise NotImplementedError("Lengkapi upah_kotor.")
+
+
+def persen_tunjangan(jml_anak: int) -> float:
+    # TODO: definisikan sendiri
+    raise NotImplementedError("Lengkapi persen_tunjangan.")
+
+
+def main() -> None:
+    print(
+        "Modul latihan: lengkapi deklarasi variabel dan fungsi seperti di modul Pascal."
+    )
+    try:
+        # Contoh alur yang dimaksud Pascal (setelah variabel didefinisikan):
+        # input(...); upah_bersih = upah_kotor(gol) - (upah_kotor(gol) * persen_tunjangan(jml_anak))
+        raise NotImplementedError("Definisikan Nama, Gol, jml_anak lalu panggil fungsi.")
+    except NotImplementedError as e:
+        print(e)
+
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+\subsection{Kode: \texttt{tabel\_latihan.py}}
+\begin{lstlisting}[language=Python,caption={\texttt{tabel\_latihan.py}}]
+"""Latihan tabel pangkat - lengkapi fpangkat dan cetak (stub, setara tabel_latihan.pas)."""
+
+
+def fpangkat(dipangkatkan: float, pangkat: int) -> float:
+    # TODO: lengkapi (dipakai di dalam cetak bila perlu)
+    raise NotImplementedError("Lengkapi fpangkat.")
+
+
+def cetak(x: int) -> None:
+    # TODO: lengkapi isi tabel seperti tabel_pangkat_x
+    print("  x      1/x        x^2      x^3")
+    print("-----------------------------------")
+    raise NotImplementedError("Lengkapi badan cetak(x).")
+
+
+def main() -> None:
+    x = int(input("Masukkan banyaknya data : "))
+    try:
+        cetak(x)
+    except NotImplementedError as e:
+        print(e)
+    input("Tekan Enter untuk melanjutkan...")
+
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+\section{Referensi sesi}
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{[12]} Sweigart, A. \textit{Automate the Boring Stuff with Python}.
+  \item \textbf{[14]} Pilgrim, M. \textit{Dive Into Python 3}.
+  \item \textbf{[8, 9]} \textit{The Python Tutorial}, definisi fungsi.
+\end{itemize}
+
+\begin{aktivitas}
+  \item Tulis fungsi \texttt{diskon(harga, persen=10)} yang mengembalikan harga setelah diskon (dengan nilai default 10\%).
+  \item Tulis fungsi \texttt{faktorial(n)} rekursif atau iteratif; bandingkan keterbacaan keduanya.
+  \item Pecah program hitung statistik (min, max, rata-rata) dari daftar menjadi beberapa fungsi terpisah.
+  \item Buat fungsi \texttt{gabung(*kata, pemisah=" ")} yang menggabungkan argumen kata dengan pemisah yang dapat dikustomisasi.
+  \item Gunakan \texttt{sorted()} dengan lambda untuk mengurutkan list of dict berdasarkan field tertentu.
+  \item Tambahkan type hints ke semua fungsi yang sudah Anda buat.
+\end{aktivitas}
+
+\begin{latihan}
+  \item Apa perbedaan fungsi yang mengembalikan nilai dengan yang hanya mencetak?
+  \item Kapan docstring berguna?
+  \item Jelaskan kesalahan umum \textit{UnboundLocalError} pada variabel lokal/global.
+  \item Apa keuntungan menggunakan keyword arguments? Berikan contoh kasus nyata.
+  \item Kapan lambda cocok digunakan? Kapan sebaiknya menggunakan \keyword{def} biasa?
+  \item Refleksi: bagaimana fungsi membantu pengujian program?
+\end{latihan}
+
+\begin{asesmen}
+\textbf{Pilihan ganda}
+
+\begin{enumerate}
+  \item Pernyataan yang benar tentang \texttt{return}:
+  \begin{enumerate}
+    \item Wajib ada di setiap fungsi
+    \item Menghentikan eksekusi fungsi dan dapat membawa nilai
+    \item Hanya boleh satu per fungsi
+    \item Tidak boleh digunakan di fungsi rekursif
+  \end{enumerate}
+  \item Definisi fungsi \texttt{def f(a, b=5):} berarti:
+  \begin{enumerate}
+    \item \texttt{b} selalu bernilai 5
+    \item \texttt{b} bernilai 5 jika tidak diberikan saat pemanggilan
+    \item \texttt{a} bersifat opsional
+    \item Fungsi hanya dapat dipanggil dengan dua argumen
+  \end{enumerate}
+  \item Ekspresi lambda \texttt{lambda x, y: x + y} ekuivalen dengan:
+  \begin{enumerate}
+    \item \texttt{def f(x): return x + y}
+    \item \texttt{def f(x, y): return x + y}
+    \item \texttt{def f(): return x + y}
+    \item \texttt{x + y}
+  \end{enumerate}
+\end{enumerate}
+
+\textbf{Tugas}: tiga fungsi berikut dipanggil dari menu teks interaktif (tambahkan type hints dan docstring):\newline
+\texttt{luas\_persegi(s: float) -> float},\newline
+\texttt{luas\_segitiga(a: float, t: float) -> float},\newline
+\texttt{luas\_lingkaran(r: float) -> float}.
+\end{asesmen}
+
+\begin{checklist}
+  \item Saya dapat mendefinisikan fungsi dengan parameter dan \texttt{return}
+  \item Saya dapat menggunakan nilai argumen default
+  \item Saya dapat memanggil fungsi dengan keyword arguments
+  \item Saya dapat mendefinisikan fungsi dengan \texttt{*args} dan \texttt{**kwargs}
+  \item Saya dapat menulis ekspresi lambda sederhana
+  \item Saya dapat menambahkan anotasi tipe (type hints)
+  \item Saya dapat menjelaskan ruang lingkup variabel lokal
+  \item Saya dapat menulis docstring yang informatif
+\end{checklist}
+
+\begin{rangkuman}
+Fungsi meningkatkan keterbacaan, pengujian, dan penggunaan ulang kode. Python mendukung nilai default, keyword arguments, variadic args, lambda, dan type hints untuk membuat fungsi yang fleksibel dan expressif.
+
+\textbf{Referensi:} {\small Python Tutorial §4.8--4.9 \url{https://docs.python.org/3/tutorial/controlflow.html}}
+
+\textbf{Kata kunci:} \code{def}, \code{return}, \code{lambda}, \code{*args}, \code{**kwargs}, \code{docstring}, \code{type hints}, ruang lingkup lokal
+\end{rangkuman}
+
+\end{document}

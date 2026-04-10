@@ -1,0 +1,67 @@
+\documentclass[../main.tex]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{14}}{}
+\begin{document}
+
+\chapter{Peer Review Notebook dan Reproduktifitas}
+
+\begin{subcpmk}
+  \item \textbf{Sub-CPMK-P10:} Menjalankan notebook mitra; mengisi lembar review; merevisi \texttt{v2}; mendokumentasikan dependensi (RPS Mg.\ 14).
+\end{subcpmk}
+
+\SesiRPS{14}{P10}{$\sim$170 menit}{CPMK-P4}
+
+\section{Teori}
+
+\begin{konsep}
+Reproduktifitas membutuhkan versi Python/paket, urutan sel, dan akses data yang sama. \textbf{Peer review} meningkatkan kejelasan dan menemukan langkah yang ``hanya jalan di laptop pemilik''.
+\end{konsep}
+
+\section{Prosedur}
+
+\begin{enumerate}[leftmargin=*]
+  \item Tukar notebook dengan pasangan; \textbf{Restart \& Run All}.
+  \item Catat sel gagal, missing file, instruksi kurang.
+  \item Isi lembar review (lihat Lampiran): minimal dua saran spesifik.
+  \item Revisi notebook menjadi \texttt{\ldots v2.ipynb}; lampirkan \texttt{requirements.txt}.
+\end{enumerate}
+
+\section{Contoh requirements.txt}
+
+\begin{lstlisting}[caption=Contoh isi requirements.txt, language={},basicstyle=\ttfamily\small]
+jupyter>=1.0
+numpy>=1.24
+pandas>=2.0
+matplotlib>=3.7
+seaborn>=0.12
+scikit-learn>=1.3
+openpyxl>=3.1
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Cuplikan versi dari notebook]
+import sklearn
+import pandas as pd
+print("sklearn", sklearn.__version__)
+print("pandas", pd.__version__)
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Perintah shell membantu rekan]
+# pip install -r requirements.txt
+\end{lstlisting}
+
+\section{Referensi}
+
+\begin{itemize}[leftmargin=*]
+  \item Python Data Science Handbook (workflow). \url{https://jakevdp.github.io/PythonDataScienceHandbook/}
+\end{itemize}
+
+\begin{asesmen}
+\textbf{Lembar peer review} + notebook \texttt{v2} + dependensi tercatat.
+\end{asesmen}
+
+\begin{rangkuman}
+Minggu 14 melatih kolaborasi dan kualitas dokumentasi eksekusi.
+
+\textbf{Kata kunci:} peer review, requirements.txt, run all
+\end{rangkuman}
+
+\end{document}

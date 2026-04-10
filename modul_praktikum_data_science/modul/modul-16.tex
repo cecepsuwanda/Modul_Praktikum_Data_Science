@@ -1,0 +1,73 @@
+\documentclass[../main.tex]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{16}}{}
+\begin{document}
+
+\chapter{Presentasi Hasil Proyek dan Penyerahan Akhir}
+
+\begin{subcpmk}
+  \item \textbf{Sub-CPMK-P10:} Memresentasikan masalah, metode, hasil, dan rekomendasi dalam waktu 5--10 menit; menyerahkan notebook final (RPS Mg.\ 16).
+\end{subcpmk}
+
+\SesiRPS{16}{P10}{$\sim$170 menit}{CPMK-P4}
+
+\section{Struktur presentasi}
+
+\begin{enumerate}[leftmargin=*]
+  \item Masalah dan motivasi (30--60 dtk).
+  \item Data dan prapemrosesan ringkas (60 dtk).
+  \item Model dan evaluasi (2--3 mnt).
+  \item Temuan utama dan rekomendasi (1--2 mnt).
+  \item Keterbatasan dan etika data (30 dtk).
+\end{enumerate}
+
+\section{Checklist penyerahan}
+
+\begin{itemize}[leftmargin=*]
+  \item Notebook final: \textit{Restart \& Run All} lancar.
+  \item Berkas dinamai sesuai konvensi Lampiran.
+  \item Slide PDF/PNG (jika diminta) + laporan ringkas.
+\end{itemize}
+
+\section{\texorpdfstring{Contoh slide (Markdown $\rightarrow$ export)}{Contoh slide Markdown ke export}}
+
+Mahasiswa dapat memakai Jupyter + Rise, Marp, atau PowerPoint; contoh poin di Markdown:
+
+\begin{verbatim}
+# Slide judul
+## Data: sumber, N baris, target
+## Model terpilih + metrik utama
+## Rekomendasi bisnis (3 bullet)
+\end{verbatim}
+
+\section{Contoh kode (demo cepat di kelas)}
+
+\begin{lstlisting}[caption=Muat ulang model/figur final]
+# from joblib import dump, load
+# load("model_final.joblib")  # jika disimpan
+print("Notebook final siap ditunjukkan")
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Cek ukuran berkas sebelum unggah]
+import os
+for f in ["proyek_final.ipynb", "laporan.pdf"]:
+    if os.path.exists(f):
+        print(f, os.path.getsize(f) / 1024, "KB")
+\end{lstlisting}
+
+\section{Referensi}
+
+\begin{itemize}[leftmargin=*]
+  \item INRIA sklearn MOOC. \url{https://inria.github.io/scikit-learn-mooc/}
+\end{itemize}
+
+\begin{asesmen}
+\textbf{Presentasi \& proyek akhir} sesuai rubrik RPS Bagian 8.
+\end{asesmen}
+
+\begin{rangkuman}
+Minggu 16 menutup siklus komunikasi hasil dan bukti capaian integratif.
+
+\textbf{Kata kunci:} presentasi, penyerahan, refleksi
+\end{rangkuman}
+
+\end{document}

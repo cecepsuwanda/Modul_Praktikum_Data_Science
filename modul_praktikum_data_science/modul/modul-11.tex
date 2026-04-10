@@ -1,0 +1,75 @@
+\documentclass[../main.tex]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{11}}{}
+\begin{document}
+
+\chapter{Metrik Klasifikasi Lanjut dan ROC-AUC Opsional}
+
+\begin{subcpmk}
+  \item \textbf{Sub-CPMK-P9:} Presisi, recall, F1; ROC-AUC untuk kasus biner; diskusi ketidakseimbangan kelas (RPS Mg.\ 11).
+\end{subcpmk}
+
+\SesiRPS{11}{P9}{$\sim$170 menit}{CPMK-P4}
+
+\section{Teori}
+
+\begin{konsep}
+Presisi menjawab ``dari yang diprediksi positif, berapa yang benar''; recall ``dari semua positif sejati, berapa yang tertangkap''. F1 adalah harmonik keduanya. ROC-AUC bermakna kuat pada klasifikasi biner dengan skor probabilitas.
+\end{konsep}
+
+\section{Contoh kode}
+
+\begin{lstlisting}[caption=ROC curve + classification report (biner)]
+from sklearn.metrics import classification_report, RocCurveDisplay, f1_score
+from sklearn.linear_model import LogisticRegression
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
+
+X, y = load_breast_cancer(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=42, stratify=y
+)
+clf = LogisticRegression(max_iter=5000)
+clf.fit(X_train, y_train)
+y_pred = clf.predict(X_test)
+print(classification_report(y_test, y_pred))
+print("F1 macro", f1_score(y_test, y_pred, average="macro"))
+RocCurveDisplay.from_estimator(clf, X_test, y_test)
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Precision/Recall per kelas (multiclass)]
+from sklearn.metrics import precision_recall_fscore_support
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+
+X, y = load_iris(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=42, stratify=y
+)
+m = LogisticRegression(max_iter=200).fit(X_train, y_train)
+yp = m.predict(X_test)
+p, r, f, sup = precision_recall_fscore_support(y_test, yp)
+print(list(zip(p, r, f, sup)))
+\end{lstlisting}
+
+\begin{contoh}
+Di sel Markdown: jelaskan skenario di mana \textbf{recall} lebih penting daripada \textbf{precision} (mis.\ deteksi fraud) dan sebaliknya (mis.\ kampanye email).
+\end{contoh}
+
+\section{Referensi}
+
+\begin{itemize}[leftmargin=*]
+  \item sklearn model evaluation. \url{https://scikit-learn.org/stable/model_evaluation.html}
+\end{itemize}
+
+\begin{asesmen}
+\textbf{Rubrik sesi:} metrik selaras distribusi kelas; narasi untuk pemangku kepentingan non-teknis satu paragraf.
+\end{asesmen}
+
+\begin{rangkuman}
+Minggu 11 mendalami evaluasi di luar akurasi semata.
+
+\textbf{Kata kunci:} precision, recall, F1, ROC-AUC
+\end{rangkuman}
+
+\end{document}

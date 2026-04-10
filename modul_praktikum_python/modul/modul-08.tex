@@ -1,0 +1,323 @@
+\documentclass[../main.tex]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{8}}{}
+\begin{document}
+
+\chapter{Modul, \texttt{pip}, Virtual Environment, dan Debugging}
+
+\begin{subcpmk}
+  \item Sub-CPMK 6.1: Mengorganisasi kode dengan \texttt{import}, mengelola paket dengan \texttt{pip}, dan menggunakan \texttt{venv} untuk lingkungan terisolasi
+  \item Sub-CPMK 6.2: Melakukan \textit{debugging} sistematis dan menerapkan konvensi gaya penulisan kode yang konsisten
+\end{subcpmk}
+
+\SesiRPS{10}{6.1 dan 6.2}{$\sim$170 menit}{CPMK-6}
+
+\section{Sarana dan prasarana}
+
+Python 3.10+, terminal, akses \texttt{pip} sesuai kebijakan jaringan lab, editor/IDE.
+
+\section{Prosedur kerja}
+
+\begin{enumerate}[leftmargin=*]
+  \item Ulangi contoh \texttt{import} dari pustaka standar.
+  \item Buat \texttt{venv}, aktifkan, dan instal satu paket ringan (\texttt{pip install}).
+  \item Latih pola \texttt{if \_\_name\_\_ == "\_\_main\_\_"} dan teknik debugging sederhana.
+\end{enumerate}
+
+\section{Mengimpor Modul}
+
+\begin{lstlisting}[caption=Pola import (Tutorial Python ss6)]
+import math                    # impor seluruh modul
+from datetime import date      # impor spesifik
+from os import path, getcwd    # impor beberapa nama
+import random as rnd           # alias
+
+print(math.sqrt(16))           # 4.0
+print(date.today())
+print(rnd.randint(1, 6))       # dadu acak
+\end{lstlisting}
+
+Hindari \texttt{from modul import *} pada kode produksi; gunakan impor eksplisit untuk menghindari konflik nama.
+
+\section{Pola \texttt{if \_\_name\_\_ == "\_\_main\_\_"}}
+
+Pola ini memungkinkan sebuah berkas Python dijalankan baik sebagai skrip utama maupun sebagai modul yang diimpor (Tutorial Python §6.1.1):
+
+\begin{lstlisting}[caption=Pola if \textunderscore\textunderscore name\textunderscore\textunderscore == main]
+# berkas: kalkulator.py
+
+def tambah(a, b):
+    return a + b
+
+def kurang(a, b):
+    return a - b
+
+def main():
+    a = float(input("a: "))
+    b = float(input("b: "))
+    print(f"Jumlah : {tambah(a, b)}")
+    print(f"Selisih: {kurang(a, b)}")
+
+if __name__ == "__main__":
+    # Blok ini hanya dijalankan jika file dieksekusi langsung,
+    # BUKAN saat diimpor oleh modul lain
+    main()
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Mengimpor fungsi dari berkas lain menggunakan modul]
+# berkas: tes.py
+from kalkulator import tambah, kurang
+# Blok if __name__ == "__main__" di kalkulator.py TIDAK berjalan
+
+print(tambah(3, 4))   # 7
+\end{lstlisting}
+
+\section{Menjelajahi Modul dengan \texttt{dir()}}
+
+Fungsi \texttt{dir()} menampilkan daftar nama yang didefinisikan dalam sebuah modul atau objek (Tutorial Python §6.3):
+
+\begin{lstlisting}[caption=Menjelajahi modul dengan dir()]
+import math
+
+# Lihat semua nama dalam modul math
+print(dir(math))
+# ['__doc__', '__name__', ..., 'cos', 'exp', 'floor', 'log', ...]
+
+# Cari fungsi yang mengandung 'log'
+fungsi_log = [nama for nama in dir(math) if "log" in nama]
+print(fungsi_log)   # ['log', 'log10', 'log1p', 'log2']
+
+# Tanpa argumen: daftar nama di scope saat ini
+x = 10
+print(dir())   # akan mencantumkan 'math', 'x', dll.
+\end{lstlisting}
+
+\section{Pustaka Standar yang Berguna}
+
+Python hadir dengan pustaka standar yang kaya. Berikut beberapa modul penting (Tutorial Python §10):
+
+\begin{lstlisting}[caption=Contoh modul pustaka standar]
+import os
+import pathlib
+import random
+import math
+import json
+import datetime
+import sys
+
+# os dan pathlib -- berkas dan direktori
+print(os.getcwd())                          # direktori saat ini
+print(pathlib.Path.home())                  # folder home user
+print(os.path.exists("data.txt"))           # cek keberadaan berkas
+
+# random -- pembangkit acak
+print(random.randint(1, 100))               # integer acak
+print(random.choice(["apel", "jeruk"]))     # pilihan acak
+random.shuffle([1, 2, 3, 4, 5])            # acak urutan in-place
+
+# math -- fungsi matematika
+print(math.pi, math.e)
+print(math.factorial(10))
+print(math.gcd(48, 18))                     # FPB
+
+# datetime -- tanggal dan waktu
+sekarang = datetime.datetime.now()
+print(sekarang.strftime("%d/%m/%Y %H:%M"))
+
+# sys -- informasi interpreter
+print(sys.version)
+print(sys.platform)
+\end{lstlisting}
+
+\section{Virtual Environment dengan \texttt{venv}}
+
+\textit{Virtual environment} adalah direktori terisolasi yang berisi instalasi Python sendiri, sehingga dependensi antar proyek tidak saling mengganggu (Tutorial Python §12):
+
+\begin{lstlisting}[language=bash,caption=Membuat dan mengaktifkan virtual environment]
+# Membuat virtual environment di folder .venv
+python -m venv .venv
+
+# Mengaktifkan (Windows)
+.venv\Scripts\activate
+
+# Mengaktifkan (Linux/macOS)
+source .venv/bin/activate
+
+# Menonaktifkan
+deactivate
+\end{lstlisting}
+
+\begin{catatan}
+Setelah virtual environment aktif, prompt shell berubah menampilkan nama venv (misalnya \texttt{(.venv)}). Semua instalasi \texttt{pip} dalam kondisi aktif ini hanya mempengaruhi venv, bukan instalasi Python global.
+\end{catatan}
+
+\section{Mengelola Paket dengan \texttt{pip}}
+
+\texttt{pip} adalah manajer paket Python (Tutorial Python §12.3):
+
+\begin{lstlisting}[language=bash,caption=Perintah pip yang umum]
+# Upgrade pip ke versi terbaru
+python -m pip install --upgrade pip
+
+# Instal paket
+python -m pip install requests
+
+# Instal versi spesifik
+python -m pip install requests==2.31.0
+
+# Hapus paket
+python -m pip uninstall requests
+
+# Tampilkan paket yang terinstal
+python -m pip list
+
+# Informasi detail satu paket
+python -m pip show requests
+
+# Ekspor daftar dependensi ke requirements.txt
+python -m pip freeze > requirements.txt
+
+# Instal dari requirements.txt (untuk berbagi ke tim)
+python -m pip install -r requirements.txt
+\end{lstlisting}
+
+\begin{konsep}
+\textbf{Alur kerja standar proyek Python:}
+\begin{enumerate}[leftmargin=*]
+  \item Buat virtual environment: \texttt{python -m venv .venv}
+  \item Aktifkan venv
+  \item Instal dependensi: \texttt{pip install -r requirements.txt}
+  \item Kerjakan proyek
+  \item Jika menambah paket: \texttt{pip freeze > requirements.txt} (update)
+\end{enumerate}
+\end{konsep}
+
+\section{Debugging dan Gaya Kode}
+
+\begin{itemize}[leftmargin=*]
+  \item Baca pesan error (\textit{traceback}) dari \textbf{bawah ke atas} --- baris paling bawah menunjuk ke sumber masalah.
+  \item Tambahkan \texttt{print} diagnostik sementara atau gunakan debugger IDE\newline (VS Code, PyCharm).
+  \item Ikuti \textbf{PEP 8}: indentasi 4 spasi, baris tidak lebih dari 79 karakter, nama konsisten (\texttt{snake\_case}).
+  \item Gunakan \texttt{help(fungsi)} atau \texttt{dir(objek)} di REPL untuk eksplorasi cepat.
+\end{itemize}
+
+\begin{lstlisting}[caption=Teknik debugging sederhana dengan print]
+# Debug dengan print (sementara)
+def cari_maks(daftar):
+    print(f"DEBUG: input={daftar}")   # hapus setelah debug
+    if not daftar:
+        return None
+    maks = daftar[0]
+    for x in daftar[1:]:
+        if x > maks:
+            maks = x
+    print(f"DEBUG: maks={maks}")      # hapus setelah debug
+    return maks
+\end{lstlisting}
+
+\section{Studi Kasus dan Contoh Kode}
+
+Berikut adalah contoh-contoh program Python yang mengimplementasikan konsep-konsep pada modul ini.
+
+\subsection{Kode: \texttt{utilitas.py}}
+\begin{lstlisting}[language=Python,caption={\texttt{utilitas.py}}]
+"""Modul utilitas contoh yang dapat diimpor atau dijalankan."""
+
+
+def sapa_pengguna(nama: str) -> str:
+    return f"Halo, {nama}! Selamat datang."
+
+def main() -> None:
+    # Blok ini digunakan untuk pengujian ketika dijalankan langsung
+    print("Menguji modul utilitas...")
+    print(sapa_pengguna("Budi"))
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+\subsection{Kode: \texttt{program\_utama.py}}
+\begin{lstlisting}[language=Python,caption={\texttt{program\_utama.py}}]
+"""Program utama yang mengimpor modul utilitas dan standar."""
+import random
+from utilitas import sapa_pengguna
+
+
+def main() -> None:
+    # Menggunakan fungsi dari modul buatan sendiri
+    pesan = sapa_pengguna("Siti")
+    print(pesan)
+    
+    # Menggunakan modul standar Python
+    angka_acak = random.randint(1, 100)
+    print(f"Angka keberuntungan Anda hari ini: {angka_acak}")
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+\section{Referensi sesi}
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{[8, 9]} \textit{The Python Tutorial} --- modul, \texttt{venv}, pustaka standar.
+  \item \textbf{[14]} \textit{Dive Into Python 3} --- impor dan struktur paket.
+\end{itemize}
+
+\begin{aktivitas}
+  \item Buat skrip \texttt{utilitas.py} dengan beberapa fungsi utilitas, tambahkan \texttt{if \_\_name\_\_ == "\_\_main\_\_"} dengan pengujian fungsi, lalu impor fungsi tersebut dari skrip lain.
+  \item Gunakan \texttt{dir()} dan \texttt{help()} di REPL untuk menjelajahi modul \texttt{random} dan temukan tiga fungsi yang belum Anda ketahui.
+  \item Buat virtual environment baru, instal satu paket ringan (\texttt{requests} jika jaringan lab mengizinkan, atau \texttt{colorama}), dan simpan \texttt{requirements.txt}.
+  \item Sengaja buat bug \texttt{NameError} dan \texttt{TypeError}; perbaiki berdasarkan traceback.
+  \item Format ulang potongan kode tidak PEP 8 menjadi lebih konsisten (nama variabel, spasi, panjang baris).
+\end{aktivitas}
+
+\begin{latihan}
+  \item Jelaskan perbedaan \texttt{import mod} dan \texttt{from mod import fungsi}.
+  \item Apa perbedaan antara \texttt{dir(math)} dan \texttt{help(math)}?
+  \item Mengapa \texttt{if \_\_name\_\_ == "\_\_main\_\_"} penting saat membuat modul yang dapat diimpor?
+  \item Apa manfaat \texttt{python -m pip} dibanding menjalankan \texttt{pip} langsung?
+  \item Apa tujuan berkas \texttt{requirements.txt} dalam proyek tim?
+  \item Refleksi: strategi debugging mana yang paling membantu Anda?
+\end{latihan}
+
+\begin{asesmen}
+\textbf{Kuis}
+
+\begin{enumerate}
+  \item Perintah yang aman untuk menginstal paket ke interpreter yang sedang dipakai:
+  \begin{enumerate}
+    \item \texttt{python -m pip install nama\_paket}
+    \item \texttt{pip install nama\_paket} (tanpa venv)
+    \item \texttt{python install nama\_paket}
+    \item \texttt{sudo pip install nama\_paket}
+  \end{enumerate}
+  \item Blok \texttt{if \_\_name\_\_ == "\_\_main\_\_"} \textbf{tidak} dieksekusi ketika:
+  \begin{enumerate}
+    \item Berkas dijalankan langsung dengan \texttt{python berkas.py}
+    \item Berkas diimpor oleh modul lain
+    \item Berkas dijalankan di Jupyter
+    \item Berkas dijalankan di REPL dengan \texttt{exec()}
+  \end{enumerate}
+\end{enumerate}
+
+\textbf{Proyek mini}: skrip \texttt{proyek\_mini.py} yang: (1) membaca konfigurasi JSON sederhana, (2) memvalidasi kunci yang diperlukan, (3) memproses data berdasarkan konfigurasi, (4) menulis log ke berkas. Gunakan \texttt{if \_\_name\_\_ == "\_\_main\_\_"} dan pisahkan fungsi-fungsi ke modul sendiri.
+\end{asesmen}
+
+\begin{checklist}
+  \item Saya dapat mengimpor modul standar dengan benar (\texttt{import} dan \texttt{from ... import})
+  \item Saya dapat menggunakan pola \texttt{if \_\_name\_\_ == "\_\_main\_\_"}
+  \item Saya dapat menggunakan \texttt{dir()} untuk menjelajahi modul
+  \item Saya dapat membuat dan mengaktifkan virtual environment
+  \item Saya dapat menginstal paket, membuat dan menggunakan \texttt{requirements.txt}
+  \item Saya dapat membaca traceback dan memperbaiki kesalahan sederhana
+  \item Saya menerapkan minimal satu aturan gaya PEP 8 pada tugas
+\end{checklist}
+
+\begin{rangkuman}
+Modul menyusun kode besar menjadi unit yang dapat diimpor. Pola \texttt{if \_\_name\_\_ == "\_\_main\_\_"} memungkinkan berkas berfungsi ganda sebagai skrip dan modul. \texttt{dir()} dan \texttt{help()} membantu eksplorasi API. Virtual environment mengisolasi dependensi antar proyek; \texttt{pip} mengelola dependensi pihak ketiga; \texttt{requirements.txt} memungkinkan reproduksi lingkungan.
+
+\textbf{Referensi:} {\small Python Tutorial §6, §10, §12 \url{https://docs.python.org/3/tutorial/modules.html} dan \url{https://docs.python.org/3/tutorial/venv.html}}
+
+\textbf{Kata kunci:} \code{import}, \code{\_\_name\_\_}, \code{dir()}, \code{help()}, \code{pip}, \code{venv}, \code{requirements.txt}, \code{PEP 8}
+\end{rangkuman}
+
+\end{document}

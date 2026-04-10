@@ -1,0 +1,87 @@
+Struktur Modul Praktikum Selaras SN-Dikti dan Kurikulum OBE
+
+Pengantar
+
+Modul praktikum adalah sumber belajar yang mendukung pencapaian Capaian Pembelajaran Lulusan (CPL) melalui Capaian Pembelajaran Mata Kuliah (CPMK) dan Sub-CPMK. Penyusunannya mengacu prinsip Standar Nasional Pendidikan Tinggi (SN-Dikti) pada aspek isi, proses, penilaian, serta sarana dan prasarana, dan terintegrasi dengan Rencana Pembelajaran Semester (RPS). Setiap bagian modul menegaskan hubungan eksplisit antara pengalaman belajar, tugas mahasiswa, dan asesmen dengan capaian yang diukur (pendekatan Outcome-Based Education / OBE).
+
+Bagian depan modul (tingkat mata kuliah / keseluruhan modul)
+
+Isi utama:
+1. Identitas mata kuliah: nama MK, kode MK, bobot SKS, semester, program studi, wajib/pilihan.
+2. Tim pengembang / dosen pengampu dan kontak akademik (sesuai kebijakan prodi).
+3. Deskripsi singkat mata kuliah: ruang lingkup, relevansi terhadap profil lulusan dan kebutuhan lapangan.
+4. Prasyarat dan ko-requisit (jika ada).
+5. Pemetaan OBE:
+   - CPL program studi yang dibebankan pada mata kuliah ini (kode dan rumusan).
+   - CPMK mata kuliah (kemampuan akhir setelah MK selesai).
+   - Sub-CPMK per pertemuan atau per modul praktikum (dipecah operasional dan terukur).
+   - Matriks pemetaan: Sub-CPMK → CPMK → CPL (satu tabel ringkas).
+6. Keterkaitan dengan RPS:
+   - Nomor pertemuan, topik, bentuk pembelajaran (praktikum/lab/studio), estimasi waktu.
+   - Catatan beban belajar: acuan umum 1 SKS praktikum setara ±170 menit kegiatan terstruktur per minggu per semester (sesuai konvensi KPT; sesuaikan dengan RPS resmi prodi).
+7. Tujuan instruksional modul praktikum (jika modul = satu kesatuan besar) atau ringkasan capaian akhir yang harus dibuktikan mahasiswa di akhir seri praktikum.
+8. Petunjuk penggunaan modul bagi mahasiswa (alur belajar mandiri, persiapan sebelum lab, format pengumpulan tugas).
+
+Struktur per pertemuan / per eksperimen praktikum
+
+Ulangi kerangka berikut untuk setiap pertemuan atau setiap judul praktikum.
+
+Isi utama:
+1. Judul praktikum dan alokasi waktu (menit/jam efektif).
+2. Sub-CPMK / kemampuan akhir sesi: rumusan perilaku terukur (misalnya menggunakan kata kerja operasional: melakukan, menganalisis, merancang, mengevaluasi) beserta indikator pencapaian minimum.
+3. Bahan kajian dan ringkasan teori minimal: cukup untuk praktik mandiri di laboratorium/studio; rujuk ke buku ajar atau sumber utama jika detail ada di luar modul.
+4. Keselamatan kerja, etika, dan K3 (jika relevan): prosedur darurat, larangan, penggunaan APD, etika data/penggunaan software berlisensi.
+5. Sarana dan prasarana: alat, bahan, perangkat lunak, ruang, versi dependensi teknis (jika penting untuk reproduksi kegiatan).
+6. Prosedur kerja: langkah sistematis dari persiapan hingga penutupan (nomor urut jelas); sertakan tips troubleshooting ringkas jika perlu.
+7. Pengalaman belajar mahasiswa:
+   - Instruksi tugas yang harus diselesaikan selama atau setelah sesi.
+   - Lembar kerja (LKS/LKPD): tabel pengamatan, format input/output, checklist langkah.
+   - Format pencatatan data dan penyimpanan artefak (file, screenshot, log).
+8. Asesmen formatif pada sesi:
+   - Instrumen singkat: observasi kinerja, checklist keterampilan, kuis lisan/tertulis, validasi hasil kerja.
+   - Kriteria minimal “siap lanjut” sebelum pertemuan berikutnya (opsional, selaras prodi).
+9. Referensi per sesi: pustaka, dokumentasi resmi, modul internal lain (ringkas).
+
+Asesmen dan penilaian (selaras standar penilaian SN-Dikti dan OBE)
+
+Isi utama:
+1. Komponen penilaian dan bobot persentase (harus konsisten dengan RPS): contoh prates, laporan per modul, kinerja lab, proyek, UTS/UAS jika termasuk MK praktikum.
+2. Rubrik penilaian untuk setiap komponen utama, dengan kolom yang menautkan ke Sub-CPMK/CPMK (jejak bukti capaian).
+3. Kriteria kelulusan atau batas nilai minimal per komponen (jika ditetapkan prodi/fakultas).
+4. Panduan laporan atau jurnal praktikum: struktur bab, format sitasi, ketepatan data, analisis dan kesimpulan, kejujuran akademik.
+5. Jadwal pengumpulan, mekanisme revisi, dan umpan balik (agar penilaian transparan dan edukatif).
+
+Penutup modul
+
+Isi utama:
+1. Rangkuman capaian Sub-CPMK yang telah dibahas dalam seri praktikum.
+2. Refleksi mahasiswa: pertanyaan panduan terkait penguasaan keterampilan dan sikap kerja.
+3. Umpan balik untuk perbaikan modul (opsional: angket singkat).
+4. Integrasi dengan asesmen sumatif MK (jika di RPS praktikum terhubung UTS/UAS atau ujian komprehensif).
+
+Lampiran
+
+Isi utama:
+1. Template LKS/LKPD dan format pengumpulan tugas.
+2. Template laporan/jurnal praktikum.
+3. Lembar observasi kinerja untuk dosen/asisten (checklist terhubung Sub-CPMK).
+4. Rubrik lengkap per tugas besar (salinan untuk mahasiswa jika diperlukan).
+5. Daftar pustaka modul dan sumber belajar mandiri (termasuk tautan dokumentasi resmi jika relevan).
+6. Glosarium istilah teknis singkat.
+
+Checklist selaras SN-Dikti (verifikasi redaksional bagi penyusun)
+
+Gunakan daftar ini sebelum modul disetujui/dicetak:
+
+1. Standar isi: materi praktikum relevan dengan perkembangan IPTEKS dan capaian yang dijanjikan kurikulum; tidak hanya prosedur tanpa konteks capaian.
+2. Standar proses: metode dan pengalaman belajar jelas (student-centered sesuai karakter praktikum); beban dan urutan kegiatan masuk akal.
+3. Standar penilaian: indikator dan instrumen terukur, konsisten dengan RPS; rubrik memadai untuk ranah keterampilan/sikap jika dibebankan.
+4. Standar sarana dan prasarana: daftar kebutuhan lab/studio realistis dan selaras dengan fasilitas yang tersedia atau skenario alternatif.
+5. Standar pengelolaan mutu pendidikan tinggi (melalui dokumen): modul dapat direvisi berkala; versi dan tanggal revisi dicatat (disarankan di halaman identitas).
+6. Dokumentasi OBE: setiap pertemuan menunjukkan rantai Sub-CPMK → CPMK → CPL dan bukti asesmen yang mengukur capaian tersebut.
+
+Referensi umum (bukan bagian wajib isi modul; untuk pengembangan)
+
+- Standar Nasional Pendidikan Tinggi (SN-Dikti) dan dokumen tindak lanjut di tingkat perguruan tinggi.
+- Panduan Kurikulum Pendidikan Tinggi (KPT) / panduan penyusunan RPS berbasis capaian.
+- Panduan pengembangan bentuk pembelajaran praktikum, studio, atau tugas dari institusi atau direktorat terkait.

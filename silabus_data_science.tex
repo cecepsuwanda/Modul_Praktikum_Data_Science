@@ -1,0 +1,395 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[indonesian]{babel}
+\usepackage{geometry}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[hidelinks,breaklinks]{hyperref}
+\geometry{margin=2.5cm}
+
+\begin{document}
+
+\begin{center}
+\textbf{\Large RENCANA PEMBELAJARAN SEMESTER (RPS)}\\
+\textbf{Berbasis Outcome-Based Education (OBE)}\\[0.5cm]
+\textbf{PROGRAM STUDI TEKNIK INFORMATIKA}\\
+\textbf{FAKULTAS TEKNOLOGI INFORMASI}\\
+\textbf{UNIVERSITAS BALE BANDUNG}\\
+\end{center}
+
+\vspace{1cm}
+
+% ============================================================
+% 1. IDENTITAS MATA KULIAH
+% ============================================================
+\section*{1. Identitas Mata Kuliah}
+\begin{tabular}{ll}
+Nama Program Studi & : Teknik Informatika \\
+Nama Mata Kuliah & : Data Science \\
+Kode Mata Kuliah & : TIF-xxx \\
+Semester & : 5 (Lima) \\
+SKS / Bobot Kredit & : 3 SKS (komposisi 60\% teori, 40\% praktek) \\
+Jumlah Pertemuan & : 16 (enam belas) pertemuan \\
+Dosen Pengampu & : [Nama Dosen, M.Kom.] \\
+Tanggal Penyusunan & : [Tanggal] \\
+\end{tabular}
+
+\vspace{0.5cm}
+
+% ============================================================
+% 2. CPL PRODI YANG DIBEBANKAN PADA MATA KULIAH
+% ============================================================
+\section*{2. CPL Prodi yang Dibebankan pada Mata Kuliah}
+
+CPL Prodi berikut dipetakan pada capaian mata kuliah Data Science (selaras dengan dokumen RPS):
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{CPL01} --- Kemampuan menganalisis persoalan \textit{computing} yang kompleks serta menerapkan prinsip-prinsip \textit{computing} dan disiplin ilmu relevan lainnya untuk mengidentifikasi solusi, dengan mempertimbangkan wawasan perkembangan ilmu transdisiplin.
+
+  \item \textbf{CPL03} --- Kemampuan merancang dan menganalisis algoritma untuk menyelesaikan permasalahan organisasi secara optimal, serta memilih dan menerapkannya pada bahasa pemrograman tertentu.
+\end{itemize}
+
+\vspace{0.5cm}
+
+% ============================================================
+% 3. CAPAIAN PEMBELAJARAN MATA KULIAH (CPMK)
+% ============================================================
+\section*{3. Capaian Pembelajaran Mata Kuliah (CPMK)}
+
+Kemampuan atau kompetensi spesifik yang diharapkan mahasiswa kuasai setelah menyelesaikan mata kuliah (selaras dengan CPL Prodi yang dibebankan):
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{CPMK1} --- (Fokus pemahaman masalah dan wawasan transdisiplin; terkait CPL01) Mahasiswa mampu menganalisis persoalan komputasi dan bisnis yang kompleks dari berbagai domain (transdisiplin), serta merumuskan pendekatan berbasis data (\textit{data-driven}) sebagai solusi strategis untuk organisasi.
+
+  \item \textbf{CPMK2} --- (Fokus eksplorasi data dan pemrograman; terkait CPL01 dan CPL03) Mahasiswa mampu menerapkan prinsip-prinsip komputasi untuk melakukan pengumpulan, prapemrosesan (\textit{data preprocessing}), dan Analisis Data Eksploratif (EDA) menggunakan bahasa pemrograman tertentu (seperti Python atau R) guna mengidentifikasi pola tersembunyi pada data.
+
+  \item \textbf{CPMK3} --- (Fokus perancangan dan pemilihan algoritma; terkait CPL03) Mahasiswa mampu merancang, memilih, dan menerapkan algoritma \textit{Machine Learning} atau analisis statistik yang paling optimal (seperti regresi, klasifikasi, atau klastering) dalam bahasa pemrograman untuk menyelesaikan permasalahan organisasi secara efektif.
+
+  \item \textbf{CPMK4} --- (Fokus evaluasi dan penyampaian solusi; terkait CPL01 dan CPL03) Mahasiswa mampu menganalisis dan mengevaluasi kinerja model/algoritma yang telah dibangun, serta mengkomunikasikan hasil analisis teknis menjadi wawasan (\textit{insight}) bisnis yang mudah dipahami guna mendukung pengambilan keputusan.
+\end{itemize}
+
+\vspace{0.5cm}
+
+% ============================================================
+% 4. SUB-CPMK / INDIKATOR PENCAPAIAN
+% ============================================================
+\section*{4. Sub-CPMK / Indikator Pencapaian}
+
+Penjabaran CPMK menjadi indikator yang lebih terukur dan dapat diuji (selaras dengan RPS):
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Sub-CPMK 1:} Mahasiswa mampu mengidentifikasi permasalahan bisnis dari berbagai domain (transdisiplin) dan menjelaskan siklus hidup data science sebagai solusi \textit{data-driven}.
+
+  \item \textbf{Sub-CPMK 2:} Mahasiswa mampu melakukan pengumpulan data dari berbagai sumber serta memahami struktur dan karakteristik awal data.
+
+  \item \textbf{Sub-CPMK 3:} Mahasiswa mampu menerapkan teknik prapemrosesan data (\textit{data cleaning}) untuk menangani \textit{missing values}, anomali, dan duplikasi menggunakan Python/R.
+
+  \item \textbf{Sub-CPMK 4:} Mahasiswa mampu melakukan transformasi data dan rekayasa fitur (\textit{feature engineering}) agar data optimal untuk proses pemodelan.
+
+  \item \textbf{Sub-CPMK 5:} Mahasiswa mampu merancang dan mengeksekusi Analisis Data Eksploratif (EDA) serta memvisualisasikannya untuk menemukan pola tersembunyi.
+
+  \item \textbf{Sub-CPMK 6:} Mahasiswa mampu merumuskan hipotesis dan memilih algoritma yang relevan berdasarkan jenis masalah (\textit{Supervised} vs \textit{Unsupervised Learning}).
+
+  \item \textbf{Sub-CPMK 7:} Mahasiswa mampu merancang dan mengimplementasikan algoritma regresi untuk menyelesaikan permasalahan prediksi kuantitatif pada organisasi.
+
+  \item \textbf{Sub-CPMK 8:} Mahasiswa mampu mengimplementasikan algoritma klasifikasi dasar untuk memprediksi kelas atau kategori dari suatu permasalahan bisnis (misal: \textit{churn prediction}).
+
+  \item \textbf{Sub-CPMK 9:} Mahasiswa mampu menerapkan algoritma klasifikasi tingkat lanjut (\textit{ensemble}) untuk meningkatkan keandalan dan akurasi prediksi model.
+
+  \item \textbf{Sub-CPMK 10:} Mahasiswa mampu merancang algoritma klastering untuk mengidentifikasi segmentasi data yang tidak berlabel (misal: segmentasi pelanggan).
+
+  \item \textbf{Sub-CPMK 11:} Mahasiswa mampu menganalisis dan menghitung metrik evaluasi kinerja model/algoritma yang telah dibangun secara presisi.
+
+  \item \textbf{Sub-CPMK 12:} Mahasiswa mampu mengoptimalkan kinerja algoritma melalui teknik validasi dan penyesuaian parameter (\textit{hyperparameter tuning}).
+
+  \item \textbf{Sub-CPMK 13:} Mahasiswa mampu mengkomunikasikan hasil evaluasi teknis algoritma menjadi narasi dan visualisasi (\textit{insight}) yang relevan untuk pengambilan keputusan bisnis.
+
+  \item \textbf{Sub-CPMK 14:} Mahasiswa mampu merancang dan mengeksekusi proyek data science secara utuh (\textit{end-to-end pipeline}) sebagai solusi strategis untuk studi kasus nyata.
+\end{itemize}
+
+\vspace{0.5cm}
+
+% ============================================================
+% 5. MATERI PEMBELAJARAN (BAHAN KAJIAN)
+% ============================================================
+\section*{5. Materi Pembelajaran (Bahan Kajian)}
+
+Rincian materi per pertemuan beserta kaitannya dengan Sub-CPMK dan CPMK (selaras dengan RPS dan 16 pertemuan):
+
+\vspace{0.35cm}
+{\small\setlength{\tabcolsep}{3.5pt}%
+\begin{longtable}{|>{\raggedright\arraybackslash}p{2.05cm}|>{\raggedright\arraybackslash}p{4.55cm}|>{\raggedright\arraybackslash}p{4.55cm}|>{\raggedright\arraybackslash}p{2.95cm}|}
+\hline
+\textbf{Pertemuan} & \textbf{Materi pembelajaran} & \textbf{Sub-CPMK} & \textbf{Kaitan CPMK} \\
+\hline
+\endfirsthead
+\hline
+\textbf{Pertemuan} & \textbf{Materi pembelajaran} & \textbf{Sub-CPMK} & \textbf{Kaitan CPMK} \\
+\hline
+\endhead
+\hline
+\endfoot
+
+\textbf{Pertemuan 1} &
+Pengantar Data Science, Siklus Hidup Data (CRISP-DM), Pemahaman Bisnis (\textit{Business Understanding}). &
+\textbf{Sub-CPMK 1:} Mahasiswa mampu mengidentifikasi permasalahan bisnis dari berbagai domain dan menjelaskan siklus hidup data science. &
+\textbf{CPMK1} (fokus pemahaman masalah dan wawasan transdisiplin). \\
+\hline
+
+\textbf{Pertemuan 2} &
+Teknik Pengumpulan Data (\textit{Web Scraping}, API, Database), Struktur Data, \textit{Data Understanding}. &
+\textbf{Sub-CPMK 2:} Mahasiswa mampu melakukan pengumpulan data dari berbagai sumber serta memahami struktur dan karakteristik awal data. &
+\textbf{CPMK2} (fokus eksplorasi data dan pemrograman). \\
+\hline
+
+\textbf{Pertemuan 3} &
+\textit{Data Preprocessing} 1: \textit{Missing values imputation}, \textit{Outlier handling}, \textit{Data deduplication}. &
+\textbf{Sub-CPMK 3:} Mahasiswa mampu menerapkan teknik prapemrosesan data (\textit{data cleaning}) untuk menangani \textit{missing values}, anomali, dan duplikasi menggunakan Python/R. &
+\textbf{CPMK2} (fokus eksplorasi data dan pemrograman). \\
+\hline
+
+\textbf{Pertemuan 4} &
+\textit{Data Preprocessing} 2: Encoding kategorikal, \textit{Scaling/Normalization}, \textit{Feature Engineering} dasar. &
+\textbf{Sub-CPMK 4:} Mahasiswa mampu melakukan transformasi data dan rekayasa fitur (\textit{feature engineering}) agar data optimal untuk proses pemodelan. &
+\textbf{CPMK2} (fokus eksplorasi data dan pemrograman). \\
+\hline
+
+\textbf{Pertemuan 5} &
+\textit{Exploratory Data Analysis} (EDA), \textit{Univariate \& Bivariate Analysis}, \textit{Data Visualization} (Matplotlib, Seaborn, dll.). &
+\textbf{Sub-CPMK 5:} Mahasiswa mampu merancang dan mengeksekusi Analisis Data Eksploratif (EDA) serta memvisualisasikannya untuk menemukan pola tersembunyi. &
+\textbf{CPMK2} (fokus eksplorasi data dan pemrograman). \\
+\hline
+
+\textbf{Pertemuan 6} &
+Pengantar \textit{Machine Learning}, Analisis Statistik Dasar, Taksonomi Algoritma. &
+\textbf{Sub-CPMK 6:} Mahasiswa mampu merumuskan hipotesis dan memilih algoritma yang relevan berdasarkan jenis masalah (\textit{Supervised} vs \textit{Unsupervised Learning}). &
+\textbf{CPMK3} (fokus perancangan dan pemilihan algoritma). \\
+\hline
+
+\textbf{Pertemuan 7} &
+\textit{Supervised Learning: Simple \& Multiple Linear Regression}, Asumsi Regresi. &
+\textbf{Sub-CPMK 7:} Mahasiswa mampu merancang dan mengimplementasikan algoritma regresi untuk menyelesaikan permasalahan prediksi kuantitatif pada organisasi. &
+\textbf{CPMK3} (fokus perancangan dan pemilihan algoritma). \\
+\hline
+
+\textbf{Pertemuan 8} (UTS) &
+Evaluasi Pemahaman Konsep, EDA, dan Prapemrosesan Data (Kasus Bisnis Tahap Awal). &
+--- &
+Menguji pemahaman mahasiswa terhadap \textbf{CPMK1} dan \textbf{CPMK2}. \\
+\hline
+
+\textbf{Pertemuan 9} &
+\textit{Supervised Learning: Logistic Regression, K-Nearest Neighbors} (KNN), \textit{Decision Tree}. &
+\textbf{Sub-CPMK 8:} Mahasiswa mampu mengimplementasikan algoritma klasifikasi dasar untuk memprediksi kelas atau kategori dari suatu permasalahan bisnis. &
+\textbf{CPMK3} (fokus perancangan dan pemilihan algoritma). \\
+\hline
+
+\textbf{Pertemuan 10} &
+\textit{Supervised Learning --- Ensemble: Random Forest, Support Vector Machine} (SVM), \textit{Gradient Boosting}. &
+\textbf{Sub-CPMK 9:} Mahasiswa mampu menerapkan algoritma klasifikasi tingkat lanjut (\textit{ensemble}) untuk meningkatkan keandalan dan akurasi prediksi model. &
+\textbf{CPMK3} (fokus perancangan dan pemilihan algoritma). \\
+\hline
+
+\textbf{Pertemuan 11} &
+\textit{Unsupervised Learning: K-Means Clustering, Hierarchical Clustering}, Analisis Silhouette. &
+\textbf{Sub-CPMK 10:} Mahasiswa mampu merancang algoritma klastering untuk mengidentifikasi segmentasi data yang tidak berlabel (misal: segmentasi pelanggan). &
+\textbf{CPMK3} (fokus perancangan dan pemilihan algoritma). \\
+\hline
+
+\textbf{Pertemuan 12} &
+Evaluasi Model: \textit{Confusion Matrix, Accuracy, Precision, Recall, F1-Score}, RMSE, ROC-AUC. &
+\textbf{Sub-CPMK 11:} Mahasiswa mampu menganalisis dan menghitung metrik evaluasi kinerja model/algoritma yang telah dibangun secara presisi. &
+\textbf{CPMK4} (fokus evaluasi dan penyampaian solusi). \\
+\hline
+
+\textbf{Pertemuan 13} &
+\textit{Cross-Validation} (K-Fold), \textit{Hyperparameter Tuning} (\textit{Grid Search}, \textit{Random Search}). &
+\textbf{Sub-CPMK 12:} Mahasiswa mampu mengoptimalkan kinerja algoritma melalui teknik validasi dan penyesuaian parameter (\textit{hyperparameter tuning}). &
+\textbf{CPMK3} dan \textbf{CPMK4}. \\
+\hline
+
+\textbf{Pertemuan 14} &
+\textit{Data Storytelling}, Penyusunan Laporan Bisnis (\textit{Executive Summary}), Rekomendasi Aksi. &
+\textbf{Sub-CPMK 13:} Mahasiswa mampu mengkomunikasikan hasil evaluasi teknis algoritma menjadi narasi dan visualisasi (\textit{insight}) yang relevan untuk pengambilan keputusan bisnis. &
+\textbf{CPMK4} (fokus evaluasi dan penyampaian solusi). \\
+\hline
+
+\textbf{Pertemuan 15} &
+Presentasi Proyek Akhir (\textit{Showcase}): Integrasi \textit{Business Understanding, Data Prep, Modeling}, Evaluasi, dan \textit{Business Insight}. &
+\textbf{Sub-CPMK 14:} Mahasiswa mampu merancang dan mengeksekusi proyek data science secara utuh (\textit{end-to-end pipeline}) sebagai solusi strategis untuk studi kasus nyata. &
+Integrasi utuh dari \textbf{CPMK1}, \textbf{CPMK2}, \textbf{CPMK3}, dan \textbf{CPMK4}. \\
+\hline
+
+\textbf{Pertemuan 16} (UAS) &
+Evaluasi Pemodelan, Evaluasi Algoritma, dan Penyampaian \textit{Insight} Bisnis (Kasus Bisnis \textit{End-to-End}). &
+--- &
+Menguji kompetensi utama lanjutan pada \textbf{CPMK3} dan \textbf{CPMK4}. \\
+\hline
+\end{longtable}
+}
+
+\vspace{0.5cm}
+
+% ============================================================
+% 6. METODE PEMBELAJARAN
+% ============================================================
+\section*{6. Metode Pembelajaran}
+
+Strategi atau pendekatan pembelajaran yang dipilih sesuai OBE yang menekankan aktivitas mahasiswa (komposisi 60\% teori, 40\% praktek):
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Ceramah Interaktif:} Penjelasan konsep data science, statistik, dan machine learning dengan diskusi tanya jawab
+  \item \textbf{Problem-Based Learning (PBL):} Mahasiswa menyelesaikan permasalahan analisis data nyata menggunakan Python (NumPy, Pandas, scikit-learn)
+  \item \textbf{Project-Based Learning:} Proyek kelompok analisis data end-to-end (data, preprocessing, model, interpretasi) dengan Python
+  \item \textbf{Praktikum Terbimbing:} Latihan coding dengan Python (Jupyter/IDE) dengan bimbingan asisten; fokus pada Pandas, Matplotlib/Seaborn, scikit-learn
+  \item \textbf{Flipped Classroom:} Mahasiswa mempelajari materi dan tutorial Python sebelum kelas, diskusi mendalam dan praktik di kelas
+  \item \textbf{Studi Kasus:} Analisis dataset terbuka (UCI, Kaggle, data.go.id, BPS) dengan Python
+  \item \textbf{Peer Review:} Mahasiswa melakukan review notebook/kode Python rekan dan memberikan feedback konstruktif
+\end{itemize}
+
+\vspace{0.5cm}
+
+% ============================================================
+% 7. PENGALAMAN BELAJAR MAHASISWA
+% ============================================================
+\section*{7. Pengalaman Belajar Mahasiswa}
+
+Deskripsi tugas, aktivitas, atau pengalaman belajar yang mendukung pencapaian Sub-CPMK:
+
+\begin{itemize}[leftmargin=*]
+  \item Melakukan instalasi lingkungan Python (Anaconda/Jupyter atau IDE) dan menjalankan script dasar
+  \item Membaca dan memuat dataset dari CSV/Excel menggunakan Pandas
+  \item Melakukan pembersihan data (missing, outlier) dan statistik deskriptif dengan Python
+  \item Membuat visualisasi (plot) untuk eksplorasi data menggunakan Matplotlib/Seaborn
+  \item Menerapkan model klasifikasi atau regresi pada dataset terbuka dengan scikit-learn
+  \item Mengevaluasi performa model dan menginterpretasikan metrik (akurasi, RMSE, confusion matrix)
+  \item Berkolaborasi dalam tim untuk proyek analisis data lengkap (dari data hingga presentasi)
+  \item Mempresentasikan hasil analisis dan insight di depan kelas
+  \item Melakukan peer review terhadap notebook/kode Python rekan
+  \item Merefleksikan etika data dan privasi dalam penggunaan dataset
+\end{itemize}
+
+\vspace{0.5cm}
+
+% ============================================================
+% 8. KRITERIA, INDIKATOR, DAN BOBOT PENILAIAN
+% ============================================================
+\section*{8. Kriteria, Indikator, dan Bobot Penilaian}
+
+Teknik/alat asesmen dipetakan ke Sub-CPMK/CPMK dengan bobot yang jelas. Komposisi: \textbf{60\% teori}, \textbf{40\% praktek}.
+
+\begin{longtable}{|>{\raggedright\arraybackslash}p{2.5cm}|>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{5.5cm}|c|}
+\hline
+\textbf{Komponen} & \textbf{Teknik Asesmen} & \textbf{Indikator/CPMK} & \textbf{Bobot (\%)} \\
+\hline
+\endfirsthead
+\hline
+\textbf{Komponen} & \textbf{Teknik Asesmen} & \textbf{Indikator/CPMK} & \textbf{Bobot (\%)} \\
+\hline
+\endhead
+\hline
+\endfoot
+
+Kuis & Tertulis (teori) & Sub-CPMK 1, 6, 11, 12 & 10 \\
+\hline
+UTS & Ujian tertulis (teori \& pemahaman konsep) & CPMK1, CPMK2 & 25 \\
+\hline
+UAS & Ujian tertulis komprehensif (teori) & CPMK1 s.d. CPMK4 & 25 \\
+\hline
+Tugas/Praktikum & Tugas coding \& laporan (Python/R) & Sub-CPMK 2, 3, 4, 5, 7, 8 & 15 \\
+\hline
+Proyek Kelompok & Analisis data \& presentasi (Python/R) & CPMK2, CPMK3, CPMK4; Sub-CPMK 14 & 25 \\
+\hline
+\textbf{Total} & & & \textbf{100} \\
+\hline
+\end{longtable}
+
+\textbf{Rincian komposisi:} Teori (Kuis + UTS + UAS) = 60\%; Praktek (Tugas/Praktikum + Proyek Kelompok) = 40\%.
+
+\textbf{Kriteria Penilaian:}
+\begin{itemize}[leftmargin=*]
+  \item A (85--100): Menguasai semua CPMK dengan sangat baik, mampu menerapkan dalam kasus kompleks
+  \item B (70--84): Menguasai sebagian besar CPMK dengan baik
+  \item C (60--69): Menguasai CPMK dasar dengan cukup
+  \item D (50--59): Menguasai sebagian kecil CPMK
+  \item E (<50): Belum menguasai CPMK yang ditetapkan
+\end{itemize}
+
+\vspace{0.5cm}
+
+% ============================================================
+% 9. EVALUASI DAN REFLEKSI PEMBELAJARAN (OPSIONAL)
+% ============================================================
+\section*{9. Evaluasi dan Refleksi Pembelajaran}
+
+Penilaian sumatif/formatif untuk memantau ketercapaian outcome secara menyeluruh:
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Evaluasi Formatif:} Kuis mingguan, latihan coding Python, peer review untuk memberikan feedback berkelanjutan
+  \item \textbf{Evaluasi Sumatif:} UTS dan UAS untuk mengukur pencapaian CPMK secara komprehensif
+  \item \textbf{Refleksi Mahasiswa:} Jurnal belajar atau refleksi mingguan terhadap pemahaman materi data science dan Python
+  \item \textbf{Evaluasi Dosen:} Survey kepuasan mahasiswa di tengah dan akhir semester
+  \item \textbf{Continuous Improvement:} Analisis hasil penilaian untuk perbaikan RPS di semester berikutnya
+\end{itemize}
+
+\vspace{0.5cm}
+
+% ============================================================
+% 10. DAFTAR REFERENSI (sumber terbuka dari internet)
+% ============================================================
+\section*{10. Daftar Referensi}
+
+Sumber belajar terbuka (\textit{open access}) dari internet; diselaraskan dengan berkas \texttt{sumber\_materi.md} (pemetaan ke CPL, CPMK, Sub-CPMK, dan materi per pertemuan). Alat utama praktik: Python.
+
+\begin{enumerate}[leftmargin=*]
+  \item IBM. \textit{SPSS Modeler CRISP-DM Guide} (PDF). \url{https://public.dhe.ibm.com/software/analytics/spss/documentation/modeler/18.0/en/ModelerCRISPDM.pdf}.
+
+  \item IBM. \textit{CRISP-DM Help Overview} (dokumentasi web). \url{https://www.ibm.com/docs/en/spss-modeler/saas?topic=dm-crisp-help-overview}.
+
+  \item Requests contributors. \textit{Requests: HTTP for Humans} (dokumentasi). \url{https://docs.python-requests.org/en/stable/}. \textit{Quickstart}. \url{https://docs.python-requests.org/en/stable/user/quickstart/}.
+
+  \item Richardson, L. \textit{Beautiful Soup 4 Documentation}. \url{https://www.crummy.com/software/BeautifulSoup/bs4/doc/}.
+
+  \item pandas development team. \textit{User Guide: IO tools} (CSV, Excel, basis data). \url{https://pandas.pydata.org/docs/user_guide/io.html}.
+
+  \item pandas development team. \textit{User Guide: Missing data}. \url{https://pandas.pydata.org/docs/user_guide/missing_data.html}.
+
+  \item scikit-learn developers. \textit{Preprocessing data}. \url{https://scikit-learn.org/stable/modules/preprocessing.html}.
+
+  \item Matplotlib development team. \textit{Matplotlib Tutorials}. \url{https://matplotlib.org/stable/tutorials/index.html}.
+
+  \item Seaborn developers. \textit{Seaborn tutorial}. \url{https://seaborn.pydata.org/tutorial.html}.
+
+  \item scikit-learn developers. \textit{Supervised learning}. \url{https://scikit-learn.org/stable/supervised_learning.html}.
+
+  \item scikit-learn developers. \textit{Unsupervised learning}. \url{https://scikit-learn.org/stable/unsupervised_learning.html}.
+
+  \item scikit-learn developers. Contoh \textit{Selecting the number of clusters with silhouette analysis on KMeans}. \url{https://scikit-learn.org/stable/auto_examples/cluster/plot_kmeans_silhouette_analysis.html}. Fungsi \texttt{sklearn.metrics.silhouette\_score}. \url{https://scikit-learn.org/stable/modules/generated/sklearn.metrics.silhouette_score.html}.
+
+  \item scikit-learn developers. \textit{Metrics and scoring: quantifying the quality of predictions}. \url{https://scikit-learn.org/stable/model_evaluation.html}.
+
+  \item scikit-learn developers. \textit{Cross-validation: evaluating estimator performance}. \url{https://scikit-learn.org/stable/modules/cross_validation.html}. \textit{Tuning the hyper-parameters of an estimator}. \url{https://scikit-learn.org/stable/modules/grid_search.html}.
+
+  \item James, G., Witten, D., Hastie, T., Tibshirani, R., dkk. \textit{An Introduction to Statistical Learning} (situs resmi; edisi R/Python, PDF terbuka). \url{https://www.statlearning.com/}.
+
+  \item VanderPlas, J. \textit{Python Data Science Handbook} (online). \url{https://jakevdp.github.io/PythonDataScienceHandbook/}.
+
+  \item Harvard University. \textit{Data Science: Visualization} (Professional \& Lifelong Learning). \url{https://pll.harvard.edu/course/data-science-visualization}.
+
+  \item Pemerintah Indonesia. \textit{Data Terbuka Indonesia} (\texttt{data.go.id}). \url{https://data.go.id/}.
+\end{enumerate}
+
+\vspace{1cm}
+
+\begin{flushright}
+\begin{tabular}{c}
+Disusun oleh,\\[2cm]
+\textbf{[Nama Dosen, M.Kom.]}\\
+NIP. [NIP]
+\end{tabular}
+\end{flushright}
+
+\end{document}

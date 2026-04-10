@@ -1,0 +1,205 @@
+% ============================================================
+% Preamble - Modul Praktikum Data Science (OBE)
+% Selaras silabus_praktikum_data_science.tex (TIF-xxx-prak)
+% ============================================================
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[indonesian]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm, headheight=28pt, headsep=14pt}
+
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{amssymb}
+
+\usepackage{enumitem}
+
+\usepackage{xurl}
+\usepackage[hidelinks,breaklinks]{hyperref}
+\usepackage{bookmark}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  urlcolor=blue,
+  citecolor=blue,
+  bookmarksnumbered=true,
+  pdfstartview=FitH
+}
+
+\usepackage{subfiles}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[RE]{\leftmark}
+\fancyhead[LO]{\rightmark}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\usepackage{listings}
+
+\definecolor{pykeyword}{rgb}{0.0,0.45,0.7}
+\definecolor{pystring}{rgb}{0.6,0.1,0.1}
+\definecolor{pycomment}{rgb}{0.25,0.5,0.35}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codebg}{rgb}{0.95,0.95,0.95}
+
+\lstdefinestyle{pystyle}{
+  language=Python,
+  alsoletter={_0123456789},
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{pykeyword}\bfseries,
+  stringstyle=\color{pystring},
+  commentstyle=\color{pycomment}\itshape,
+  numbers=left,
+  numberstyle=\tiny\color{codegray},
+  stepnumber=1,
+  numbersep=10pt,
+  backgroundcolor=\color{codebg},
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  frame=single,
+  tabsize=2,
+  captionpos=b,
+  breaklines=true,
+  breakatwhitespace=false,
+  escapeinside={(*@}{@*)},
+  xleftmargin=15pt,
+  xrightmargin=5pt
+}
+
+\renewcommand{\lstlistlistingname}{Daftar Kode Program}
+\renewcommand{\lstlistingname}{Kode Program}
+\lstset{style=pystyle}
+
+\lstnewenvironment{pycode}[1][]{
+  \lstset{style=pystyle, #1}
+}{}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+\newtcolorbox{konsep}{
+  colback=blue!5!white,
+  colframe=blue!75!black,
+  fonttitle=\bfseries,
+  title=Konsep Penting,
+  breakable
+}
+
+\newtcolorbox{catatan}{
+  colback=yellow!5!white,
+  colframe=yellow!75!black,
+  fonttitle=\bfseries,
+  title=Catatan,
+  breakable
+}
+
+\newtcolorbox{contoh}{
+  colback=green!5!white,
+  colframe=green!75!black,
+  fonttitle=\bfseries,
+  title=Contoh,
+  breakable
+}
+
+\newenvironment{subcpmk}{
+  \vspace{0.5cm}
+  \noindent\colorbox{blue!10}{\parbox{\dimexpr\textwidth-2\fboxsep}{
+    \textbf{\large Sub-CPMK yang Dicakup dalam Bab Ini:}
+  }}
+  \vspace{0.3cm}
+  \begin{itemize}[leftmargin=*, itemsep=5pt]
+}{
+  \end{itemize}
+  \vspace{0.5cm}
+}
+
+\newenvironment{aktivitas}{
+  \vspace{0.5cm}
+  \noindent\colorbox{green!10}{\parbox{\dimexpr\textwidth-2\fboxsep}{
+    \textbf{\large Aktivitas Pembelajaran}
+  }}
+  \vspace{0.3cm}
+  \begin{enumerate}[leftmargin=*, itemsep=8pt]
+}{
+  \end{enumerate}
+  \vspace{0.5cm}
+}
+
+\newenvironment{latihan}{
+  \vspace{0.5cm}
+  \noindent\colorbox{orange!10}{\parbox{\dimexpr\textwidth-2\fboxsep}{
+    \textbf{\large Latihan dan Refleksi}
+  }}
+  \vspace{0.3cm}
+  \begin{enumerate}[leftmargin=*, itemsep=8pt]
+}{
+  \end{enumerate}
+  \vspace{0.5cm}
+}
+
+\newenvironment{asesmen}{
+  \vspace{0.5cm}
+  \noindent\colorbox{red!10}{\parbox{\dimexpr\textwidth-2\fboxsep}{
+    \textbf{\large Asesmen (Evaluasi Kinerja)}
+  }}
+  \vspace{0.3cm}
+}{
+  \vspace{0.5cm}
+}
+
+\newenvironment{checklist}{
+  \vspace{0.5cm}
+  \noindent\colorbox{purple!10}{\parbox{\dimexpr\textwidth-2\fboxsep}{
+    \textbf{\large Checklist Pencapaian Kompetensi}
+  }}
+  \vspace{0.3cm}
+  \noindent\textit{Centang item berikut setelah Anda yakin telah menguasainya:}
+  \vspace{0.2cm}
+  \begin{itemize}[leftmargin=1.6em, labelsep=0.4em, itemsep=5pt, label=$\square$]
+}{
+  \end{itemize}
+  \vspace{0.5cm}
+}
+
+\newenvironment{rangkuman}{
+  \vspace{0.5cm}
+  \noindent\colorbox{gray!10}{\parbox{\dimexpr\textwidth-2\fboxsep}{
+    \textbf{\large Rangkuman}
+  }}
+  \vspace{0.3cm}
+}{
+  \vspace{0.5cm}
+}
+
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\keyword}[1]{\textcolor{pykeyword}{\texttt{\textbf{#1}}}}
+\newcommand{\jupyter}{\texttt{Jupyter Notebook}}
+\newcommand{\sklearn}{\texttt{scikit-learn}}
+
+\newcommand{\SesiRPS}[4]{%
+  \section{Informasi sesi praktikum}%
+  \begin{itemize}[leftmargin=*]%
+    \item \textbf{Minggu RPS:} #1%
+    \item \textbf{Sub-CPMK utama:} #2%
+    \item \textbf{Alokasi waktu:} #3%
+    \item \textbf{CPMK yang dibuktikan:} #4%
+  \end{itemize}%
+}
+
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\raggedbottom
+
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{3}

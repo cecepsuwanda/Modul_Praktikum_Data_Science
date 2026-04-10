@@ -1,0 +1,71 @@
+\documentclass[../main.tex]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{13}}{}
+\begin{document}
+
+\chapter{Struktur Narasi di Notebook; Ringkasan untuk Pemangku Kepentingan}
+
+\begin{subcpmk}
+  \item \textbf{Sub-CPMK-P10:} Menyusun ringkasan eksekutif (teks + visual) agar pembaca non-teknis memahami temuan (RPS Mg.\ 13).
+\end{subcpmk}
+
+\SesiRPS{13}{P10}{$\sim$170 menit}{CPMK-P4}
+
+\section{Teori}
+
+\begin{konsep}
+\textit{Data storytelling} menghubungkan bukti (tabel, plot, metrik) dengan rekomendasi. Struktur umum: konteks bisnis $\rightarrow$ pertanyaan $\rightarrow$ metode ringkas $\rightarrow$ temuan utama $\rightarrow$ keterbatasan $\rightarrow$ tindakan yang disarankan.
+\end{konsep}
+
+\section{Contoh kerangka Markdown}
+
+Gunakan sel Markdown berurutan (bukan sebagai listing Python):
+
+\begin{verbatim}
+## Ringkasan eksekutif (5-7 kalimat)
+## Pertanyaan analitik
+## Data dan kualitas
+## Model dan validasi (tanpa rumus panjang)
+## Temuan utama (3 bullet + 1 gambar)
+## Risiko dan keterbatasan
+## Rekomendasi
+\end{verbatim}
+
+\section{Contoh kode (plot untuk slide ringkasan)}
+
+\begin{lstlisting}[caption=Plot sederhana untuk disematkan di narasi]
+import matplotlib.pyplot as plt
+vals = [0.82, 0.88, 0.91]
+labs = ["Model A", "Model B", "Model C"]
+plt.bar(labs, vals)
+plt.ylabel("F1 (contoh)")
+plt.title("Perbandingan model (ilustrasi)")
+plt.show()
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Export figur ke berkas]
+plt.savefig("fig_ringkasan.png", dpi=150, bbox_inches="tight")
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Tabel ringkasan metrik ke Markdown via print]
+import pandas as pd
+dfm = pd.DataFrame({"model": ["A", "B"], "f1": [0.8, 0.86]})
+print(dfm.to_markdown(index=False))
+\end{lstlisting}
+
+\section{Referensi}
+
+\begin{itemize}[leftmargin=*]
+  \item IBM CRISP-DM (komunikasi hasil). \url{https://www.ibm.com/docs/en/spss-modeler/saas?topic=dm-crisp-help-overview}
+\end{itemize}
+
+\begin{asesmen}
+\textbf{Formatif:} satu notebook ``cerita'' dari hasil minggu 7--12 dengan struktur di atas.
+\end{asesmen}
+
+\begin{rangkuman}
+Minggu 13 mengalihkan fokus dari kode ke komunikasi keputusan berbasis data.
+
+\textbf{Kata kunci:} ringkasan eksekutif, visual pendukung
+\end{rangkuman}
+
+\end{document}

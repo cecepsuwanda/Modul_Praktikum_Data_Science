@@ -1,0 +1,114 @@
+\documentclass[../main.tex]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{10}}{}
+\begin{document}
+
+\chapter{Comprehension, Generator, dan Iterator Pengenalan}
+
+\begin{subcpmk}
+  \item Sub-CPMK 7.2: Menulis list/dict/set comprehension dan fungsi generator sederhana dengan \texttt{yield}\newline untuk menghasilkan deret data secara hemat memori
+\end{subcpmk}
+
+\SesiRPS{12}{7.2}{$\sim$170 menit}{CPMK-7}
+
+\section{Sarana dan prasarana}
+
+Python 3.10+, editor, terminal; tidak memerlukan paket pihak ketiga.
+
+\section{Keselamatan kerja dan etika}
+
+Etika akademik: comprehension dan generator harus Anda pahami, bukan hanya disalin tanpa memahami alur data.
+
+\section{Prosedur kerja}
+
+\begin{enumerate}[leftmargin=*]
+  \item Pelajari sintaks comprehension dari contoh.
+  \item Bandingkan dengan loop klasik untuk kasus yang sama.
+  \item Tulis satu generator dengan \texttt{yield}; iterasikan dengan \texttt{for} atau \texttt{next()}.
+  \item Refaktor potongan kode loop panjang menjadi gaya idiomatik (aktivitas).
+\end{enumerate}
+
+\section{List dan Dict Comprehension}
+
+\begin{lstlisting}[caption=Comprehension]
+squares = [x * x for x in range(10) if x % 2 == 0]
+nama_ke_id = {n.lower(): i for i, n in enumerate(["Ali", "Budi", "Ali"])}
+\end{lstlisting}
+
+\section{Generator dengan yield}
+
+\begin{lstlisting}[caption=Generator sederhana]
+def countdown(n):
+    while n >= 0:
+        yield n
+        n -= 1
+
+for x in countdown(3):
+    print(x)
+\end{lstlisting}
+
+\section{Studi Kasus dan Contoh Kode}
+
+Berikut adalah contoh-contoh program Python yang mengimplementasikan konsep-konsep pada modul ini.
+
+\subsection{Kode: \texttt{comprehension.py}}
+\begin{lstlisting}[language=Python,caption={\texttt{comprehension.py}}]
+"""Contoh penggunaan list comprehension dan generator."""
+
+
+def deret_genap(batas: int):
+    """Generator yang menghasilkan bilangan genap hingga batas."""
+    for i in range(batas + 1):
+        if i % 2 == 0:
+            yield i
+
+def main() -> None:
+    # List comprehension
+    angka = [1, 2, 3, 4, 5]
+    kuadrat = [x**2 for x in angka if x % 2 != 0]
+    print(f"Kuadrat ganjil: {kuadrat}")
+    
+    # Generator
+    genap = deret_genap(10)
+    print("Deret genap 0-10:", list(genap))
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+\section{Referensi sesi}
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{[14]} Pilgrim, M. \textit{Dive Into Python 3} --- iterator dan generator.
+  \item \textbf{[8, 9]} \textit{The Python Tutorial} --- generator expressions.
+  \item \textbf{[19]} Real Python --- comprehension dan generator.
+\end{itemize}
+
+\begin{aktivitas}
+  \item Dari list bilangan \texttt{data}, buat list baru berisi hanya bilangan positif ganjil memakai list comprehension.
+  \item Buat dict comprehension yang memetakan huruf pertama kata ke panjang kata dari daftar string.
+  \item Tulis generator \texttt{bilangan\_genap(maks)} yang menghasilkan bilangan genap dari 0 sampai \texttt{maks} (inklusif), lalu cetak hasilnya.
+  \item Simpan pekerjaan di \texttt{NIM\_TIF105\_M12\_comp.py}.
+\end{aktivitas}
+
+\begin{latihan}
+  \item Kapan generator lebih tepat daripada list comprehension?
+  \item Apa perilaku iterator setelah habis?
+\end{latihan}
+
+\begin{asesmen}
+\textbf{Formatif:} comprehension valid secara sintaks; generator dapat diiterasi; refaktor mengurangi loop bersarang berlebihan tanpa mengubah hasil logika.
+\end{asesmen}
+
+\begin{checklist}
+  \item Saya dapat menulis list/dict comprehension dasar
+  \item Saya dapat membuat fungsi generator dengan \texttt{yield}
+  \item Saya memahami kapan memakai generator untuk efisiensi memori
+\end{checklist}
+
+\begin{rangkuman}
+Comprehension memadatkan loop pembangun koleksi; generator menunda komputasi dengan \texttt{yield}.
+
+\textbf{Kata kunci:} comprehension, generator, \code{yield}, iterator
+\end{rangkuman}
+
+\end{document}

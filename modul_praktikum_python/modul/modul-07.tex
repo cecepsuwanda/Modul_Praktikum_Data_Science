@@ -1,0 +1,323 @@
+\documentclass[../main.tex]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{7}}{}
+\begin{document}
+
+\chapter{Berkas Teks, Format Output Lanjut, dan Penanganan Kesalahan}
+
+\begin{subcpmk}
+  \item Sub-CPMK 5.1: Membaca dan menulis berkas teks dengan konteks manajer (\texttt{with}) dan penanganan kesalahan dasar
+  \item Sub-CPMK 5.2: Memuat dan menyimpan data terstruktur JSON serta menerapkan \texttt{try}/\texttt{except}/\texttt{else}/\texttt{finally} secara tepat
+\end{subcpmk}
+
+\SesiRPS{9}{5.1 dan 5.2}{$\sim$170 menit}{CPMK-5}
+
+\section{Sarana dan prasarana}
+
+Python 3.10+, editor, terminal; berkas contoh teks/JSON di folder kerja.
+
+\section{Prosedur kerja}
+
+\begin{enumerate}[leftmargin=*]
+  \item Latih format \texttt{f-string} dan penulisan berkas teks.
+  \item Baca/tulis JSON kecil; tangani pengecualian umum:\newline
+  \texttt{FileNotFoundError}, \texttt{JSONDecodeError}.
+  \item Dokumentasikan jalur berkas relatif terhadap skrip.
+\end{enumerate}
+
+\section{Format Output Lanjut}
+
+Sebelum membahas berkas, mari pelajari cara memformat output dengan baik.
+
+\subsection{f-string Lanjut dan \texttt{str.format()}}
+
+Python menyediakan beberapa cara memformat string (Tutorial Python §7.1):
+
+\begin{lstlisting}[caption=Format string: f-string dan format() (Tutorial Python ss7.1)]
+# f-string dengan format specification
+nama = "Aulia"
+skor = 87.456
+print(f"Nama  : {nama:<15}")     # rata kiri lebar 15
+print(f"Skor  : {skor:>8.2f}")   # rata kanan, 2 desimal
+print(f"Persen: {skor/100:.1%}") # format persen
+
+# str.format() -- alternatif f-string
+print("Nama: {:15} | Skor: {:6.2f}".format(nama, skor))
+
+# repr() vs str() untuk debugging
+print(f"{nama!r}")   # 'Aulia' -- dengan tanda kutip
+print(f"{nama!s}")   # Aulia  -- tanpa tanda kutip
+\end{lstlisting}
+
+\section{Membaca dan Menulis Berkas}
+
+Gunakan \texttt{open} dengan mode \texttt{r}, \texttt{w}, \texttt{a}. Disarankan memakai konteks \keyword{with} agar berkas tertutup otomatis (Tutorial Python §7.2):
+
+\begin{lstlisting}[caption=Menulis dan membaca berkas]
+# Menulis ke berkas
+with open("data.txt", "w", encoding="utf-8") as f:
+    f.write("Baris pertama\n")
+    f.write("Baris kedua\n")
+
+# Membaca seluruh isi
+with open("data.txt", "r", encoding="utf-8") as f:
+    isi = f.read()
+print(isi)
+\end{lstlisting}
+
+\section{Metode Objek Berkas Lanjut}
+
+Objek berkas memiliki beberapa metode yang berguna (Tutorial Python §7.2.1):
+
+\begin{lstlisting}[caption=Metode berkas: readline readlines seek tell]
+with open("data.txt", "w", encoding="utf-8") as f:
+    for i in range(1, 6):
+        f.write(f"Baris {i}: data penting\n")
+
+with open("data.txt", "r", encoding="utf-8") as f:
+    baris1 = f.readline()          # baca satu baris
+    print(repr(baris1))            # 'Baris 1: data penting\n'
+
+    semua = f.readlines()          # baca semua sisa sebagai list
+    print(len(semua))              # 4 (baris 2--5)
+
+# seek dan tell: navigasi posisi berkas
+with open("data.txt", "rb") as f:    # buka mode binary untuk seek
+    print(f.tell())      # 0 -- posisi awal
+    f.seek(10)           # pindah ke byte ke-10
+    print(f.tell())      # 10
+    f.seek(0)            # kembali ke awal
+    print(f.read(5))     # baca 5 byte pertama
+\end{lstlisting}
+
+\section{Iterasi Baris}
+
+Cara paling efisien membaca berkas baris per baris (hemat memori untuk file besar):
+
+\begin{lstlisting}[caption=Iterasi baris -- cara paling efisien]
+with open("data.txt", "r", encoding="utf-8") as f:
+    for nomor, baris in enumerate(f, start=1):
+        print(f"{nomor:3}: {baris}", end="")
+\end{lstlisting}
+
+\section{Menyimpan Data Terstruktur dengan JSON}
+
+Modul \texttt{json} memudahkan penyimpanan dan pembacaan data terstruktur\newline (Tutorial Python §7.2.2):
+
+\begin{lstlisting}[caption=Membaca dan menulis JSON]
+import json
+
+# Data Python -> JSON string
+data = {
+    "mahasiswa": [
+        {"nim": "12345", "nama": "Andi", "ipk": 3.5},
+        {"nim": "12346", "nama": "Budi", "ipk": 3.8},
+    ],
+    "semester": 1
+}
+
+# Simpan ke berkas JSON
+with open("data.json", "w", encoding="utf-8") as f:
+    json.dump(data, f, indent=2, ensure_ascii=False)
+
+# Baca dari berkas JSON
+with open("data.json", "r", encoding="utf-8") as f:
+    data_terbaca = json.load(f)
+
+for mhs in data_terbaca["mahasiswa"]:
+    print(f"{mhs['nim']}: {mhs['nama']} (IPK {mhs['ipk']})")
+
+# Konversi ke/dari string JSON
+teks_json = json.dumps(data, indent=2)
+obj_kembali = json.loads(teks_json)
+\end{lstlisting}
+
+\section{Penanganan Kesalahan Lanjut: \texttt{try} / \texttt{except} / \texttt{else} / \texttt{finally}}
+
+Python menggunakan \textit{exception} untuk menangani kesalahan runtime (Tutorial Python §8):
+
+\begin{lstlisting}[caption=Pola try/except/else/finally lengkap]
+def baca_angka(prompt: str) -> int:
+    """Membaca angka bulat dari pengguna dengan validasi."""
+    while True:
+        try:
+            nilai = int(input(prompt))
+        except ValueError:
+            print("Masukan tidak valid. Masukkan angka bulat.")
+        else:
+            # Dieksekusi jika try BERHASIL (tidak ada exception)
+            return nilai
+
+# Beberapa jenis exception sekaligus
+def buka_berkas(nama: str) -> str:
+    try:
+        with open(nama, "r", encoding="utf-8") as f:
+            return f.read()
+    except FileNotFoundError:
+        print(f"Berkas '{nama}' tidak ditemukan.")
+        return ""
+    except PermissionError:
+        print(f"Tidak ada izin membaca '{nama}'.")
+        return ""
+    except OSError as e:
+        print(f"Kesalahan OS: {e}")
+        return ""
+    finally:
+        # SELALU dieksekusi, terlepas dari hasil
+        print(f"Percobaan membuka '{nama}' selesai.")
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Raise exception dan exception kustom]
+def bagi(a: float, b: float) -> float:
+    if b == 0:
+        raise ValueError("Pembagi tidak boleh nol!")
+    return a / b
+
+try:
+    hasil = bagi(10, 0)
+except ValueError as e:
+    print(f"Error: {e}")   # Error: Pembagi tidak boleh nol!
+\end{lstlisting}
+
+\begin{konsep}
+\textbf{Alur \texttt{try}/\texttt{except}/\texttt{else}/\texttt{finally}:}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{\texttt{try}:} Kode yang mungkin memunculkan exception
+  \item \textbf{\texttt{except}:} Menangani exception jika terjadi
+  \item \textbf{\texttt{else}:} Dieksekusi \textit{hanya jika} try berhasil tanpa exception
+  \item \textbf{\texttt{finally}:} \textit{Selalu} dieksekusi (untuk cleanup, menutup koneksi, dll.)
+\end{itemize}
+\end{konsep}
+
+\section{Studi Kasus dan Contoh Kode}
+
+Berikut adalah contoh-contoh program Python yang mengimplementasikan konsep-konsep pada modul ini.
+
+\subsection{Kode: \texttt{baca\_tulis.py}}
+\begin{lstlisting}[language=Python,caption={\texttt{baca\_tulis.py}}]
+"""Menulis dan membaca file teks dengan penanganan kesalahan dasar."""
+
+
+def main() -> None:
+    nama_file = "data_mahasiswa.txt"
+    
+    # Menulis ke file
+    try:
+        with open(nama_file, "w", encoding="utf-8") as f:
+            f.write("Budi, 3.8\n")
+            f.write("Siti, 3.9\n")
+        print(f"Data berhasil ditulis ke {nama_file}.")
+    except IOError as e:
+        print(f"Gagal menulis file: {e}")
+
+    # Membaca dari file
+    try:
+        with open(nama_file, "r", encoding="utf-8") as f:
+            print("\nIsi file:")
+            for baris in f:
+                print(baris.strip())
+    except FileNotFoundError:
+        print(f"File {nama_file} tidak ditemukan.")
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+\subsection{Kode: \texttt{olah\_json.py}}
+\begin{lstlisting}[language=Python,caption={\texttt{olah\_json.py}}]
+"""Menyimpan dan memuat data JSON."""
+import json
+
+
+def main() -> None:
+    data = {
+        "mata_kuliah": "Praktikum Pemrograman",
+        "peserta": ["Andi", "Budi", "Citra"]
+    }
+    file_json = "data.json"
+    
+    with open(file_json, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=4)
+        print("Data JSON telah disimpan.")
+        
+    with open(file_json, "r", encoding="utf-8") as f:
+        data_baca = json.load(f)
+        print("Data JSON dibaca:", data_baca["mata_kuliah"])
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+
+\begin{aktivitas}
+  \item Buat program yang menyalin isi satu berkas teks ke berkas lain (tanpa \texttt{shutil}, gunakan loop baca/tulis).
+  \item Hitung jumlah baris, kata, dan karakter pada berkas teks dummy.\newline Gunakan \texttt{enumerate}.
+  \item Simpan data mahasiswa (list of dict) ke berkas JSON, kemudian baca kembali dan tampilkan rekap.
+  \item Tambahkan penanganan \texttt{try}/\texttt{except}/\texttt{finally} ke program pembacaan berkas; pastikan pesan kesalahan informatif.
+  \item Simpan log aktivitas (timestamp + pesan) dengan mode \texttt{a} dan baca log tersebut dengan format yang rapi.
+\end{aktivitas}
+
+\begin{latihan}
+  \item Mengapa \texttt{with} disarankan dibanding \texttt{open}/\texttt{close} manual?
+  \item Apa beda mode \texttt{w} dan \texttt{a}? Apa yang terjadi jika berkas belum ada?
+  \item Kapan menggunakan \texttt{readline()} vs \texttt{readlines()} vs iterasi langsung?
+  \item Apa perbedaan \texttt{json.dumps()} dan \texttt{json.dump()}? Kapan masing-masing digunakan?
+  \item Apa yang dilakukan blok \texttt{else} pada \texttt{try}? Mengapa ini berguna?
+  \item Refleksi: kesalahan apa yang sering muncul saat path relatif di Windows vs Linux?
+\end{latihan}
+
+\begin{asesmen}
+\textbf{Cek pemahaman}
+
+\begin{enumerate}
+  \item Mode \texttt{open} untuk menambah di akhir berkas tanpa menghapus isi lama:
+  \begin{enumerate}
+    \item \texttt{"r"}
+    \item \texttt{"w"}
+    \item \texttt{"a"}
+    \item \texttt{"x"}
+  \end{enumerate}
+  \item Fungsi \texttt{json.load(f)} digunakan untuk:
+  \begin{enumerate}
+    \item Mengubah objek Python menjadi JSON string
+    \item Membaca JSON dari objek berkas dan mengubahnya ke Python
+    \item Menampilkan isi JSON dengan format
+    \item Menyimpan JSON ke berkas
+  \end{enumerate}
+  \item Blok \texttt{finally} dalam \texttt{try/except} dieksekusi:
+  \begin{enumerate}
+    \item Hanya saat tidak ada exception
+    \item Hanya saat ada exception
+    \item Selalu, terlepas dari ada tidaknya exception
+    \item Hanya jika ada blok \texttt{else}
+  \end{enumerate}
+\end{enumerate}
+
+\textbf{Tugas}: program \texttt{rekap\_nilai.py} yang membaca data mahasiswa dari berkas JSON, menghitung statistik (rata-rata, nilai tertinggi, nilai terendah), dan menyimpan hasil ke berkas teks dengan format tabel. Gunakan \texttt{try/except} untuk menangani berkas yang tidak ditemukan.
+\end{asesmen}
+
+\begin{checklist}
+  \item Saya dapat membaca seluruh berkas atau per baris (\texttt{read}, \texttt{readline}, \texttt{readlines})
+  \item Saya dapat menulis dan menambah berkas dengan mode yang tepat
+  \item Saya memahami penggunaan \texttt{seek()} dan \texttt{tell()} untuk navigasi berkas
+  \item Saya dapat menyimpan dan membaca data JSON dengan \texttt{json.dump}/\texttt{json.load}
+  \item Saya dapat menggunakan \texttt{try}/\texttt{except}/\texttt{else}/\texttt{finally}
+  \item Saya dapat menggunakan \texttt{raise} untuk memunculkan exception
+  \item Saya memahami pentingnya \texttt{encoding="utf-8"}
+  \item Saya dapat memformat output dengan f-string dan format specification
+\end{checklist}
+
+\section{Referensi sesi}
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{[19]} Real Python --- berkas, I/O, dan topik terkait.
+  \item \textbf{[8, 9]} \textit{The Python Tutorial}, masukan/keluaran dan kesalahan.
+\end{itemize}
+
+\begin{rangkuman}
+Akses berkas memerlukan manajemen sumber daya yang benar --- \texttt{with} membantu menutup berkas meskipun terjadi error. JSON adalah format pertukaran data yang ringkas untuk menyimpan struktur data Python. Penanganan exception yang tepat membuat program lebih robust dan ramah pengguna.
+
+\textbf{Referensi:} {\small Python Tutorial §7, §8 \url{https://docs.python.org/3/tutorial/inputoutput.html} dan \url{https://docs.python.org/3/tutorial/errors.html}}
+
+\textbf{Kata kunci:} \code{open}, \code{with}, \code{read}, \code{readline}, \code{seek}, \code{json}, \code{try}, \code{except}, \code{else}, \code{finally}, \code{raise}
+\end{rangkuman}
+
+\end{document}

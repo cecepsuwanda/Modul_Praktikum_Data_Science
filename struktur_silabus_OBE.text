@@ -1,0 +1,113 @@
+Kerangka Rencana Pembelajaran Semester (RPS) untuk Mata Kuliah Praktikum
+Selaras Standar Nasional Pendidikan Tinggi (SN-Dikti) dan Kurikulum OBE
+
+Catatan penggunaan
+
+Dokumen ini berisi blueprint isi RPS untuk mata kuliah berbentuk praktikum/laboratorium/studio. Sesuaikan format tabel, logo, dan nomor dokumen dengan template resmi perguruan tinggi atau program studi Anda. RPS harus konsisten dengan modul praktikum dan silabus resmi mata kuliah.
+
+Bagian A — Identitas dan konteks mata kuliah praktikum
+
+Isi utama:
+1. Nama program studi dan jenjang.
+2. Nama mata kuliah dan kode mata kuliah.
+3. Semester (ganjil/genap) dan tahun akademik.
+4. Bobot SKS total; bila mata kuliah campuran, rincian SKS teori (T) dan praktikum/lab (P) sesuai definisi di kurikulum prodi.
+5. Dosen pengampu, koordinator praktikum (jika ada), dan kontak akademik.
+6. Tim asisten laboratorium atau pembimbing lapangan (jika relevan).
+7. Prasyarat dan ko-requisit.
+8. Deskripsi singkat mata kuliah: tujuan umum, relevansi terhadap profil lulusan, dan bentuk utama kegiatan (praktik di lab/studio/simulasi).
+9. Alokasi waktu per minggu per SKS praktikum (acuan umum yang lazim di KPT: ±170 menit kegiatan terstruktur per minggu per SKS praktikum per semester — gunakan angka yang dipakai resmi di prodi Anda).
+10. Ruang, perangkat lunak, atau fasilitas wajib (ringkas; detail bisa di lampiran).
+
+Bagian B — Sembilan komponen minimal RPS (penjabaran untuk praktikum, selaras SN-Dikti)
+
+Komponen wajib RPS dijabarkan dalam rencana semester sebagai berikut. Untuk praktikum, isi tiap poin harus terlihat di tabel mingguan (Bagian E) atau di ringkasan eksplisit di bawahnya.
+
+1. Identitas mata kuliah
+   Sudah dicakup di Bagian A; dalam dokumen RPS final, ulangi blok identitas di halaman pertama sesuai template kampus.
+
+2. Capaian pembelajaran lulusan (CPL) yang dibebankan pada mata kuliah
+   - Daftar kode dan rumusan CPL prodi yang menjadi beban MK ini.
+   - Boleh disertai ranah (sikap, pengetahuan, keterampilan umum, keterampilan khusus) sesuai kebijakan kurikulum.
+
+3. Kemampuan akhir pada tiap tahap pembelajaran
+   - Dalam OBE, ini dioperasionalkan sebagai Sub-CPMK per minggu/topik praktikum.
+   - Setiap Sub-CPMK memakai kata kerja terukur (kognitif/psikomotorik/afektif sesuai ranah) dan menunjuk ke satu atau lebih CPMK.
+
+4. Bahan kajian
+   - Topik per pertemuan: prosedur, konsep pendukung, instrumen, keselamatan kerja (K3), etika (data, lisensi software, limbah), dan standar teknis yang dipakai.
+   - Minggu awal disarankan memuat orientasi lab dan K3 bila relevan.
+
+5. Metode pembelajaran
+   - Contoh untuk praktikum: briefing, demonstrasi, praktik mandiri, praktik berkelompok, tutor sebaya, konsultasi, pengecekan kinerja oleh dosen/asisten.
+   - Cantumkan proporsi atau urutan singkat per minggu di tabel rencana.
+
+6. Waktu
+   - Durasi per pertemuan (menit/jam) dan jumlah pertemuan efektif.
+   - Waktu untuk kegiatan di luar jam tatap muka (persiapan, laporan) bila dihitung dalam beban belajar.
+
+7. Pengalaman belajar mahasiswa
+   - Tugas yang wajib dikerjakan mahasiswa: LKS/LKPD, pengumpulan data, file/script, logbook, presentasi hasil singkat, dll.
+   - Prosedur yang harus diikuti dan artefak yang diunggah/diserahkan.
+
+8. Penilaian
+   - Kriteria, indikator, dan bobot tiap komponen penilaian (total 100% di akhir semester).
+   - Rubrik atau lembar observasi yang dipetakan ke Sub-CPMK/CPMK (jejak bukti capaian).
+   - Transparansi: jadwal pengumpulan, mekanisme revisi, dan konsekuensi ketidakhadiran di lab (sesuai kebijakan prodi).
+
+9. Daftar referensi
+   - Buku, modul internal, dokumentasi resmi perangkat lunak, paper, atau SOP laboratorium yang menjadi acuan semester ini.
+
+Bagian C — Blok OBE wajib dalam RPS praktikum
+
+Isi utama:
+1. Capaian pembelajaran mata kuliah (CPMK)
+   - Rumusan CPMK untuk seluruh MK (kemampuan akhir setelah MK selesai).
+   - Nomor/kode CPMK agar mudah dipetakan ke Sub-CPMK.
+
+2. Matriks pemetaan
+   - Tabel CPMK → CPL (menunjukkan CPL mana yang dilayani setiap CPMK).
+   - Tabel Sub-CPMK → CPMK (menunjukkan CPMK mana yang dibuktikan setiap minggu/topik).
+
+3. Strategi analisis capaian untuk urutan praktikum
+   - Pilih dan jelaskan salah satu atau kombinasi: struktur hierarkis (prasyarat keterampilan), struktur prosedural (alur langkah lab), struktur pengelompokan (topik relatif mandiri), atau kombinasi.
+   - Uraian singkat mengapa urutan minggu mendukung penguasaan CPMK.
+
+Bagian D — Ringkasan asesmen semester (praktikum + OBE)
+
+Isi utama:
+1. Daftar komponen penilaian (contoh: prates/kuis awal, lembar kinerja per sesi, laporan praktikum, proyek akhir, UTS/UAS bila ada di MK ini).
+2. Bobot persentase masing-masing komponen (jumlah = 100%).
+3. Pemetaan setiap komponen ke CPMK (dan sebutkan Sub-CPMK utama yang diukur).
+4. Instrumen: rubrik, checklist psikomotorik, panduan penilaian laporan.
+5. Kriteria kelulusan atau batas minimal (jika ditetapkan prodi/fakultas).
+
+Bagian E — Tabel rencana pembelajaran mingguan (inti dokumen RPS praktikum)
+
+Setiap baris = satu minggu atau satu sesi praktikum. Gunakan kolom berikut (sesuaikan nama dengan template kampus):
+
+1. Minggu ke- / Sesi ke-
+2. Sub-CPMK (kemampuan akhir tahap ini)
+3. Bahan kajian (topik dan fokus prosedur)
+4. Metode pembelajaran
+5. Pengalaman belajar mahasiswa (tugas, LKS, format pengumpulan)
+6. Alokasi waktu (menit atau slot jadwal)
+7. Asesmen: bentuk asesmen pada sesi ini dan/atau bobot parsial komponen semester (jika dijadwalkan per minggu)
+8. Referensi singkat (bab modul, SOP, tautan dokumentasi)
+
+Catatan: Untuk minggu ujian, UTS, UAS, atau pengganti libur, isi baris sesuai kalender akademik dan tetap tautkan ke CPMK/Sub-CPMK bila asesmen sumatif dijadwalkan.
+
+Bagian F — Checklist selaras SN-Dikti (verifikasi sebelum RPS disahkan)
+
+1. Standar isi: bahan kajian praktikum selaras IPTEKS dan capaian yang dijanjikan; tidak hanya daftar alat tanpa capaian.
+2. Standar proses: metode dan pengalaman belajar mencerminkan karakter praktikum (keterampilan dan tugas mahasiswa jelas).
+3. Standar penilaian: indikator dan bobot jelas, instrumen memadai untuk ranah yang diukur; konsisten dengan modul praktikum.
+4. Standar sarana dan prasarana: kebutuhan lab/studio realistis dan tercantum; ada rencana alternatif jika fasilitas terbatas (opsional, sesuai kebijakan PT).
+5. Kemutakhiran: RPS memuat tanggal penyusunan/revisi; direncanakan peninjauan berkala.
+6. Penjajaran OBE: setiap minggu memiliki Sub-CPMK, bahan kajian, pengalaman belajar, dan asesmen yang saling konsisten serta terhubung ke CPMK dan CPL.
+
+Referensi umum untuk pengembangan (bukan isi wajib halaman RPS)
+
+- Standar Nasional Pendidikan Tinggi (SN-Dikti) dan peraturan tindak lanjut di tingkat perguruan tinggi.
+- Panduan penyusunan RPS dan panduan kurikulum OBE institusi.
+- Panduan pengembangan bentuk pembelajaran praktikum, studio, atau tugas.

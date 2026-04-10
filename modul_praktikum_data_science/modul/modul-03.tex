@@ -1,0 +1,103 @@
+\documentclass[../main.tex]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{3}}{}
+\begin{document}
+
+\chapter{Missing Values, Duplikat, dan Outlier Dasar}
+
+\begin{subcpmk}
+  \item \textbf{Sub-CPMK-P3:} Menangani missing, duplikat, outlier sederhana dengan narasi keputusan (RPS Mg.\ 3).
+\end{subcpmk}
+
+\SesiRPS{3}{P3}{$\sim$170 menit}{CPMK-P2}
+
+\section{Kemampuan akhir sesi}
+
+Melaporkan NA per kolom; memilih strategi imputasi atau penghapusan; menghapus duplikat; mengidentifikasi outlier visual (boxplot) dan mendokumentasikan tindakan.
+
+\section{Teori}
+
+\begin{konsep}
+\textit{Missing} dapat MCAR/MAR/MNAR---pada praktikum, yang penting Anda \textbf{transparan}: berapa banyak yang hilang, apa yang Anda lakukan, dan risiko bias. Duplikat baris dapat merusak statistik dan model; outlier bukan selalu error---bisa sinyal---tetapi harus diputuskan dengan konteks domain.
+\end{konsep}
+
+\section{K3 / etika}
+
+Jangan menghapus baris berisi kelompok minoritas tanpa analisis dampak terhadap keadilan model (catatan untuk proyek akhir).
+
+\section{Sarana}
+
+\texttt{pandas}, \texttt{numpy}, \texttt{matplotlib.pyplot} atau \texttt{seaborn} untuk boxplot.
+
+\section{Prosedur kerja}
+
+\begin{enumerate}[leftmargin=*]
+  \item Hitung \texttt{isna().sum()} per kolom; simpan salinan \texttt{df\_raw}.
+  \item Terapkan strategi (imputasi median/mode atau \texttt{dropna} selektif) dengan komentar Markdown.
+  \item \texttt{drop\_duplicates()}; laporkan berapa baris yang hilang.
+  \item Plot boxplot satu kolom numerik; tulis keputusan outlier.
+  \item Simpan \texttt{df\_clean} untuk minggu berikutnya.
+\end{enumerate}
+
+\section{Contoh kode}
+
+\begin{lstlisting}[caption=Audit missing values]
+import pandas as pd
+import numpy as np
+
+# df = pd.read_csv("...")
+missing = df.isna().sum().sort_values(ascending=False)
+print(missing[missing > 0])
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Imputasi median untuk kolom numerik]
+num_cols = df.select_dtypes(include="number").columns
+df_clean = df.copy()
+for c in num_cols:
+    df_clean[c] = df_clean[c].fillna(df_clean[c].median())
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Duplikat dan shape]
+print("sebelum", df_clean.shape)
+df_clean = df_clean.drop_duplicates()
+print("sesudah", df_clean.shape)
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Boxplot outlier (contoh)]
+import matplotlib.pyplot as plt
+col = df_clean.select_dtypes(include="number").columns[0]
+plt.boxplot(df_clean[col].dropna())
+plt.title(f"Boxplot: {col}")
+plt.show()
+\end{lstlisting}
+
+\section{Referensi}
+
+\begin{itemize}[leftmargin=*]
+  \item pandas missing data. \url{https://pandas.pydata.org/docs/user_guide/missing_data.html}
+  \item Kaggle Intermediate ML. \url{https://www.kaggle.com/learn/intermediate-machine-learning}
+\end{itemize}
+
+\begin{aktivitas}
+  \item Bandingkan \texttt{shape} sebelum/sesudah; tulis paragraf \textit{trade-off}.
+\end{aktivitas}
+
+\begin{latihan}
+  \item Kapan median lebih aman daripada mean untuk imputasi?
+\end{latihan}
+
+\begin{asesmen}
+\textbf{Tugas modul:} \texttt{df\_clean} + narasi keputusan; bukti visual outlier minimal satu kolom.
+\end{asesmen}
+
+\begin{checklist}
+  \item Saya menghitung dan menangani missing secara dokumentatif
+  \item Saya memeriksa duplikat
+\end{checklist}
+
+\begin{rangkuman}
+Minggu 3 membersihkan data secara terdokumentasi untuk mencegah ``angka ajaib'' tanpa alasan.
+
+\textbf{Kata kunci:} \texttt{fillna}, \texttt{dropna}, \texttt{drop\_duplicates}, boxplot
+\end{rangkuman}
+
+\end{document}

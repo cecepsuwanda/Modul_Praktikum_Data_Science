@@ -1,0 +1,114 @@
+\documentclass[../main.tex]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{2}}{}
+\begin{document}
+
+\chapter{Pandas: Membaca CSV/Excel; \texttt{head}, \texttt{info}, \texttt{describe}; Tipe Data}
+
+\begin{subcpmk}
+  \item \textbf{Sub-CPMK-P2:} Memuat data tabular dan menginspeksi struktur, tipe, serta kualitas awal dengan Pandas (RPS Mg.\ 2).
+\end{subcpmk}
+
+\SesiRPS{2}{P2}{$\sim$170 menit}{CPMK-P2}
+
+\section{Kemampuan akhir sesi}
+
+Memuat CSV dan Excel; menggunakan \texttt{head}, \texttt{tail}, \texttt{info}, \texttt{describe}, \texttt{dtypes}; mengajukan hipotesis awal kolom target vs fitur.
+
+\section{Teori dan bahan kajian}
+
+\begin{konsep}
+\texttt{DataFrame} adalah tabel dengan indeks baris dan nama kolom. \texttt{dtypes} membedakan \texttt{int64}, \texttt{float64}, \texttt{object} (sering berarti teks atau campuran). Fungsi \texttt{info()} memberi ringkasan non-null dan tipe; \texttt{describe()} merangkum statistik numerik secara default.
+\end{konsep}
+
+\begin{catatan}
+Path berkas: gunakan path relatif ke folder kerja notebook atau unggah ke Colab dengan \texttt{files.upload()}. Dokumentasikan path di Markdown agar asisten dapat mereproduksi.
+\end{catatan}
+
+\section{K3 dan etika}
+
+Dataset hanya dari sumber yang diizinkan; jangan menyematkan token API atau path absolut sensitif di notebook yang diunggah ke LMS.
+
+\section{Sarana}
+
+\texttt{pandas}, \texttt{numpy} (dependensi umum), \texttt{openpyxl} untuk \texttt{.xlsx}.
+
+\section{Prosedur kerja}
+
+\begin{enumerate}[leftmargin=*]
+  \item \texttt{import pandas as pd}
+  \item Muat satu CSV (\texttt{read\_csv}); tampilkan \texttt{head(10)} dan \texttt{info()}.
+  \item Muat sumber kedua (CSV lain atau Excel); bandingkan \texttt{shape} dan \texttt{dtypes}.
+  \item Di Markdown, tulis kolom kandidat \textbf{target} (regresi/klasifikasi) dan alasan singkat.
+  \item Sinkronkan dengan \texttt{notebooks/minggu\_02.ipynb}.
+\end{enumerate}
+
+\section{Contoh kode}
+
+\begin{lstlisting}[caption=Import dan muat CSV]
+import pandas as pd
+
+# Ganti path dengan file Anda (contoh: dataset publik)
+df = pd.read_csv("data/contoh.csv")  # encoding="utf-8" bila perlu
+print(df.shape)
+print(df.head())
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Ringkasan struktur dan statistik]
+print(df.info())
+print(df.describe(include="all").T.head(12))
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Membaca Excel (satu sheet)]
+df_xlsx = pd.read_excel("data/contoh.xlsx", sheet_name=0)
+print(df_xlsx.dtypes.value_counts())
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Membandingkan dua kerangka data]
+def ringkas(nama, frame):
+    return {
+        "nama": nama,
+        "baris": len(frame),
+        "kolom": frame.shape[1],
+        "missing_total": frame.isna().sum().sum(),
+    }
+
+print(ringkas("csv", df))
+print(ringkas("xlsx", df_xlsx))
+\end{lstlisting}
+
+\section{Referensi sesi}
+
+\begin{itemize}[leftmargin=*]
+  \item pandas User Guide IO. \url{https://pandas.pydata.org/docs/user_guide/io.html}
+  \item Kaggle Learn Pandas. \url{https://www.kaggle.com/learn/pandas}
+  \item Microsoft Learn Pandas. \url{https://learn.microsoft.com/en-us/training/modules/pandas-data-science/}
+\end{itemize}
+
+\begin{aktivitas}
+  \item Muat dua dataset berbeda; dokumentasikan URL dan lisensi.
+  \item Buat tabel Markdown ringkas: nama kolom, tipe, persen missing (hitung manual atau dengan kode).
+\end{aktivitas}
+
+\begin{latihan}
+  \item Kapan Anda memilih \texttt{read\_csv(..., sep=";")}?
+  \item Apa implikasi kolom numerik yang tersimpan sebagai \texttt{object}?
+\end{latihan}
+
+\begin{asesmen}
+\textbf{Tugas modul:} \texttt{read\_*} tanpa error; dokumentasi path/URL; hipotesis target/fitur.
+
+\textbf{Siap lanjut:} memahami \texttt{info()} dan \texttt{describe()} untuk minggu cleaning.
+\end{asesmen}
+
+\begin{checklist}
+  \item Saya dapat memuat CSV dan (opsional) Excel
+  \item Saya membaca output \texttt{info} dan \texttt{describe}
+\end{checklist}
+
+\begin{rangkuman}
+Minggu 2 menegaskan I/O Pandas dan inspeksi awal sebagai fondasi prapemrosesan.
+
+\textbf{Kata kunci:} \texttt{read\_csv}, \texttt{read\_excel}, \texttt{DataFrame}, dtypes
+\end{rangkuman}
+
+\end{document}

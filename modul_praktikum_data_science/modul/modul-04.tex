@@ -1,0 +1,93 @@
+\documentclass[../main.tex]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{4}}{}
+\begin{document}
+
+\chapter{Encoding Kategorikal, Scaling, dan Persiapan Matriks Fitur}
+
+\begin{subcpmk}
+  \item \textbf{Sub-CPMK-P3:} Encoding dan scaling; menyusun matriks \texttt{X} dan vektor \texttt{y} tanpa kebocoran informasi yang kasar (RPS Mg.\ 4).
+\end{subcpmk}
+
+\SesiRPS{4}{P3}{$\sim$170 menit}{CPMK-P2}
+
+\section{Kemampuan akhir sesi}
+
+Membedakan fitur nominal vs ordinal; menerapkan one-hot atau label encoding; menggunakan \texttt{StandardScaler} atau \texttt{MinMaxScaler}; menjelaskan risiko \textit{leakage} jika scaler difit pada gabungan latih+uji.
+
+\section{Teori}
+
+\begin{konsep}
+Model seperti regresi dan SVM umumnya membutuhkan fitur numerik ter-skala. Kategorikal perlu dikodekan. \textbf{Data leakage} terjadi jika statistik dari seluruh data (termasuk uji) dipakai untuk transform sebelum split---pada minggu ini kita siapkan pola yang akan distandarkan di minggu 6+ dengan \texttt{Pipeline} dan split yang benar.
+\end{konsep}
+
+\section{Sarana}
+
+\texttt{pandas}, \texttt{sklearn.preprocessing}, \texttt{sklearn.compose.ColumnTransformer} (opsional).
+
+\section{Prosedur kerja}
+
+\begin{enumerate}[leftmargin=*]
+  \item Pilih subset kolom prediktor dan satu target (jika sudah ada).
+  \item Pisahkan \texttt{X} dan \texttt{y}; untuk eksplorasi encoding, dokumentasikan di Markdown.
+  \item Terapkan \texttt{OneHotEncoder} atau \texttt{OrdinalEncoder} sesuai konteks.
+  \item Skala numerik; gabungkan menjadi \texttt{X\_prepared} (array atau DataFrame).
+\end{enumerate}
+
+\section{Contoh kode}
+
+\noindent\textbf{Pisah fitur dan target.}
+\begin{verbatim}
+import pandas as pd
+# df_clean dari minggu 3
+target_col = "target"  # sesuaikan
+X = df_clean.drop(columns=[target_col])
+y = df_clean[target_col]
+\end{verbatim}
+
+\noindent\textbf{One-hot untuk kategorikal (pandas get\_dummies).}
+\begin{verbatim}
+X_num = X.select_dtypes(include="number")
+X_cat = X.select_dtypes(exclude="number")
+X_dum = pd.get_dummies(X_cat, drop_first=True)
+X_prep = pd.concat((X_num, X_dum), axis=1)
+print(X_prep.shape)
+\end{verbatim}
+
+\noindent\textbf{StandardScaler pada fitur numerik.}
+\begin{verbatim}
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+X_num_scaled = scaler.fit_transform(X_num)
+\end{verbatim}
+
+\noindent\textbf{ColumnTransformer ringkas (pola sklearn).}
+\begin{verbatim}
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+num_features = X.select_dtypes(include="number").columns
+cat_features = X.select_dtypes(exclude="number").columns
+preprocess = ColumnTransformer(
+    transformers=(
+        ("num", StandardScaler(), num_features),
+        ("cat", OneHotEncoder(handle_unknown="ignore"), cat_features),
+    )
+)
+\end{verbatim}
+
+\section{Referensi}
+
+\begin{itemize}[leftmargin=*]
+  \item sklearn preprocessing. \url{https://scikit-learn.org/stable/modules/preprocessing.html}
+\end{itemize}
+
+\begin{asesmen}
+\textbf{Formatif:} narasi encoding/scaling; dimensi \texttt{X\_prep} konsisten; tidak ada target di fitur.
+\end{asesmen}
+
+\begin{rangkuman}
+Minggu 4 menyiapkan representasi numerik untuk pemodelan dengan kesadaran leakage.
+
+\textbf{Kata kunci:} one-hot, scaler, ColumnTransformer
+\end{rangkuman}
+
+\end{document}

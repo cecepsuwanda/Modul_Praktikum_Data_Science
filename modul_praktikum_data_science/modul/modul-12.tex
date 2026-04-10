@@ -1,0 +1,80 @@
+\documentclass[../main.tex]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{12}}{}
+\begin{document}
+
+\chapter{Cross-Validation dan GridSearchCV Sederhana}
+
+\begin{subcpmk}
+  \item \textbf{Sub-CPMK-P9:} \texttt{cross\_val\_score} atau \texttt{cross\_validate}; \texttt{GridSearchCV} pada pipeline; test set tidak ikut tuning (RPS Mg.\ 12).
+\end{subcpmk}
+
+\SesiRPS{12}{P9}{$\sim$170 menit}{CPMK-P4}
+
+\section{Teori}
+
+\begin{konsep}
+Validasi silang mengestimasi kinerja dengan rotasi partisi latih. \texttt{GridSearchCV} mencoba kombinasi hiperparameter pada ruang yang Anda tentukan. \textbf{Test set} hanya untuk laporan akhir setelah memilih model.
+\end{konsep}
+
+\section{Contoh kode}
+
+\noindent\textbf{cross\_val\_score.}
+\begin{verbatim}
+from sklearn.model_selection import cross_val_score
+from sklearn.linear_model import LogisticRegression
+from sklearn.datasets import load_iris
+
+iris = load_iris()
+X, y = iris.data, iris.target
+clf = LogisticRegression(max_iter=300)
+scores = cross_val_score(clf, X, y, cv=5)
+print("CV akurasi", scores, "mean", scores.mean())
+\end{verbatim}
+
+\begin{verbatim}
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import GridSearchCV, train_test_split
+from sklearn.linear_model import LogisticRegression
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+pipe = Pipeline([
+    ("sc", StandardScaler()),
+    ("clf", LogisticRegression(max_iter=500)),
+])
+grid = {"clf__C": [0.1, 1.0, 10.0]}
+search = GridSearchCV(pipe, grid, cv=5)
+search.fit(X_train, y_train)
+print("best params", search.best_params_)
+print("test score", search.score(X_test, y_test))
+\end{verbatim}
+
+\begin{verbatim}
+from sklearn.model_selection import cross_validate
+import numpy as np
+out = cross_validate(clf, X, y, cv=5, scoring=["accuracy", "f1_macro"])
+print(np.mean(out["test_accuracy"]), np.mean(out["test_f1_macro"]))
+\end{verbatim}
+
+\noindent\textit{Checklist di Markdown notebook:} hiperparameter dipilih dari hasil CV pada data latih (bukan dari test); \texttt{X\_test} hanya untuk evaluasi akhir sekali.
+
+\section{Referensi}
+
+\begin{itemize}[leftmargin=*]
+  \item Cross-validation. \url{https://scikit-learn.org/stable/modules/cross_validation.html}
+  \item Grid search. \url{https://scikit-learn.org/stable/modules/grid_search.html}
+\end{itemize}
+
+\begin{asesmen}
+\textbf{Tugas modul:} satu GridSearchCV dengan ruang parameter kecil + laporan skor test yang jujur.
+\end{asesmen}
+
+\begin{rangkuman}
+Minggu 12 menstabilkan estimasi kinerja dan tuning terkendali.
+
+\textbf{Kata kunci:} cross\_val\_score, GridSearchCV, Pipeline
+\end{rangkuman}
+
+\end{document}

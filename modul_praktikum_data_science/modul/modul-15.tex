@@ -1,0 +1,79 @@
+\documentclass[../main.tex]{subfiles}
+\ifSubfilesClassLoaded{\setcounter{chapter}{15}}{}
+\begin{document}
+
+\chapter{Proyek Mini End-to-End (Draft)}
+
+\begin{subcpmk}
+  \item \textbf{Sub-CPMK-P10:} Menyusun draft alur data mentah $\rightarrow$ prapemrosesan $\rightarrow$ model $\rightarrow$ evaluasi $\rightarrow$ insight (RPS Mg.\ 15).
+\end{subcpmk}
+
+\SesiRPS{15}{P10}{$\sim$170 menit}{CPMK-P2, CPMK-P3, CPMK-P4}
+
+\section{Lingkup proyek}
+
+\begin{konsep}
+Proyek mini membuktikan integrasi capaian P2--P4. Topik disetujui dosen: masalah jelas, data legal, minimal satu model, metrik selaras jenis target, kesimpulan non-teknis.
+\end{konsep}
+
+\section{Checklist draft (isi di notebook)}
+
+\begin{enumerate}[leftmargin=*]
+  \item Rumusan masalah dan pemangku kepentingan (CRISP-DM fase 1).
+  \item Sumber data + lisensi + ukuran + variabel kunci.
+  \item Prapemrosesan terdokumentasi (missing, encoding, split).
+  \item Model dan baseline; metrik pada hold-out atau CV.
+  \item Satu visual utama dan paragraf rekomendasi.
+\end{enumerate}
+
+\section{Contoh kerangka kode orkestrasi}
+
+\begin{lstlisting}[caption=Kerangka import dan split proyek]
+import pandas as pd
+from sklearn.model_selection import train_test_split
+
+# df = pd.read_csv("data_proyek.csv")  # ganti
+# X, y = ...  # definisikan target
+# X_train, X_test, y_train, y_test = train_test_split(...)
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Pipeline disarankan]
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+
+model = Pipeline([
+    ("sc", StandardScaler()),
+    ("clf", LogisticRegression(max_iter=1000)),
+])
+# model.fit(X_train, y_train)
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Metrik dan simpan figur]
+from sklearn.metrics import classification_report
+# print(classification_report(y_test, model.predict(X_test)))
+# plt.savefig("proyek_metrik.png")
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Sumber terbuka dataset]
+# Lihat https://data.go.id/ dan https://www.kaggle.com/
+\end{lstlisting}
+
+\section{Referensi}
+
+\begin{itemize}[leftmargin=*]
+  \item data.go.id. \url{https://data.go.id/}
+  \item INRIA sklearn MOOC (proyek). \url{https://inria.github.io/scikit-learn-mooc/}
+\end{itemize}
+
+\begin{asesmen}
+\textbf{Proyek parsial:} unggah \texttt{Proyek\_draft\_NIM.ipynb} + outline laporan jika diminta.
+\end{asesmen}
+
+\begin{rangkuman}
+Minggu 15 mengonsolidasikan pipeline penuh dalam satu artefak utama.
+
+\textbf{Kata kunci:} end-to-end, CRISP-DM, dokumentasi
+\end{rangkuman}
+
+\end{document}
