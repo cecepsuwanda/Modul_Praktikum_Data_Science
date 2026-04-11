@@ -50,28 +50,34 @@ Ridge (\textit{regularisasi} L2) membantu ketika fitur berkolinear atau dimensi 
 
 Dataset \path{load_diabetes} dari \texttt{sklearn.datasets} adalah contoh regresi klasik berdimensi tetap; sesuaikan \path{test_size} dan \path{random_state} dengan kebijakan lab.
 
+\noindent\textbf{Mengapa blok ini?} \texttt{LinearRegression} meminimalkan MSE ordinari; metrik \texttt{MAE} dan \texttt{RMSE} mengukur error pada \textbf{data uji} setelah model di-\texttt{fit} pada train.
+
 \begin{lstlisting}[caption=Dataset diabetes dan split]
 from sklearn.datasets import load_diabetes
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error, root_mean_squared_error
 
-X, y = load_diabetes(return_X_y=True)
+X, y = load_diabetes(return_X_y=True)  # X: 10 fitur terstandar; y: progresi penyakit (target kontinu)
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
+    X, y, test_size=0.2, random_state=42  # regresi: stratify tidak dipakai (bukan klasifikasi)
 )
-model = LinearRegression()
-model.fit(X_train, y_train)
-pred = model.predict(X_test)
-print("MAE", mean_absolute_error(y_test, pred))
-print("RMSE", root_mean_squared_error(y_test, pred))
+model = LinearRegression()  # model linier tanpa penalti L2 eksplisit (OLS dengan regularisasi minimal sklearn)
+model.fit(X_train, y_train)  # estimasi koefisien dari train
+pred = model.predict(X_test)  # nilai kontinu prediksi per baris test
+print("MAE", mean_absolute_error(y_test, pred))  # rata-rata |error|
+print("RMSE", root_mean_squared_error(y_test, pred))  # akar MSE (sensitif outlier error besar)
 \end{lstlisting}
+
+\noindent\textbf{Mengapa blok ini?} Baseline memprediksi konstanta = rata-rata target train; RMSE baseline menunjukkan apakah model linier memberi peningkatan bermakna.
 
 \begin{lstlisting}[caption=Baseline prediksi rata-rata]
 import numpy as np
-base_pred = np.full_like(y_test, fill_value=y_train.mean(), dtype=float)
+base_pred = np.full_like(y_test, fill_value=y_train.mean(), dtype=float)  # vektor sama panjang y_test, isi mean train
 print("RMSE baseline", root_mean_squared_error(y_test, base_pred))
 \end{lstlisting}
+
+\noindent\textbf{Mengapa blok ini?} \path{Ridge(alpha=...)} menambah penalti L2 pada koefisien; \path{StandardScaler} di pipeline menstandarkan fitur agar besaran penalti seimbang antar fitur.
 
 \begin{lstlisting}[caption=Pipeline dengan scaling (disarankan)]
 from sklearn.pipeline import Pipeline
@@ -79,11 +85,11 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import Ridge
 
 pipe = Pipeline([
-    ("scale", StandardScaler()),
-    ("reg", Ridge(alpha=1.0)),
+    ("scale", StandardScaler()),  # langkah 1: z-score fit dari train, transform train+test
+    ("reg", Ridge(alpha=1.0)),  # langkah 2: regresi ridge; alpha: kuat penalti L2
 ])
-pipe.fit(X_train, y_train)
-pred2 = pipe.predict(X_test)
+pipe.fit(X_train, y_train)  # fit scaler dan regresor secara berurutan pada train
+pred2 = pipe.predict(X_test)  # prediksi test dengan parameter hasil train
 \end{lstlisting}
 
 \section{Referensi}

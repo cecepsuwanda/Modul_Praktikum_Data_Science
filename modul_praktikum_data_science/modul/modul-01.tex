@@ -91,25 +91,32 @@ Contoh berikut dapat disalin per blok ke notebook; sesuaikan string identitas da
 
 \subsection{Memeriksa versi Python di notebook}
 
+\noindent\textbf{Mengapa blok ini?} Blok berikut memverifikasi bahwa kernel notebook memakai interpreter Python yang Anda duga. Modul \texttt{sys} menyediakan \texttt{sys.version} (string versi) dan \texttt{sys.executable} (path berkas \texttt{python}); keduanya sering dipaketkan dalam sel pertama saat debugging lingkungan atau saat dokumentasi tugas.
+
 \begin{lstlisting}[caption=Versi Python dan path executable]
-import sys
-print(sys.version)
-print(sys.executable)
+import sys  # modul standar: informasi interpreter
+
+print(sys.version)  # string versi Python (major.minor.patch + build)
+print(sys.executable)  # path absolut ke berkas python yang menjalankan kernel
 \end{lstlisting}
 
 \subsection{Markdown vs kode}
 
+\noindent\textbf{Mengapa blok ini?} Contoh ini membedakan \textbf{komentar Python} (baris dengan \texttt{\#}, tidak dieksekusi sebagai perintah) dari \textbf{teks narasi} yang ditulis di sel Markdown. Variabel \texttt{nama\_kampus} bertipe \texttt{str}, \texttt{semester} bertipe \texttt{int}; \texttt{f"..."} adalah \textit{f-string} untuk menyisipkan nilai variabel ke dalam satu string cetak.
+
 \begin{lstlisting}[caption=Operasi sederhana di sel kode]
-# Judul sel: perkenalan
-nama_kampus = "Universitas Bale Bandung"
-semester = 2026
-print(f"Praktikum Data Science | {nama_kampus} | {semester}")
+# Judul sel: perkenalan (komentar Python - penjelasan untuk pembaca kode)
+nama_kampus = "Universitas Bale Bandung"  # str: contoh literal teks
+semester = 2026  # int: label periode (boleh disesuaikan)
+print(f"Praktikum Data Science | {nama_kampus} | {semester}")  # f-string: interpolasi {nama_kampus} dan {semester}
 \end{lstlisting}
 
 \subsection{Struktur dictionary untuk CRISP-DM ringkas}
 
+\noindent\textbf{Mengapa blok ini?} \texttt{dict} memetakan kunci (nama fase CRISP-DM) ke nilai (catatan singkat proyek). Metode \texttt{.items()} menghasilkan pasangan \texttt{(kunci, nilai)} untuk diiterasi; pola \texttt{for k, v in dict.items()} adalah cara standar mencetak ringkasan dokumentasi di notebook tanpa pustaka tambahan.
+
 \begin{lstlisting}[caption=Mapping fase CRISP-DM ke catatan proyek mini]
-crisp_dm = {
+crisp_dm = {  # dict: kunci str -> nilai str (satu kalimat per fase)
     "business_understanding": "Mengurangi churn pelanggan e-commerce",
     "data_understanding": "Dataset transaksi terbuka, cek missing",
     "data_prep": "Imputasi, encoding kategori",
@@ -117,21 +124,24 @@ crisp_dm = {
     "evaluation": "F1-score, confusion matrix",
     "deployment": "Dashboard internal (di luar cakupan praktikum)",
 }
-for fase, catatan in crisp_dm.items():
-    print(f"{fase}: {catatan}")
+for fase, catatan in crisp_dm.items():  # .items(): iterasi pasangan (kunci, nilai)
+    print(f"{fase}: {catatan}")  # satu baris cetak per fase
 \end{lstlisting}
 
 \subsection{Menyimpan metadata sumber data (etika)}
 
+\noindent\textbf{Mengapa blok ini?} Kamus \texttt{Sumber\_data} menyimpan metadata etika (URL, lisensi, tanggal, catatan) dalam struktur yang mudah disalin ke laporan. \texttt{json.dumps} mengubah kamus menjadi teks JSON; argumen \texttt{indent=2} merapikan baris, \texttt{ensure\_ascii=False} mempertahankan aksara non-ASCII (mis.\ bahasa Indonesia).
+
 \begin{lstlisting}[caption=Blok dokumentasi sumber data di notebook]
-Sumber_data = {
+Sumber_data = {  # ganti URL/lisensi sesuai dataset Anda
     "url": "https://www.kaggle.com/datasets/...",
     "lisensi": "CC0 / sesuai halaman dataset",
     "tanggal_unduh": "2026-04-10",
     "catatan": "Tidak untuk komersial tanpa izin pemilik dataset.",
 }
-import json
-print(json.dumps(Sumber_data, indent=2, ensure_ascii=False))
+import json  # modul standar: serialisasi JSON
+
+print(json.dumps(Sumber_data, indent=2, ensure_ascii=False))  # pretty-print; ensure_ascii=False: Unicode tidak di-escape
 \end{lstlisting}
 
 \section{Referensi sesi}

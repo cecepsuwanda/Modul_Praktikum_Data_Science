@@ -45,20 +45,23 @@ Test (hold-out) & Laporan akhir sekali, setelah model terpilih. \\
 
 \section{Contoh kode}
 
-\noindent\textbf{cross\_val\_score.}
-\begin{verbatim}
+\noindent\textbf{Mengapa blok ini?} \path{cross_val_score} menjalankan $k$-lipat validasi silang: estimator \path{clf} di-\path{clone} dan dievaluasi pada lipatan berbeda; hasilnya adalah array skor lipatan (di sini akurasi)---pemanggilan \path{mean()} memberi estimasi tunggal kinerja sebelum menyentuh \path{X_test}.
+
+\begin{lstlisting}[caption={Cross-val score pada Iris}]
 from sklearn.model_selection import cross_val_score
 from sklearn.linear_model import LogisticRegression
 from sklearn.datasets import load_iris
 
 iris = load_iris()
-X, y = iris.data, iris.target
-clf = LogisticRegression(max_iter=300)
-scores = cross_val_score(clf, X, y, cv=5)
+X, y = iris.data, iris.target  # matriks fitur + vektor label (bentuk klasik sklearn Bunch)
+clf = LogisticRegression(max_iter=300)  # estimator belum di-fit; CV yang akan memanggil fit per lipatan
+scores = cross_val_score(clf, X, y, cv=5)  # cv=5: 5 lipatan; skor default klasifikasi = akurasi
 print("CV akurasi", scores, "mean", scores.mean())
-\end{verbatim}
+\end{lstlisting}
 
-\begin{verbatim}
+\noindent\textbf{Mengapa blok ini?} \path{GridSearchCV} mencoba semua kombinasi hiperparameter di \path{grid} pada setiap lipatan CV; \path{best_params_} memilih yang terbaik di train, lalu \path{score} pada \path{X_test} adalah \textbf{satu} estimasi generalisasi (jangan ulangi pencarian dengan melihat test berkali-kali).
+
+\begin{lstlisting}[caption={GridSearchCV pada pipeline + evaluasi test}]
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import GridSearchCV, train_test_split
@@ -68,22 +71,24 @@ X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42, stratify=y
 )
 pipe = Pipeline([
-    ("sc", StandardScaler()),
+    ("sc", StandardScaler()),  # langkah scaling di dalam CV (tiap lipatan fit scaler di train lipatan)
     ("clf", LogisticRegression(max_iter=500)),
 ])
-grid = {"clf__C": [0.1, 1.0, 10.0]}
-search = GridSearchCV(pipe, grid, cv=5)
-search.fit(X_train, y_train)
+grid = {"clf__C": [0.1, 1.0, 10.0]}  # kunci hiperparameter: nama langkah + __ + nama argumen
+search = GridSearchCV(pipe, grid, cv=5)  # grid kecil untuk contoh; perluas sesuai proyek
+search.fit(X_train, y_train)  # fit penuh pipeline terbaik pada seluruh X_train
 print("best params", search.best_params_)
 print("test score", search.score(X_test, y_test))
-\end{verbatim}
+\end{lstlisting}
 
-\begin{verbatim}
+\noindent\textbf{Mengapa blok ini?} \path{cross_validate} mengembalikan kamus berisi skor train/test per lipatan untuk beberapa metrik sekaligus; di sini kita ambil rata-rata akurasi dan F1-macro di lipatan test.
+
+\begin{lstlisting}[caption={Cross-validate dengan beberapa metrik}]
 from sklearn.model_selection import cross_validate
 import numpy as np
-out = cross_validate(clf, X, y, cv=5, scoring=["accuracy", "f1_macro"])
-print(np.mean(out["test_accuracy"]), np.mean(out["test_f1_macro"]))
-\end{verbatim}
+out = cross_validate(clf, X, y, cv=5, scoring=["accuracy", "f1_macro"])  # clf belum fit; fungsi mengelola lipatan
+print(np.mean(out["test_accuracy"]), np.mean(out["test_f1_macro"]))  # rata-rata skor di lipatan "test" internal CV
+\end{lstlisting}
 
 \noindent\textit{Checklist di Markdown notebook:} hiperparameter dipilih dari hasil CV pada data latih (bukan dari test); \texttt{X\_test} hanya untuk evaluasi akhir sekali.
 

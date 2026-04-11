@@ -48,14 +48,18 @@ $\square$ & Minimal satu visual dan satu metrik interpretatif pada hold-out/CV. 
 
 \section{Contoh kerangka kode orkestrasi}
 
+\noindent\textbf{Mengapa blok ini?} Kerangka awal memisahkan \textbf{I/O} (\texttt{read\_csv}), definisi \texttt{X}/\texttt{y}, dan \textbf{split}---mencegah kode ``monolit'' tanpa urutan yang dapat direproduksi.
+
 \begin{lstlisting}[caption=Kerangka import dan split proyek]
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-# df = pd.read_csv("data_proyek.csv")  # ganti
-# X, y = ...  # definisikan target
-# X_train, X_test, y_train, y_test = train_test_split(...)
+# df = pd.read_csv("data_proyek.csv")  # ganti path dan opsi read_csv sesuai file Anda
+# X, y = ...  # definisikan target: drop kolom target dari X, assign ke y
+# X_train, X_test, y_train, y_test = train_test_split(...)  # stratify jika klasifikasi dan kelas tidak seimbang
 \end{lstlisting}
+
+\noindent\textbf{Mengapa blok ini?} \texttt{Pipeline} mengikat prapemroses dan estimator agar \texttt{fit} pada train menerapkan transform yang sama saat \texttt{predict} pada data baru---wajib untuk proyek akhir yang dinilai ulang.
 
 \begin{lstlisting}[caption=Pipeline disarankan]
 from sklearn.pipeline import Pipeline
@@ -63,17 +67,21 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 
 model = Pipeline([
-    ("sc", StandardScaler()),
+    ("sc", StandardScaler()),  # nama langkah bebas; dipakai di GridSearchCV sebagai prefiks
     ("clf", LogisticRegression(max_iter=1000)),
 ])
-# model.fit(X_train, y_train)
+# model.fit(X_train, y_train)  # aktifkan setelah X_train, y_train siap
 \end{lstlisting}
+
+\noindent\textbf{Mengapa blok ini?} \texttt{classification\_report} mencetak precision/recall/F1 per kelas; simpan figur metrik/plot ke berkas untuk dilampirkan di laporan atau slide.
 
 \begin{lstlisting}[caption=Metrik dan simpan figur]
 from sklearn.metrics import classification_report
-# print(classification_report(y_test, model.predict(X_test)))
-# plt.savefig("proyek_metrik.png")
+# print(classification_report(y_test, model.predict(X_test)))  # uncomment setelah model ter-fit
+# plt.savefig("proyek_metrik.png")  # uncomment setelah plt.figure/plot dibuat
 \end{lstlisting}
+
+\noindent\textbf{Mengapa blok ini?} Pengingat sumber portal data terbuka; dokumentasikan URL dan lisensi di Markdown notebook, bukan hanya tautan di komentar.
 
 \begin{lstlisting}[caption=Sumber terbuka dataset]
 # Lihat https://data.go.id/ dan https://www.kaggle.com/

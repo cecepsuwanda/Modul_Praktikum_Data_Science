@@ -45,40 +45,48 @@ Regresi logistik membutuhkan skala fitur yang wajar bila dipasangkan dengan regu
 
 \section{Contoh kode}
 
+\noindent\textbf{Mengapa blok ini?} Memuat Iris sebagai array NumPy lalu split 75/25 dengan \texttt{stratify=y} agar tiga kelas bunga tetap proporsional di train dan test.
+
 \begin{lstlisting}[caption=Data dan split (Iris)]
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
-X, y = load_iris(return_X_y=True)
+X, y = load_iris(return_X_y=True)  # fitur 4 kolom, label 0/1/2
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.25, random_state=42, stratify=y
+    X, y, test_size=0.25, random_state=42, stratify=y  # 25% data ke test; stratify menjaga proporsi kelas
 )
 \end{lstlisting}
 
+\noindent\textbf{Mengapa blok ini?} Regresi logistik sebagai model linier probabilistik; \texttt{.score} pada klasifikasi = akurasi.
+
 \begin{lstlisting}[caption=LogisticRegression]
 from sklearn.linear_model import LogisticRegression
-log_reg = LogisticRegression(max_iter=200)
+log_reg = LogisticRegression(max_iter=200)  # solver butuh cukup iterasi untuk konvergen multi-kelas
 log_reg.fit(X_train, y_train)
 print("logreg score", log_reg.score(X_test, y_test))
 \end{lstlisting}
+
+\noindent\textbf{Mengapa blok ini?} KNN membandingkan jarak ke-\texttt{n\_neighbors} tetangga (skala fitur penting); pohon keputusan mempartisi ruang fitur---\texttt{max\_depth} membatasi kompleksitas mengurangi overfit.
 
 \begin{lstlisting}[caption=KNeighborsClassifier dan DecisionTree]
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 
-knn = KNeighborsClassifier(n_neighbors=5)
-knn.fit(X_train, y_train)
-tree = DecisionTreeClassifier(max_depth=3, random_state=42)
+knn = KNeighborsClassifier(n_neighbors=5)  # voting mayoritas di antara 5 tetangga terdekat
+knn.fit(X_train, y_train)  # menyimpan data train (lazy learning)
+tree = DecisionTreeClassifier(max_depth=3, random_state=42)  # kedalaman maksimum 3; random_state: pohon dapat diulang
 tree.fit(X_train, y_train)
 print("knn", knn.score(X_test, y_test))
 print("tree", tree.score(X_test, y_test))
 \end{lstlisting}
 
+\noindent\textbf{Mengapa blok ini?} Matriks kebingungan menghitung TP/TN/FP/FN per kelas (di Iris 3x3); \texttt{ConfusionMatrixDisplay} memplot heatmap numerik.
+
 \begin{lstlisting}[caption=Confusion matrix]
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 import matplotlib.pyplot as plt
-pred = log_reg.predict(X_test)
-cm = confusion_matrix(y_test, pred)
-disp = ConfusionMatrixDisplay(cm)
+pred = log_reg.predict(X_test)  # label prediksi LogReg pada test
+cm = confusion_matrix(y_test, pred)  # matriks frekuensi: baris=true, kolom=pred
+disp = ConfusionMatrixDisplay(cm)  # bungkus untuk API plot sklearn
 disp.plot()
 plt.title("Confusion matrix (LogReg)")
 plt.show()

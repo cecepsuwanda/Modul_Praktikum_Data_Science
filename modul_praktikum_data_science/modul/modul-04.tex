@@ -71,25 +71,31 @@ Prosedur menekankan urutan \textbf{split dahulu, baru prapemroses}: ini memisahk
 
 Contoh berikut menunjukkan pola produksi: \texttt{Pipeline} di dalam \texttt{ColumnTransformer}, dengan split stratifikasi untuk target biner.
 
+\noindent\textbf{Mengapa blok ini?} Memisahkan matriks fitur \texttt{X} dan target \texttt{y}; \texttt{drop} menghapus kolom redundan/berisiko \textit{leakage} (mis.\ \texttt{alive} turunan dari \texttt{survived}).
+
 \begin{lstlisting}[caption=Titanic: pisah fitur/target dan subset kolom]
 import seaborn as sns
 
 df = sns.load_dataset("titanic")
-df = df.drop(columns=["deck"], errors="ignore")
+df = df.drop(columns=["deck"], errors="ignore")  # kolom deck terlalu banyak NA pada contoh modul
 
-target_col = "survived"
-drop_extra = ["class", "who", "adult_male", "embark_town", "alive", "alone"]
-X = df.drop(columns=[target_col] + drop_extra, errors="ignore")
-y = df[target_col]
+target_col = "survived"  # nama kolom target klasifikasi biner
+drop_extra = ["class", "who", "adult_male", "embark_town", "alive", "alone"]  # kolom turunan/redundan untuk contoh ini
+X = df.drop(columns=[target_col] + drop_extra, errors="ignore")  # DataFrame fitur saja
+y = df[target_col]  # Series target (0/1)
 \end{lstlisting}
+
+\noindent\textbf{Mengapa blok ini?} \path{train_test_split} memisahkan data sebelum prapemroses; \path{stratify=y} menjaga proporsi kelas latih/uji; \path{random_state} membuat hasil dapat diulang.
 
 \begin{lstlisting}[caption=Split dulu; prapemroses hanya fit di data latih]
 from sklearn.model_selection import train_test_split
 
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42, stratify=y
+    X, y, test_size=0.2, random_state=42, stratify=y  # 20% uji; stratify: proporsi survived serupa di train/test
 )
 \end{lstlisting}
+
+\noindent\textbf{Mengapa blok ini?} \texttt{Pipeline} mengikat imputer dan transformer per jenis fitur; \texttt{ColumnTransformer} menerapkan cabang numerik dan kategorikal lalu menggabungkan hasilnya. \texttt{fit\_transform} pada train, \texttt{transform} saja pada test mencegah kebocoran statistik.
 
 \begin{lstlisting}[caption=ColumnTransformer + imputer (polar anti-leakage)]
 from sklearn.compose import ColumnTransformer
@@ -97,37 +103,39 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 
-num_features = ["pclass", "age", "sibsp", "parch", "fare"]
-cat_features = ["sex", "embarked"]
+num_features = ["pclass", "age", "sibsp", "parch", "fare"]  # daftar nama kolom numerik
+cat_features = ["sex", "embarked"]  # kolom kategorikal untuk one-hot
 
 numeric_pipe = Pipeline([
-    ("imp", SimpleImputer(strategy="median")),
-    ("scale", StandardScaler()),
+    ("imp", SimpleImputer(strategy="median")),  # isi NA numerik dengan median (diestimasi dari train)
+    ("scale", StandardScaler()),  # z-score: mean 0 std 1 per fitur (parameter dari train)
 ])
 categorical_pipe = Pipeline([
-    ("imp", SimpleImputer(strategy="most_frequent")),
-    ("oh", OneHotEncoder(handle_unknown="ignore")),
+    ("imp", SimpleImputer(strategy="most_frequent")),  # NA kategorikal -> kategori modus
+    ("oh", OneHotEncoder(handle_unknown="ignore")),  # sparse/dense one-hot; kategori baru di test -> nol
 ])
 
 preprocess = ColumnTransformer(
     transformers=[
-        ("num", numeric_pipe, num_features),
+        ("num", numeric_pipe, num_features),  # nama cabang, estimator, daftar kolom
         ("cat", categorical_pipe, cat_features),
     ]
 )
 
-X_train_prep = preprocess.fit_transform(X_train)
-X_test_prep = preprocess.transform(X_test)
+X_train_prep = preprocess.fit_transform(X_train)  # fit semua imputer/encoder pada train saja
+X_test_prep = preprocess.transform(X_test)  # terapkan parameter yang sama ke test
 print("train", X_train_prep.shape, "test", X_test_prep.shape)
 \end{lstlisting}
+
+\noindent\textbf{Mengapa blok ini?} Pendekatan \texttt{get\_dummies} cepat untuk eksplorasi tetapi mudah menimbulkan \textit{leakage} jika di-\texttt{fit} pada gabungan train+test---di sini hanya \texttt{X\_train}.
 
 \begin{lstlisting}[caption=Alternatif cepat: pandas get\_dummies (tanpa pipeline)]
 import pandas as pd
 
-X_num = X_train[num_features].copy()
-X_cat = X_train[cat_features].copy()
-X_dum = pd.get_dummies(X_cat, drop_first=True)
-X_prep_df = pd.concat([X_num.reset_index(drop=True), X_dum], axis=1)
+X_num = X_train[num_features].copy()  # subset numerik dari train
+X_cat = X_train[cat_features].copy()  # subset kategorikal dari train
+X_dum = pd.get_dummies(X_cat, drop_first=True)  # kategorikal -> kolom 0/1; drop_first mengurangi multikolinearitas
+X_prep_df = pd.concat([X_num.reset_index(drop=True), X_dum], axis=1)  # gabung horizontal; reset_index: indeks rapi 0..n-1
 print(X_prep_df.shape)
 \end{lstlisting}
 

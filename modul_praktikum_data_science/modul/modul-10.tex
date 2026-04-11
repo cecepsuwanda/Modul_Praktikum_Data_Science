@@ -44,37 +44,45 @@ Silhouette & Lebih tinggi $\Rightarrow$ pemisahan lebih tajam antar klaster. \\
 
 \section{Contoh kode}
 
+\noindent\textbf{Mengapa blok ini?} Data sintetis \path{make_blobs} menghasilkan gumpalan terpisah; \path{StandardScaler} menstandarkan agar jarak Euclidean K-Means tidak didominasi satu sumbu.
+
 \begin{lstlisting}[caption=Data dan scaling]
 from sklearn.datasets import make_blobs
 from sklearn.preprocessing import StandardScaler
 
-X, _ = make_blobs(n_samples=400, centers=4, cluster_std=0.6, random_state=42)
+X, _ = make_blobs(n_samples=400, centers=4, cluster_std=0.6, random_state=42)  # label asli diabaikan (_) karena unsupervised
 scaler = StandardScaler()
-Xs = scaler.fit_transform(X)
+Xs = scaler.fit_transform(X)  # z-score pada seluruh X (contoh sintetis; pada data nyata pisahkan train jika ada supervisi nanti)
 \end{lstlisting}
+
+\noindent\textbf{Mengapa blok ini?} \texttt{KMeans} meminimalkan inertia (jumlah jarak kuadrat ke centroid); \texttt{fit\_predict} mengembalikan indeks klaster per titik.
 
 \begin{lstlisting}[caption=KMeans dan inertia]
 from sklearn.cluster import KMeans
-km = KMeans(n_clusters=4, random_state=42, n_init="auto")
-labels = km.fit_predict(Xs)
-print("inertia", km.inertia_)
+km = KMeans(n_clusters=4, random_state=42, n_init="auto")  # n_init: jumlah inisialisasi centroid (API baru sklearn)
+labels = km.fit_predict(Xs)  # label integer 0..K-1
+print("inertia", km.inertia_)  # semakin kecil biasanya semakin "rapat" ke centroid (hati-hati membandingkan antar K)
 \end{lstlisting}
+
+\noindent\textbf{Mengapa blok ini?} \texttt{silhouette\_score} mengukur seberapa terpisah titik dari klaster tetangganya; loop $k$ membantu memilih $k$ selain memakai inertia saja.
 
 \begin{lstlisting}[caption=Silhouette score untuk beberapa k]
 from sklearn.metrics import silhouette_score
 for k in range(2, 8):
     kmk = KMeans(n_clusters=k, random_state=42, n_init="auto")
     lab = kmk.fit_predict(Xs)
-    s = silhouette_score(Xs, lab)
+    s = silhouette_score(Xs, lab)  # rata-rata koefisien siluet semua sampel
     print(k, s)
 \end{lstlisting}
+
+\noindent\textbf{Mengapa blok ini?} Mengelompokkan baris menurut label klaster lalu mengambil \texttt{mean} per fitur memberi \textbf{profil centroid} yang mudah dijelaskan ke audiens.
 
 \begin{lstlisting}[caption=Profil cluster (rata-rata per fitur)]
 import numpy as np
 import pandas as pd
-dfp = pd.DataFrame(Xs)
-dfp["cluster"] = labels
-print(dfp.groupby("cluster").mean())
+dfp = pd.DataFrame(Xs)  # tiap kolom = satu fitur terskala
+dfp["cluster"] = labels  # kolom label dari KMeans sebelumnya
+print(dfp.groupby("cluster").mean())  # rata-rata fitur per indeks klaster
 \end{lstlisting}
 
 \section{Alternatif: data nyata (Iris)}
@@ -85,14 +93,16 @@ print(dfp.groupby("cluster").mean())
 
 Membandingkan label klaster dengan label asli (\textit{adjusted rand index}, dll.) boleh sebagai latihan tambahan, tetapi fokus praktikum tetap pada deskripsi pola tanpa ``kunci jawaban'' supervisi.
 
+\noindent\textbf{Mengapa blok ini?} Iris dipakai sebagai data nyata berdimensi rendah; hanya \texttt{data} yang dipakai (bukan \texttt{target}) agar tetap paradigma \textit{unsupervised}; $k=3$ dipilih untuk eksplorasi, bukan karena kita ``tahu'' ada tiga spesies.
+
 \begin{lstlisting}[caption={K-Means pada Iris (fitur saja, di-skala)}]
 from sklearn.datasets import load_iris
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import silhouette_score
 
-iris = load_iris(as_frame=True)
-X_iris = iris.data.values
+iris = load_iris(as_frame=True)  # Bunch + DataFrame akses .data/.target
+X_iris = iris.data.values  # matriks NumPy fitur saja (tanpa label untuk clustering)
 scaler_i = StandardScaler()
 Xs_i = scaler_i.fit_transform(X_iris)
 

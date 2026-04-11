@@ -55,6 +55,8 @@ Penutup (risiko/etika) & 0.5 & 1 \\
 
 Mahasiswa dapat memakai Jupyter + Rise, Marp, atau PowerPoint; contoh poin di Markdown:
 
+\noindent\textbf{Mengapa blok ini?} Struktur heading Markdown memetakan satu ide per slide: konteks data, bukti model, aksi bisnis---memudahkan audiens non-teknis mengikuti alur.
+
 \begin{verbatim}
 # Slide judul
 ## Data: sumber, N baris, target
@@ -64,17 +66,21 @@ Mahasiswa dapat memakai Jupyter + Rise, Marp, atau PowerPoint; contoh poin di Ma
 
 \section{Contoh kode (demo cepat di kelas)}
 
+\noindent\textbf{Mengapa blok ini?} Menunjukkan pola \texttt{joblib.load} untuk membuka artefak model yang disimpan minggu lalu; baris aktif di bawah hanya placeholder agar sel tetap jalan tanpa berkas \texttt{.joblib}.
+
 \begin{lstlisting}[caption=Muat ulang model/figur final]
 # from joblib import dump, load
 # load("model_final.joblib")  # jika disimpan
-print("Notebook final siap ditunjukkan")
+print("Notebook final siap ditunjukkan")  # ganti dengan load/prediksi nyata bila ada artefak
 \end{lstlisting}
+
+\noindent\textbf{Mengapa blok ini?} \texttt{os.path.getsize} memberi ukuran byte; dibagi 1024 untuk KB agar Anda memastikan unggahan di bawah batas portal pengumpulan.
 
 \begin{lstlisting}[caption=Cek ukuran berkas sebelum unggah]
 import os
-for f in ["proyek_final.ipynb", "laporan.pdf"]:
-    if os.path.exists(f):
-        print(f, os.path.getsize(f) / 1024, "KB")
+for f in ["proyek_final.ipynb", "laporan.pdf"]:  # sesuaikan daftar nama berkas penyerahan Anda
+    if os.path.exists(f):  # cegah error jika berkas belum dibuat
+        print(f, os.path.getsize(f) / 1024, "KB")  # ukuran dalam kilobyte (perkiraan)
 \end{lstlisting}
 
 \section{Referensi}

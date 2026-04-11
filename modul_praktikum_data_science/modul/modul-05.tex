@@ -54,27 +54,31 @@ Heatmap korelasi & Fitur numerik mana yang redundan atau berkolinear? \\
 
 Contoh berikut mendemonstrasikan empat keluarga visual pada dataset yang sama; di notebook, tambahkan sel Markdown antara plot untuk menjelaskan temuan.
 
+\noindent\textbf{Mengapa blok ini?} \texttt{plt.subplots(1,2)} membuat dua sumbu sejajar; \texttt{histplot(..., kde=True)} menampilkan distribusi + estimasi kepadatan; \texttt{scatterplot(..., hue=)} mewarnai titik menurut kelas target.
+
 \begin{lstlisting}[caption=Histogram umur dan scatter umur vs fare]
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt  # antarmuka pyplot: figur dan sumbu
 import seaborn as sns
 
 df = sns.load_dataset("titanic")
 
-fig, ax = plt.subplots(1, 2, figsize=(10, 4))
-sns.histplot(df["age"].dropna(), kde=True, ax=ax[0])
+fig, ax = plt.subplots(1, 2, figsize=(10, 4))  # 1 baris 2 kolom sumbu; figsize inci
+sns.histplot(df["age"].dropna(), kde=True, ax=ax[0])  # dropna: histogram tanpa NA; kde: kurva halus
 ax[0].set_title("Distribusi umur penumpang")
 ax[0].set_xlabel("age")
 sns.scatterplot(
-    data=df, x="age", y="fare", hue="survived", alpha=0.65, ax=ax[1]
+    data=df, x="age", y="fare", hue="survived", alpha=0.65, ax=ax[1]  # hue: warna per kelas survived; alpha: transparansi
 )
 ax[1].set_title("Umur vs tarif (hue: survived)")
 plt.tight_layout()
 plt.show()
 \end{lstlisting}
 
+\noindent\textbf{Mengapa blok ini?} Boxplot membandingkan distribusi \texttt{fare} antar \texttt{class} (median, IQR, outlier).
+
 \begin{lstlisting}[caption=Boxplot tarif per kelas kabin]
-plt.figure(figsize=(8, 4))
-sns.boxplot(data=df, x="class", y="fare")
+plt.figure(figsize=(8, 4))  # figur baru default axes
+sns.boxplot(data=df, x="class", y="fare")  # perbandingan kategori sumbu-x vs numerik sumbu-y
 plt.title("Sebaran fare per class")
 plt.xlabel("class")
 plt.ylabel("fare")
@@ -82,22 +86,26 @@ plt.tight_layout()
 plt.show()
 \end{lstlisting}
 
+\noindent\textbf{Mengapa blok ini?} Matriks korelasi Pearson (\texttt{.corr()}) pada subset numerik divisualkan sebagai heatmap; \texttt{center=0} menekankan korelasi positif/negatif.
+
 \begin{lstlisting}[caption=Heatmap korelasi fitur numerik]
-num = df[["survived", "pclass", "age", "sibsp", "parch", "fare"]].dropna()
+num = df[["survived", "pclass", "age", "sibsp", "parch", "fare"]].dropna()  # hanya baris lengkap untuk korelasi
 plt.figure(figsize=(7, 5))
-sns.heatmap(num.corr(), annot=True, fmt=".2f", cmap="vlag", center=0)
+sns.heatmap(num.corr(), annot=True, fmt=".2f", cmap="vlag", center=0)  # annot: tulis angka di sel; fmt: dua desimal
 plt.title("Korelasi antar variabel numerik")
 plt.tight_layout()
 plt.show()
 \end{lstlisting}
 
+\noindent\textbf{Mengapa blok ini?} \texttt{pairplot} menampilkan scatter per pasangan fitur; \texttt{corner=True} hanya segitiga bawah (mengurangi redundansi); \texttt{hue} memisahkan warna menurut \texttt{survived}.
+
 \begin{lstlisting}[caption=Pairplot subset (dengan hue survival)]
 cols = ["age", "fare", "pclass"]
 sns.pairplot(
     df[cols + ["survived"]].dropna(),
-    hue="survived",
-    corner=True,
-    plot_kws={"alpha": 0.6},
+    hue="survived",  # legenda warna per kelas
+    corner=True,  # panel duplikat di atas diagonal dihilangkan
+    plot_kws={"alpha": 0.6},  # transparansi titik scatter
 )
 plt.show()
 \end{lstlisting}

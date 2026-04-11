@@ -52,6 +52,8 @@ Prosedur berikut memastikan umpan balik dapat ditindaklanjuti: setiap poin revie
 
 \section{Contoh requirements.txt}
 
+\noindent\textbf{Mengapa blok ini?} Berkas \texttt{requirements.txt} mencatat paket Python dan batas versi minimum agar rekan atau asisten dapat mereplikasi lingkungan dengan \texttt{pip install -r}; baris yang diawali \texttt{\#} adalah komentar di format pip (bukan Python).
+
 \begin{lstlisting}[caption={Contoh isi requirements.txt}, language={},basicstyle=\ttfamily\small]
 jupyter>=1.0
 numpy>=1.24
@@ -62,12 +64,16 @@ scikit-learn>=1.3
 openpyxl>=3.1
 \end{lstlisting}
 
+\noindent\textbf{Mengapa blok ini?} Mencetak \texttt{\_\_version\_\_} dari pustaka utama membantu men-debug ketidakcocokan API antar versi saat peer review menjalankan notebook Anda.
+
 \begin{lstlisting}[caption=Cuplikan versi dari notebook]
-import sklearn
+import sklearn  # namespace umum untuk paket scikit-learn
 import pandas as pd
-print("sklearn", sklearn.__version__)
+print("sklearn", sklearn.__version__)  # nomor versi terpasang di kernel ini
 print("pandas", pd.__version__)
 \end{lstlisting}
+
+\noindent\textbf{Mengapa blok ini?} Perintah \texttt{pip} dijalankan di terminal/shell sistem operasi (bukan di sel kode Python kecuali Anda sengaja memakai \texttt{!pip} di Jupyter).
 
 \begin{lstlisting}[caption=Perintah shell membantu rekan]
 # pip install -r requirements.txt

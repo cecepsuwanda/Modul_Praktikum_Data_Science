@@ -47,32 +47,40 @@ Metrik & Akurasi, RMSE, F1, \ldots & Silhouette, inertia, \ldots \\
 
 Contoh Iris memakai \texttt{stratify=y} agar proporsi kelas konsisten di latih dan uji---penting untuk dataset kecil atau kelas jarang.
 
+\noindent\textbf{Mengapa blok ini?} \texttt{DummyClassifier(strategy="most\_frequent")} memprediksi kelas modus dari train---landasan perbandingan: model sejati harus mengalahkan baseline naif ini.
+
 \begin{lstlisting}[caption=Split dan baseline DummyClassifier]
 from sklearn.model_selection import train_test_split
 from sklearn.dummy import DummyClassifier
 from sklearn.datasets import load_iris
 
-X, y = load_iris(return_X_y=True)
+X, y = load_iris(return_X_y=True)  # matriks fitur NumPy + vektor label integer
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42, stratify=y
+    X, y, test_size=0.2, random_state=42, stratify=y  # stratify: proporsi kelas sama di train/test
 )
-base = DummyClassifier(strategy="most_frequent")
-base.fit(X_train, y_train)
-print("akurasi baseline", base.score(X_test, y_test))
+base = DummyClassifier(strategy="most_frequent")  # baseline: selalu prediksi kelas paling sering di train
+base.fit(X_train, y_train)  # "belajar" hanya statistik modus
+print("akurasi baseline", base.score(X_test, y_test))  # .score: akurasi klasifikasi pada test
 \end{lstlisting}
+
+\noindent\textbf{Mengapa blok ini?} Regresi logistik multi-kelas pada Iris; \texttt{max\_iter} dinaikkan agar optimisasi konvergen pada data terstandar default.
 
 \begin{lstlisting}[caption=LogisticRegression sederhana]
 from sklearn.linear_model import LogisticRegression
-clf = LogisticRegression(max_iter=200)
-clf.fit(X_train, y_train)
+clf = LogisticRegression(max_iter=200)  # iterasi solver; naikkan bila ada warning konvergensi
+clf.fit(X_train, y_train)  # estimasi koefisien dari data latih
 print("akurasi model", clf.score(X_test, y_test))
 \end{lstlisting}
 
+\noindent\textbf{Mengapa blok ini?} \texttt{predict} menghasilkan vektor label prediksi per baris test; memotong \texttt{[:5]} mempermudah inspeksi cepat banding \texttt{y\_test}.
+
 \begin{lstlisting}[caption=Prediksi dan bentuk array]
 import numpy as np
-pred = clf.predict(X_test)
-print(pred[:5], y_test[:5])
+pred = clf.predict(X_test)  # label prediksi untuk setiap baris X_test
+print(pred[:5], y_test[:5])  # lima prediksi pertama vs label sebenarnya
 \end{lstlisting}
+
+\noindent\textbf{Catatan:} Baris berikut ditulis sebagai \textbf{komentar Python} di listing; di notebook, narasi panjang sebaiknya di sel Markdown.
 
 \begin{lstlisting}[caption=Catatan Markdown di notebook]
 # Setelah split, semua fit/scaling hanya pada X_train

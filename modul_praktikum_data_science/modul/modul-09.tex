@@ -45,6 +45,8 @@ Interpretasi & Kurang transparan daripada satu pohon kecil. \\
 
 \section{Contoh kode}
 
+\noindent\textbf{Mengapa blok ini?} \path{RandomForestClassifier} menggabungkan banyak pohon (\path{n_estimators}) yang dilatih pada bootstrap sampel dan subset fitur; metode \path{score} pada klasifikasi sama dengan akurasi.
+
 \begin{lstlisting}[caption=RandomForestClassifier pada Iris]
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.datasets import load_iris
@@ -54,16 +56,20 @@ X, y = load_iris(return_X_y=True)
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.25, random_state=42, stratify=y
 )
-rf = RandomForestClassifier(n_estimators=200, random_state=42)
+rf = RandomForestClassifier(n_estimators=200, random_state=42)  # 200 pohon; random_state: reproduktifitas bootstrap+fitur
 rf.fit(X_train, y_train)
 print("RF score", rf.score(X_test, y_test))
 \end{lstlisting}
 
+\noindent\textbf{Mengapa blok ini?} Atribut \texttt{feature\_importances\_} merangkum penurunan impuritas tersumbangkan per fitur (interpretasi heuristik, bukan kausal).
+
 \begin{lstlisting}[caption=Importansi fitur (urutkan)]
 import pandas as pd
-imp = pd.Series(rf.feature_importances_)
-print(imp.sort_values(ascending=False))
+imp = pd.Series(rf.feature_importances_)  # indeks default 0..n_features-1 mengikut urutan kolom X
+print(imp.sort_values(ascending=False))  # fitur dengan angka lebih besar lebih dominan dalam voting pohon
 \end{lstlisting}
+
+\noindent\textbf{Mengapa blok ini?} \texttt{RandomForestRegressor} memprediksi nilai kontinu; \texttt{.score} pada regresi = koefisien determinasi $R^2$ pada test.
 
 \begin{lstlisting}[caption=RandomForestRegressor (diabetes)]
 from sklearn.ensemble import RandomForestRegressor
@@ -74,6 +80,8 @@ rfr = RandomForestRegressor(n_estimators=200, random_state=42)
 rfr.fit(X_train, y_train)
 print("R2 test", rfr.score(X_test, y_test))
 \end{lstlisting}
+
+\noindent\textbf{Catatan:} Peringatan berikut sebaiknya juga ditulis di sel Markdown interpretasi.
 
 \begin{lstlisting}[caption=Catatan interpretasi di Markdown]
 # Importansi tinggi != fitur penyebab; bisa karena korelasi atau leakage

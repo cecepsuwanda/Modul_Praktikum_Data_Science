@@ -44,6 +44,8 @@ Kampanye pemasaran & Presisi tinggi (minimal FP). \\
 
 \section{Contoh kode}
 
+\noindent\textbf{Mengapa blok ini?} Dataset kanker payudara adalah klasifikasi biner; \path{classification_report} merangkum precision/recall/F1; \path{RocCurveDisplay.from_estimator} memplot TPR vs FPR dari \path{decision_function} LogReg; \path{f1_score(..., average="macro")} rata-rata F1 antar kelas tanpa bobot frekuensi.
+
 \begin{lstlisting}[caption=ROC curve + classification report (biner)]
 from sklearn.metrics import classification_report, RocCurveDisplay, f1_score
 from sklearn.linear_model import LogisticRegression
@@ -54,13 +56,15 @@ X, y = load_breast_cancer(return_X_y=True)
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.25, random_state=42, stratify=y
 )
-clf = LogisticRegression(max_iter=5000)
+clf = LogisticRegression(max_iter=5000)  # data berskala besar butuh iterasi solver lebih banyak
 clf.fit(X_train, y_train)
-y_pred = clf.predict(X_test)
-print(classification_report(y_test, y_pred))
+y_pred = clf.predict(X_test)  # threshold default 0.5 pada skor linear
+print(classification_report(y_test, y_pred))  # per kelas + weighted avg
 print("F1 macro", f1_score(y_test, y_pred, average="macro"))
-RocCurveDisplay.from_estimator(clf, X_test, y_test)
+RocCurveDisplay.from_estimator(clf, X_test, y_test)  # kurva ROC memakai y_true dan skor kontinu dari clf
 \end{lstlisting}
+
+\noindent\textbf{Mengapa blok ini?} \texttt{precision\_recall\_fscore\_support} mengembalikan array per kelas Iris; \texttt{zip} menggabungkan metrik dengan \texttt{support} (jumlah sampel uji per kelas).
 
 \begin{lstlisting}[caption=Precision/Recall per kelas (multiclass)]
 from sklearn.metrics import precision_recall_fscore_support
@@ -72,10 +76,10 @@ X, y = load_iris(return_X_y=True)
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.25, random_state=42, stratify=y
 )
-m = LogisticRegression(max_iter=200).fit(X_train, y_train)
+m = LogisticRegression(max_iter=200).fit(X_train, y_train)  # pola method chaining: construct lalu fit
 yp = m.predict(X_test)
-p, r, f, sup = precision_recall_fscore_support(y_test, yp)
-print(list(zip(p, r, f, sup)))
+p, r, f, sup = precision_recall_fscore_support(y_test, yp)  # empat array paralel per kelas
+print(list(zip(p, r, f, sup)))  # pasangkan metrik per indeks kelas
 \end{lstlisting}
 
 \begin{contoh}

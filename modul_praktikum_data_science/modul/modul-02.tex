@@ -77,52 +77,64 @@ Prosedur minggu ini melatih perbandingan dua sumber data: bentuk (\texttt{shape}
 
 Contoh berikut menunjukkan variasi sumber data tanpa mengganti pola inspeksi: selalu mulai dari \texttt{head}, \texttt{info}, lalu \texttt{describe} bila kolom numerik sudah masuk akal.
 
+\noindent\textbf{Mengapa blok ini?} \texttt{sns.load\_dataset} memuat DataFrame bawaan Seaborn (tanpa unduh manual); \texttt{.shape} memberi \texttt{(baris, kolom)}, \texttt{.dtypes} menunjukkan tipe per kolom, \texttt{.head()} menampilkan baris awal untuk cek isi.
+
 \begin{lstlisting}[caption=Dua dataset Seaborn: tips dan Titanic]
-import pandas as pd
-import seaborn as sns
+import pandas as pd  # alias umum: pd
+import seaborn as sns  # dataset contoh + visualisasi nanti
 
-df_tips = sns.load_dataset("tips")
-df_titanic = sns.load_dataset("titanic")
+df_tips = sns.load_dataset("tips")  # DataFrame: data restoran (ujung proporsi)
+df_titanic = sns.load_dataset("titanic")  # DataFrame: penumpang Titanic
 
-print("tips", df_tips.shape, df_tips.dtypes.head())
+print("tips", df_tips.shape, df_tips.dtypes.head())  # shape: dimensi; dtypes.head: cuplikan tipe kolom
 print("titanic", df_titanic.shape)
-print(df_titanic.head())
+print(df_titanic.head())  # lima baris pertama (cek nilai/kolom)
 \end{lstlisting}
+
+\noindent\textbf{Mengapa blok ini?} \texttt{info()} merangkum tipe, non-null, dan penggunaan memori; \texttt{describe(include="all")} menghitung statistik ringkas untuk numerik dan frekuensi untuk kategorikal---\texttt{.T} mem-transpose agar kolom asli menjadi baris (mudah dibaca di layar).
 
 \begin{lstlisting}[caption=Ringkasan struktur dan statistik (Titanic)]
-print(df_titanic.info())
-print(df_titanic.describe(include="all").T.head(14))
+print(df_titanic.info())  # ringkasan dtypes + jumlah non-NA per kolom
+print(df_titanic.describe(include="all").T.head(14))  # statistik per kolom; .T: transpose; head: batasi baris cetak
 \end{lstlisting}
 
-\begin{lstlisting}[caption=Alternatif sumber terbuka: OpenML (perlu jaringan pertama kali)]
-from sklearn.datasets import fetch_openml
+\noindent\textbf{Mengapa blok ini?} \texttt{fetch\_openml} mengunduh dataset dari OpenML (butuh jaringan); \texttt{as\_frame=True} mengembalikan DataFrame pandas lewat atribut \texttt{.frame}.
 
-iris_oml = fetch_openml(name="iris", version=1, as_frame=True)
-df_iris = iris_oml.frame
-print(df_iris.shape, df_iris.columns.tolist())
+\begin{lstlisting}[caption=Alternatif sumber terbuka: OpenML (perlu jaringan pertama kali)]
+from sklearn.datasets import fetch_openml  # akses dataset publik OpenML
+
+iris_oml = fetch_openml(name="iris", version=1, as_frame=True)  # as_frame=True: Bunch + DataFrame di .frame
+df_iris = iris_oml.frame  # DataFrame fitur + target (nama kolom mengikuti OpenML)
+print(df_iris.shape, df_iris.columns.tolist())  # dimensi + daftar nama kolom
 print(df_iris.head())
 \end{lstlisting}
 
+\noindent\textbf{Mengapa blok ini?} \texttt{pd.read\_csv(url)} memuat CSV langsung dari URL; cocok untuk data terbuka berbasis GitHub/raw---pastikan lisensi URL tersebut.
+
 \begin{lstlisting}[caption=Membaca CSV dari URL (contoh format terbuka)]
-url = (
+url = (  # string multi-baris untuk keterbacaan URL panjang
     "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
 )
-df_url = pd.read_csv(url)
+df_url = pd.read_csv(url)  # I/O jaringan: unduh lalu parse sebagai DataFrame
 print(df_url.shape)
 \end{lstlisting}
 
+\noindent\textbf{Mengapa blok ini?} \texttt{read\_excel} membaca lembar spreadsheet; \texttt{sheet\_name=0} adalah indeks lembar pertama. Berkas harus ada di path relatif proyek (contoh: folder \texttt{data/}).
+
 \begin{lstlisting}[caption={Membaca Excel (satu sheet, jika ada berkas lokal)}]
-df_xlsx = pd.read_excel("data/contoh.xlsx", sheet_name=0)
-print(df_xlsx.dtypes.value_counts())
+df_xlsx = pd.read_excel("data/contoh.xlsx", sheet_name=0)  # sheet pertama (indeks 0)
+print(df_xlsx.dtypes.value_counts())  # hitung berapa kolom per dtype
 \end{lstlisting}
 
+\noindent\textbf{Mengapa blok ini?} Fungsi kecil \texttt{ringkas} mengembalikan kamus metrik per DataFrame---\texttt{len(frame)} sama dengan jumlah baris, \texttt{frame.isna().sum().sum()} menjumlahkan seluruh sel yang hilang.
+
 \begin{lstlisting}[caption=Membandingkan dua kerangka data]
-def ringkas(nama, frame):
+def ringkas(nama, frame):  # nama: label string; frame: DataFrame
     return {
         "nama": nama,
-        "baris": len(frame),
-        "kolom": frame.shape[1],
-        "missing_total": int(frame.isna().sum().sum()),
+        "baris": len(frame),  # jumlah baris
+        "kolom": frame.shape[1],  # jumlah kolom
+        "missing_total": int(frame.isna().sum().sum()),  # total sel NaN di seluruh kolom
     }
 
 print(ringkas("tips", df_tips))

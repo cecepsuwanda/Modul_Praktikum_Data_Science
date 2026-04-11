@@ -46,7 +46,9 @@ Risiko & Kualitas data, asumsi, etika. \\
 
 \section{Contoh kerangka Markdown}
 
-Gunakan sel Markdown berurutan (bukan sebagai listing Python):
+Gunakan sel Markdown berurutan (bukan sebagai listing Python). Kerangka berikut hanya contoh judul seksi; isi tiap seksi dengan paragraf dan bukti (angka, plot) dari notebook Anda.
+
+\noindent\textbf{Mengapa blok ini?} Heading Markdown (\texttt{\#\#}) memecah ``cerita'' analitik menjadi blok yang bisa diekspor ke slide atau PDF; urutan mengikuti alur CRISP-DM ringkas.
 
 \begin{verbatim}
 ## Ringkasan eksekutif (5-7 kalimat)
@@ -62,24 +64,30 @@ Gunakan sel Markdown berurutan (bukan sebagai listing Python):
 
 Visual untuk manajemen cenderung sederhana dan berlabel jelas; hindari palet yang sulit dibaca saat diproyeksikan.
 
+\noindent\textbf{Mengapa blok ini?} Diagram batang membandingkan sedikit kategori (model) dengan satu metrik (F1); angka di sini hanya ilustrasi---ganti dengan metrik hasil validasi Anda.
+
 \begin{lstlisting}[caption=Plot sederhana untuk disematkan di narasi]
 import matplotlib.pyplot as plt
-vals = [0.82, 0.88, 0.91]
-labs = ["Model A", "Model B", "Model C"]
-plt.bar(labs, vals)
+vals = [0.82, 0.88, 0.91]  # skor contoh; ganti dari eksperimen nyata
+labs = ["Model A", "Model B", "Model C"]  # label sumbu-x
+plt.bar(labs, vals)  # diagram batang vertikal
 plt.ylabel("F1 (contoh)")
 plt.title("Perbandingan model (ilustrasi)")
 plt.show()
 \end{lstlisting}
 
+\noindent\textbf{Mengapa blok ini?} \texttt{savefig} menulis figur aktif ke disk; \texttt{dpi} mengontrol resolusi cetak/proyektor; \texttt{bbox\_inches="tight"} memangkas margin putih berlebih.
+
 \begin{lstlisting}[caption=Export figur ke berkas]
-plt.savefig("fig_ringkasan.png", dpi=150, bbox_inches="tight")
+plt.savefig("fig_ringkasan.png", dpi=150, bbox_inches="tight")  # jalankan setelah plot dibuat di sel sebelumnya
 \end{lstlisting}
+
+\noindent\textbf{Mengapa blok ini?} \texttt{to\_markdown} menghasilkan tabel Markdown dari DataFrame---cocok untuk menempelkan ringkasan metrik ke README atau laporan tanpa mengetik tabel manual.
 
 \begin{lstlisting}[caption=Tabel ringkasan metrik ke Markdown via print]
 import pandas as pd
-dfm = pd.DataFrame({"model": ["A", "B"], "f1": [0.8, 0.86]})
-print(dfm.to_markdown(index=False))
+dfm = pd.DataFrame({"model": ["A", "B"], "f1": [0.8, 0.86]})  # contoh dua baris
+print(dfm.to_markdown(index=False))  # index=False: sembunyikan indeks 0,1 di output
 \end{lstlisting}
 
 \section{Referensi}
