@@ -49,9 +49,8 @@ Hapus kolom & Kolom sangat sparse tanpa nilai prediktif jelas. \\
 
 \section{K3 / etika}
 
-Jangan menghapus baris berisi kelompok minoritas tanpa analisis dampak terhadap keadilan model (catatan untuk proyek akhir).
-
-Pada dataset yang mengandung variabel sensitif (gender, asal, dll.), penghapusan selektif dapat memperburuk representasi kelompok tertentu. Laporkan proporsi kelas sebelum dan sesudah cleaning bila target bersifat sosial atau perilaku.
+Jangan membuang baris yang memuat kelompok minoritas tanpa menganalisis dampaknya terhadap keadilan model (penting pula untuk proyek akhir).
+Jika data memuat variabel sensitif (mis.\ gender atau asal), penghapusan selektif dapat menurunkan representasi grup tertentu; laporkan proporsi kelas sebelum dan sesudah \textit{cleaning} bila target bersifat sosial atau perilaku.
 
 \section{Sarana}
 
@@ -73,7 +72,7 @@ Prosedur minggu ini mengalir dari audit kuantitatif (\texttt{isna}) ke tindakan 
 
 Kode berikut menggambarkan pola kerja dari audit missing menuju \texttt{df\_clean} yang siap divisualisasikan; sesuaikan strategi dengan domain dataset Anda.
 
-\noindent\textbf{Mengapa blok ini?} \texttt{.copy()} mencegah aliasing berbahaya saat Anda mengubah \texttt{df}; \texttt{isna().sum()} menghitung NA per kolom, \texttt{sort\_values(ascending=False)} menempatkan kolom paling banyak missing di atas.
+\MulaiPenjelasanKode \texttt{.copy()} mencegah aliasing berbahaya saat Anda mengubah \texttt{df}; \texttt{isna().sum()} menghitung NA per kolom, \texttt{sort\_values(ascending=False)} menempatkan kolom paling banyak missing di atas. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=Muat Titanic dan audit missing values]
 import pandas as pd
@@ -87,7 +86,7 @@ missing = df.isna().sum().sort_values(ascending=False)  # jumlah NA per kolom, u
 print(missing[missing > 0])  # hanya kolom yang punya missing
 \end{lstlisting}
 
-\noindent\textbf{Mengapa blok ini?} Kolom \texttt{deck} sangat sparse sehingga sering dihapus; \texttt{fillna(median)} untuk \texttt{age} robust terhadap outlier; \texttt{mode()} mengambil kategori paling sering untuk \texttt{embarked}.
+\MulaiPenjelasanKode Kolom \texttt{deck} sangat sparse sehingga sering dihapus; \texttt{fillna(median)} untuk \texttt{age} robust terhadap outlier; \texttt{mode()} mengambil kategori paling sering untuk \texttt{embarked}. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=Hapus kolom sangat sparse; imputasi terarah]
 df_clean = df.copy()
@@ -100,7 +99,7 @@ if len(emb_mode) > 0:
     df_clean["embarked"] = df_clean["embarked"].fillna(emb_mode[0])  # isi NA dengan kategori tersering
 \end{lstlisting}
 
-\noindent\textbf{Mengapa blok ini?} \texttt{select\_dtypes(include="number")} memilih kolom numerik; loop mengisi sisa NA dengan median per kolom (contoh agresif---sesuaikan dengan domain).
+\MulaiPenjelasanKode \texttt{select\_dtypes(include="number")} memilih kolom numerik; loop mengisi sisa NA dengan median per kolom (contoh agresif---sesuaikan dengan domain). \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=Imputasi median untuk kolom numerik lain (opsional)]
 num_cols = df_clean.select_dtypes(include="number").columns  # Index nama kolom numerik
@@ -109,7 +108,7 @@ for c in num_cols:
     df_clean[c] = df_clean[c].fillna(med)
 \end{lstlisting}
 
-\noindent\textbf{Mengapa blok ini?} \texttt{drop\_duplicates()} menghapus baris identik penuh; bandingkan \texttt{shape} sebelum/sesudah untuk dokumentasi.
+\MulaiPenjelasanKode \texttt{drop\_duplicates()} menghapus baris identik penuh; bandingkan \texttt{shape} sebelum/sesudah untuk dokumentasi. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=Duplikat dan shape]
 print("sebelum", df_clean.shape)
@@ -117,7 +116,7 @@ df_clean = df_clean.drop_duplicates()  # hapus duplikat baris penuh
 print("sesudah", df_clean.shape)
 \end{lstlisting}
 
-\noindent\textbf{Mengapa blok ini?} Boxplot memvisualkan median, kuartil, dan titik luar (\textit{outlier}) per kategori \texttt{class} pada \texttt{fare}---berguna sebelum memutuskan winsorize/log atau membiarkan model yang robust.
+\MulaiPenjelasanKode Boxplot memvisualkan median, kuartil, dan titik luar (\textit{outlier}) per kategori \texttt{class} pada \texttt{fare}---berguna sebelum memutuskan winsorize/log atau membiarkan model yang robust. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=Boxplot tarif per kelas (outlier visual)]
 import matplotlib.pyplot as plt

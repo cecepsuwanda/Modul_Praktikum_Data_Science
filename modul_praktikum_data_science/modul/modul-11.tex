@@ -44,7 +44,7 @@ Kampanye pemasaran & Presisi tinggi (minimal FP). \\
 
 \section{Contoh kode}
 
-\noindent\textbf{Mengapa blok ini?} Dataset kanker payudara adalah klasifikasi biner; \path{classification_report} merangkum precision/recall/F1; \path{RocCurveDisplay.from_estimator} memplot TPR vs FPR dari \path{decision_function} LogReg; \path{f1_score(..., average="macro")} rata-rata F1 antar kelas tanpa bobot frekuensi.
+\MulaiPenjelasanKode Dataset kanker payudara adalah klasifikasi biner. \path{classification_report} merangkum precision, recall, dan F1. \path{RocCurveDisplay.from_estimator} menggambarkan TPR terhadap FPR dari skor \path{decision_function} regresi logistik. \path{f1_score(..., average="macro")} merata-ratakan F1 antar kelas tanpa membobot frekuensi kelas. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=ROC curve + classification report (biner)]
 from sklearn.metrics import classification_report, RocCurveDisplay, f1_score
@@ -64,7 +64,7 @@ print("F1 macro", f1_score(y_test, y_pred, average="macro"))
 RocCurveDisplay.from_estimator(clf, X_test, y_test)  # kurva ROC memakai y_true dan skor kontinu dari clf
 \end{lstlisting}
 
-\noindent\textbf{Mengapa blok ini?} \texttt{precision\_recall\_fscore\_support} mengembalikan array per kelas Iris; \texttt{zip} menggabungkan metrik dengan \texttt{support} (jumlah sampel uji per kelas).
+\MulaiPenjelasanKode \texttt{precision\_recall\_fscore\_support} mengembalikan array per kelas Iris; \texttt{zip} menggabungkan metrik dengan \texttt{support} (jumlah sampel uji per kelas). \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=Precision/Recall per kelas (multiclass)]
 from sklearn.metrics import precision_recall_fscore_support

@@ -10,7 +10,7 @@
 
 \SesiRPS{9}{P8}{$\sim$170 menit}{CPMK-P3}
 
-\noindent Random Forest mengurangi varians prediksi dengan merata-ratakan banyak pohon yang dilatih pada sampel bootstrap berbeda. Ini sering memberi metrik lebih stabil daripada satu pohon dalam, dengan biaya komputasi dan interpretabilitas parsial.
+\noindent Random Forest menurunkan varians prediksi dengan merata-ratakan banyak pohon dari bootstrap berbeda. Metrik uji sering lebih stabil dibanding satu pohon dalam, dengan imbalan biaya komputasi dan interpretasi yang lebih sulit.
 
 \section{Kemampuan akhir sesi}
 
@@ -24,7 +24,7 @@ Importansi fitur dari pohon berbasis impurity dapat bias jika fitur memiliki kar
 Random Forest menggabungkan banyak pohon pada bootstrap sampel dan subset fitur acak; mengurangi varians dibanding satu pohon dalam. \texttt{feature\_importances\_} adalah proxy berbasis penurunan impurity---bukan kausalitas.
 \end{konsep}
 
-Hyperparameter seperti \texttt{n\_estimators} dan \texttt{max\_depth} mengontrol kompleksitas kolektif hutan; \texttt{random\_state} membantu reproduktifitas perbandingan antar eksperimen di notebook.
+Hyperparameter seperti \texttt{n\_estimators} dan \texttt{max\_depth} mengatur kompleksitas hutan; \texttt{random\_state} menstabilkan perbandingan antar eksperimen di notebook.
 
 \begin{table}[htbp]
 \centering
@@ -45,7 +45,7 @@ Interpretasi & Kurang transparan daripada satu pohon kecil. \\
 
 \section{Contoh kode}
 
-\noindent\textbf{Mengapa blok ini?} \path{RandomForestClassifier} menggabungkan banyak pohon (\path{n_estimators}) yang dilatih pada bootstrap sampel dan subset fitur; metode \path{score} pada klasifikasi sama dengan akurasi.
+\MulaiPenjelasanKode \path{RandomForestClassifier} menggabungkan banyak pohon (\path{n_estimators}) yang dilatih pada bootstrap sampel dan subset fitur; metode \path{score} pada klasifikasi sama dengan akurasi. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=RandomForestClassifier pada Iris]
 from sklearn.ensemble import RandomForestClassifier
@@ -61,7 +61,7 @@ rf.fit(X_train, y_train)
 print("RF score", rf.score(X_test, y_test))
 \end{lstlisting}
 
-\noindent\textbf{Mengapa blok ini?} Atribut \texttt{feature\_importances\_} merangkum penurunan impuritas tersumbangkan per fitur (interpretasi heuristik, bukan kausal).
+\MulaiPenjelasanKode Atribut \texttt{feature\_importances\_} merangkum penurunan impuritas tersumbangkan per fitur (interpretasi heuristik, bukan kausal). \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=Importansi fitur (urutkan)]
 import pandas as pd
@@ -69,7 +69,7 @@ imp = pd.Series(rf.feature_importances_)  # indeks default 0..n_features-1 mengi
 print(imp.sort_values(ascending=False))  # fitur dengan angka lebih besar lebih dominan dalam voting pohon
 \end{lstlisting}
 
-\noindent\textbf{Mengapa blok ini?} \texttt{RandomForestRegressor} memprediksi nilai kontinu; \texttt{.score} pada regresi = koefisien determinasi $R^2$ pada test.
+\MulaiPenjelasanKode \texttt{RandomForestRegressor} memprediksi nilai kontinu; \texttt{.score} pada regresi = koefisien determinasi $R^2$ pada test. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=RandomForestRegressor (diabetes)]
 from sklearn.ensemble import RandomForestRegressor
@@ -81,7 +81,7 @@ rfr.fit(X_train, y_train)
 print("R2 test", rfr.score(X_test, y_test))
 \end{lstlisting}
 
-\noindent\textbf{Catatan:} Peringatan berikut sebaiknya juga ditulis di sel Markdown interpretasi.
+\MulaiPenjelasanKode \textbf{Catatan.} Peringatan berikut sebaiknya juga ditulis di sel Markdown interpretasi. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=Catatan interpretasi di Markdown]
 # Importansi tinggi != fitur penyebab; bisa karena korelasi atau leakage

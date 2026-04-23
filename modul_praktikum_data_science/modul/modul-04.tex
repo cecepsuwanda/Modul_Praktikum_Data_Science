@@ -10,13 +10,13 @@
 
 \SesiRPS{4}{P3}{$\sim$170 menit}{CPMK-P2}
 
-\noindent Bab ini menjembatani data ``siap dibaca manusia'' menjadi representasi numerik yang dapat diproses estimator. Kesalahan umum adalah melakukan normalisasi atau imputasi pada seluruh dataset sebelum split---yang membuat metrik uji terlihat lebih baik dari kenyataan.
+\noindent Bab ini menjembatani data ``siap dibaca manusia'' ke representasi numerik untuk estimator. Kesalahan umum: mem-\textit{fit} normalisasi atau imputasi pada seluruh data sebelum \textit{split} latih/uji, sehingga metrik uji tampil lebih optimis daripada kenyataan.
 
 \section{Kemampuan akhir sesi}
 
 Membedakan fitur nominal vs ordinal; menerapkan one-hot atau label encoding; menggunakan \texttt{StandardScaler} atau \texttt{MinMaxScaler}; menjelaskan risiko \textit{leakage} jika scaler difit pada gabungan latih+uji.
 
-Setelah sesi, Anda diharapkan dapat menjelaskan dimensi matriks hasil \texttt{OneHotEncoder} dan mengapa kolom kategorikal melebar menjadi beberapa kolom biner. Pemahaman ini penting saat men-debug error bentuk (\texttt{shape mismatch}) di minggu pemodelan.
+Anda diharapkan mampu menjelaskan dimensi matriks hasil \texttt{OneHotEncoder} dan mengapa satu kolom kategorial menjadi beberapa kolom biner. Hal itu membantu saat mendebug error bentuk (\texttt{shape mismatch}) pada minggu pemodelan.
 
 \section{Teori}
 
@@ -71,7 +71,7 @@ Prosedur menekankan urutan \textbf{split dahulu, baru prapemroses}: ini memisahk
 
 Contoh berikut menunjukkan pola produksi: \texttt{Pipeline} di dalam \texttt{ColumnTransformer}, dengan split stratifikasi untuk target biner.
 
-\noindent\textbf{Mengapa blok ini?} Memisahkan matriks fitur \texttt{X} dan target \texttt{y}; \texttt{drop} menghapus kolom redundan/berisiko \textit{leakage} (mis.\ \texttt{alive} turunan dari \texttt{survived}).
+\MulaiPenjelasanKode Memisahkan matriks fitur \texttt{X} dan target \texttt{y}; \texttt{drop} menghapus kolom redundan/berisiko \textit{leakage} (mis.\ \texttt{alive} turunan dari \texttt{survived}). \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=Titanic: pisah fitur/target dan subset kolom]
 import seaborn as sns
@@ -85,7 +85,7 @@ X = df.drop(columns=[target_col] + drop_extra, errors="ignore")  # DataFrame fit
 y = df[target_col]  # Series target (0/1)
 \end{lstlisting}
 
-\noindent\textbf{Mengapa blok ini?} \path{train_test_split} memisahkan data sebelum prapemroses; \path{stratify=y} menjaga proporsi kelas latih/uji; \path{random_state} membuat hasil dapat diulang.
+\MulaiPenjelasanKode \path{train_test_split} memisahkan data sebelum prapemroses; \path{stratify=y} menjaga proporsi kelas latih/uji; \path{random_state} membuat hasil dapat diulang. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=Split dulu; prapemroses hanya fit di data latih]
 from sklearn.model_selection import train_test_split
@@ -95,7 +95,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 \end{lstlisting}
 
-\noindent\textbf{Mengapa blok ini?} \texttt{Pipeline} mengikat imputer dan transformer per jenis fitur; \texttt{ColumnTransformer} menerapkan cabang numerik dan kategorikal lalu menggabungkan hasilnya. \texttt{fit\_transform} pada train, \texttt{transform} saja pada test mencegah kebocoran statistik.
+\MulaiPenjelasanKode \texttt{Pipeline} mengikat imputer dan transformer per jenis fitur; \texttt{ColumnTransformer} menerapkan cabang numerik dan kategorikal lalu menggabungkan hasilnya. \texttt{fit\_transform} pada train, \texttt{transform} saja pada test mencegah kebocoran statistik. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=ColumnTransformer + imputer (polar anti-leakage)]
 from sklearn.compose import ColumnTransformer
@@ -127,7 +127,7 @@ X_test_prep = preprocess.transform(X_test)  # terapkan parameter yang sama ke te
 print("train", X_train_prep.shape, "test", X_test_prep.shape)
 \end{lstlisting}
 
-\noindent\textbf{Mengapa blok ini?} Pendekatan \texttt{get\_dummies} cepat untuk eksplorasi tetapi mudah menimbulkan \textit{leakage} jika di-\texttt{fit} pada gabungan train+test---di sini hanya \texttt{X\_train}.
+\MulaiPenjelasanKode Pendekatan \texttt{get\_dummies} cepat untuk eksplorasi tetapi mudah menimbulkan \textit{leakage} jika di-\texttt{fit} pada gabungan train+test---di sini hanya \texttt{X\_train}. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=Alternatif cepat: pandas get\_dummies (tanpa pipeline)]
 import pandas as pd

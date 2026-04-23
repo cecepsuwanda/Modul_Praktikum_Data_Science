@@ -10,7 +10,7 @@
 
 \SesiRPS{12}{P9}{$\sim$170 menit}{CPMK-P4}
 
-\noindent Satu pemisahan latih/uji saja bisa beruntung atau sial karena sampel kecil. Validasi silang memberi estimasi kinerja dengan mencoba beberapa partisi; \texttt{GridSearchCV} menyisipkan pencarian hiperparameter di dalam lipatan tersebut---dengan catatan ketat bahwa \textbf{test set} tidak boleh dipakai untuk memilih model.
+\noindent Satu kali \textit{split} latih/uji mudah bias jika sampel kecil. Validasi silang mengestimasi kinerja lewat beberapa partisi; \texttt{GridSearchCV} menyelipkan pencarian hiperparameter di lipatan CV---dengan aturan tegas: \textbf{himpunan uji} tidak dipakai untuk memilih model atau men-tune hiperparameter.
 
 \section{Kemampuan akhir sesi}
 
@@ -45,7 +45,7 @@ Test (hold-out) & Laporan akhir sekali, setelah model terpilih. \\
 
 \section{Contoh kode}
 
-\noindent\textbf{Mengapa blok ini?} \path{cross_val_score} menjalankan $k$-lipat validasi silang: estimator \path{clf} di-\path{clone} dan dievaluasi pada lipatan berbeda; hasilnya adalah array skor lipatan (di sini akurasi)---pemanggilan \path{mean()} memberi estimasi tunggal kinerja sebelum menyentuh \path{X_test}.
+\MulaiPenjelasanKode \path{cross_val_score} menjalankan validasi silang $k$-lipat: estimator \path{clf} dikloning dan dievaluasi tiap lipatan, menghasilkan deret skor (di sini akurasi). Rata-rata dengan \path{mean()} memberi satu angka ringkas sebelum Anda mengevaluasi pada \path{X_test} terpisah. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption={Cross-val score pada Iris}]
 from sklearn.model_selection import cross_val_score
@@ -59,7 +59,7 @@ scores = cross_val_score(clf, X, y, cv=5)  # cv=5: 5 lipatan; skor default klasi
 print("CV akurasi", scores, "mean", scores.mean())
 \end{lstlisting}
 
-\noindent\textbf{Mengapa blok ini?} \path{GridSearchCV} mencoba semua kombinasi hiperparameter di \path{grid} pada setiap lipatan CV; \path{best_params_} memilih yang terbaik di train, lalu \path{score} pada \path{X_test} adalah \textbf{satu} estimasi generalisasi (jangan ulangi pencarian dengan melihat test berkali-kali).
+\MulaiPenjelasanKode \path{GridSearchCV} mencoba kombinasi di \path{grid} di dalam lipatan CV. Setelah \path{fit} pada data latih, \path{best_params_} merangkum pilihan terbaik di ruang pencarian; \path{score} pada \path{X_test} membaca generalisasi \textbf{sekali}. Jangan mengulang pen-tunean sambil ``mengintip'' himpunan uji. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption={GridSearchCV pada pipeline + evaluasi test}]
 from sklearn.pipeline import Pipeline
@@ -81,7 +81,7 @@ print("best params", search.best_params_)
 print("test score", search.score(X_test, y_test))
 \end{lstlisting}
 
-\noindent\textbf{Mengapa blok ini?} \path{cross_validate} mengembalikan kamus berisi skor train/test per lipatan untuk beberapa metrik sekaligus; di sini kita ambil rata-rata akurasi dan F1-macro di lipatan test.
+\MulaiPenjelasanKode \path{cross_validate} mengembalikan kamus berisi skor train/test per lipatan untuk beberapa metrik sekaligus; di sini kita ambil rata-rata akurasi dan F1-macro di lipatan test. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption={Cross-validate dengan beberapa metrik}]
 from sklearn.model_selection import cross_validate

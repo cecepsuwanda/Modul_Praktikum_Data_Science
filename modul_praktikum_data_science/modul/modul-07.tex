@@ -10,13 +10,13 @@
 
 \SesiRPS{7}{P6}{$\sim$170 menit}{CPMK-P3}
 
-\noindent Regresi linear tetap relevan sebagai \textbf{model dasar} yang cepat dan interpretatif. Membandingkan RMSE/MAE terhadap baseline rata-rata menjawab pertanyaan inti: ``apakah fitur yang kita masukkan benar-benar membantu prediksi?''
+\noindent Regresi linear tetap berguna sebagai \textbf{model dasar} yang cepat dan mudah diinterpretasikan. Membandingkan RMSE/MAE dengan baseline rata-rata menjawab: ``apakah fitur yang dipakai benar-benar menurunkan error prediksi?''
 
 \section{Kemampuan akhir sesi}
 
 Melatih regresi pada data uji terpisah; melaporkan RMSE dan MAE dalam satuan target; menjelaskan perbedaan sensitivitas kedua metrik terhadap outlier error; memakai \texttt{Pipeline} bila skala fitur berbeda jauh.
 
-Metrik error pada data uji menggambarkan kinerja \textit{out-of-sample}: lebih realistis daripada hanya melihat residual pada data latih yang pernah ``dilihat'' model saat fitting.
+Metrik pada data uji mencerminkan kinerja \textit{out-of-sample}, lebih realistis daripada residual hanya pada data latih.
 
 \section{Teori}
 
@@ -50,7 +50,7 @@ Ridge (\textit{regularisasi} L2) membantu ketika fitur berkolinear atau dimensi 
 
 Dataset \path{load_diabetes} dari \texttt{sklearn.datasets} adalah contoh regresi klasik berdimensi tetap; sesuaikan \path{test_size} dan \path{random_state} dengan kebijakan lab.
 
-\noindent\textbf{Mengapa blok ini?} \texttt{LinearRegression} meminimalkan MSE ordinari; metrik \texttt{MAE} dan \texttt{RMSE} mengukur error pada \textbf{data uji} setelah model di-\texttt{fit} pada train.
+\MulaiPenjelasanKode \texttt{LinearRegression} meminimalkan MSE ordinari; metrik \texttt{MAE} dan \texttt{RMSE} mengukur error pada \textbf{data uji} setelah model di-\texttt{fit} pada train. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=Dataset diabetes dan split]
 from sklearn.datasets import load_diabetes
@@ -69,7 +69,7 @@ print("MAE", mean_absolute_error(y_test, pred))  # rata-rata |error|
 print("RMSE", root_mean_squared_error(y_test, pred))  # akar MSE (sensitif outlier error besar)
 \end{lstlisting}
 
-\noindent\textbf{Mengapa blok ini?} Baseline memprediksi konstanta = rata-rata target train; RMSE baseline menunjukkan apakah model linier memberi peningkatan bermakna.
+\MulaiPenjelasanKode Baseline memprediksi konstanta = rata-rata target train; RMSE baseline menunjukkan apakah model linier memberi peningkatan bermakna. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=Baseline prediksi rata-rata]
 import numpy as np
@@ -77,7 +77,7 @@ base_pred = np.full_like(y_test, fill_value=y_train.mean(), dtype=float)  # vekt
 print("RMSE baseline", root_mean_squared_error(y_test, base_pred))
 \end{lstlisting}
 
-\noindent\textbf{Mengapa blok ini?} \path{Ridge(alpha=...)} menambah penalti L2 pada koefisien; \path{StandardScaler} di pipeline menstandarkan fitur agar besaran penalti seimbang antar fitur.
+\MulaiPenjelasanKode \path{Ridge(alpha=...)} menambah penalti L2 pada koefisien; \path{StandardScaler} di pipeline menstandarkan fitur agar besaran penalti seimbang antar fitur. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=Pipeline dengan scaling (disarankan)]
 from sklearn.pipeline import Pipeline

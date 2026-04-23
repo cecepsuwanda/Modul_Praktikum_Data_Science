@@ -26,6 +26,7 @@
 \usepackage{amssymb}
 
 \usepackage{enumitem}
+\usepackage{ragged2e}
 
 \usepackage{xurl}
 \usepackage[hidelinks,breaklinks]{hyperref}
@@ -52,6 +53,7 @@
 \renewcommand{\headrulewidth}{0.4pt}
 
 \usepackage{listings}
+\usepackage{etoolbox}
 
 \definecolor{pykeyword}{rgb}{0.0,0.45,0.7}
 \definecolor{pystring}{rgb}{0.6,0.1,0.1}
@@ -81,7 +83,9 @@
   breakatwhitespace=false,
   escapeinside={(*@}{@*)},
   xleftmargin=15pt,
-  xrightmargin=5pt
+  xrightmargin=5pt,
+  aboveskip=0.6\baselineskip,
+  belowskip=0.6\baselineskip
 }
 
 \renewcommand{\lstlistlistingname}{Daftar Kode Program}
@@ -91,6 +95,35 @@
 \lstnewenvironment{pycode}[1][]{
   \lstset{style=pystyle, #1}
 }{}
+
+% Teks sebelum \begin{lstlisting} memakai judul yang sama dengan caption listing
+% (\lstlistingname~\thelstlisting). \MulaiPenjelasanKode melakukan \refstepcounter{lstlisting};
+% patch mencegah double step pada environment berikut.
+\makeatletter
+\newif\if@pjk@skip@lst@ref
+\newcommand{\pjk@lst@refornot}[1]{%
+  \if@pjk@skip@lst@ref
+    \global\@pjk@skip@lst@reffalse
+  \else
+    \refstepcounter{#1}%
+  \fi
+}
+\newcommand{\MulaiPenjelasanKode}{%
+  \refstepcounter{lstlisting}%
+  \global\@pjk@skip@lst@reftrue
+  \par\vspace{0.75\baselineskip}%
+  \noindent\textbf{\lstlistingname~\thelstlisting.} \begingroup\RaggedRight\sloppy\ignorespaces
+}
+\newcommand{\SelesaiPenjelasanKode}{\par\endgroup\vspace{0.75\baselineskip}}
+\patchcmd{\lst@MakeCaption}{%
+    \ifx\lst@@caption\@empty\expandafter\lst@HRefStepCounter \else
+                                \expandafter\refstepcounter
+        \fi {lstlisting}}{%
+    \ifx\lst@@caption\@empty\expandafter\lst@HRefStepCounter \else
+                                \expandafter\pjk@lst@refornot
+        \fi {lstlisting}}{}{%
+  \PackageError{modul_praktikum_data_science}{Gagal menambal \string\lst@MakeCaption.}{}}
+\makeatother
 
 \usepackage{tcolorbox}
 \tcbuselibrary{skins,breakable}

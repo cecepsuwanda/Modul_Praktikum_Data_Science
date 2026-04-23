@@ -46,9 +46,8 @@ Dokumentasi lisensi bukan formalitas administratif: ia melindungi Anda dan insti
 
 \section{Keselamatan kerja, etika, dan K3}
 
-Tata tertib laboratorium; tidak makan/minum di dekat keyboard; matikan perangkat dengan benar; laporkan kabel longgar atau perangkat panas. Etika akademik: kutip tutorial dengan atribusi; tidak plagiasi notebook rekan.
-
-K3 mendukung pembelajaran berkelanjutan: peralatan yang dirawat tetap andal untuk praktikan berikutnya. Etika akademik menjaga kepercayaan pada bukti capaian Anda---plagiarisme notebook setara dengan plagiarisme laporan tertulis.
+Patuhi tata tertib lab: tidak makan/minum di dekat keyboard; matikan perangkat dengan benar; laporkan kabel longgar atau perangkat panas. Perawatan peralatan menjamin praktikum berkelanjutan bagi angkatan berikutnya.
+Etika akademik: kutip tutorial dengan atribusi dan jangan plagiasi notebook rekan---bentuk plagiarisme ini setara dengan menyalin laporan tertulis.
 
 \section{Sarana dan prasarana}
 
@@ -91,7 +90,7 @@ Contoh berikut dapat disalin per blok ke notebook; sesuaikan string identitas da
 
 \subsection{Memeriksa versi Python di notebook}
 
-\noindent\textbf{Mengapa blok ini?} Blok berikut memverifikasi bahwa kernel notebook memakai interpreter Python yang Anda duga. Modul \texttt{sys} menyediakan \texttt{sys.version} (string versi) dan \texttt{sys.executable} (path berkas \texttt{python}); keduanya sering dipaketkan dalam sel pertama saat debugging lingkungan atau saat dokumentasi tugas.
+\MulaiPenjelasanKode Blok berikut memverifikasi bahwa kernel notebook memakai interpreter Python yang Anda duga. Modul \texttt{sys} menyediakan \texttt{sys.version} (string versi) dan \texttt{sys.executable} (path berkas \texttt{python}); keduanya sering dipaketkan dalam sel pertama saat debugging lingkungan atau saat dokumentasi tugas. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=Versi Python dan path executable]
 import sys  # modul standar: informasi interpreter
@@ -102,7 +101,7 @@ print(sys.executable)  # path absolut ke berkas python yang menjalankan kernel
 
 \subsection{Markdown vs kode}
 
-\noindent\textbf{Mengapa blok ini?} Contoh ini membedakan \textbf{komentar Python} (baris dengan \texttt{\#}, tidak dieksekusi sebagai perintah) dari \textbf{teks narasi} yang ditulis di sel Markdown. Variabel \texttt{nama\_kampus} bertipe \texttt{str}, \texttt{semester} bertipe \texttt{int}; \texttt{f"..."} adalah \textit{f-string} untuk menyisipkan nilai variabel ke dalam satu string cetak.
+\MulaiPenjelasanKode Contoh ini membedakan \textbf{komentar Python} (baris dengan \texttt{\#}, tidak dieksekusi sebagai perintah) dari \textbf{teks narasi} yang ditulis di sel Markdown. Variabel \texttt{nama\_kampus} bertipe \texttt{str}, \texttt{semester} bertipe \texttt{int}; \texttt{f"..."} adalah \textit{f-string} untuk menyisipkan nilai variabel ke dalam satu string cetak. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=Operasi sederhana di sel kode]
 # Judul sel: perkenalan (komentar Python - penjelasan untuk pembaca kode)
@@ -113,7 +112,7 @@ print(f"Praktikum Data Science | {nama_kampus} | {semester}")  # f-string: inter
 
 \subsection{Struktur dictionary untuk CRISP-DM ringkas}
 
-\noindent\textbf{Mengapa blok ini?} \texttt{dict} memetakan kunci (nama fase CRISP-DM) ke nilai (catatan singkat proyek). Metode \texttt{.items()} menghasilkan pasangan \texttt{(kunci, nilai)} untuk diiterasi; pola \texttt{for k, v in dict.items()} adalah cara standar mencetak ringkasan dokumentasi di notebook tanpa pustaka tambahan.
+\MulaiPenjelasanKode \texttt{dict} memetakan kunci (nama fase CRISP-DM) ke nilai (catatan singkat proyek). Metode \texttt{.items()} menghasilkan pasangan \texttt{(kunci, nilai)} untuk diiterasi; pola \texttt{for k, v in dict.items()} adalah cara standar mencetak ringkasan dokumentasi di notebook tanpa pustaka tambahan. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=Mapping fase CRISP-DM ke catatan proyek mini]
 crisp_dm = {  # dict: kunci str -> nilai str (satu kalimat per fase)
@@ -130,7 +129,7 @@ for fase, catatan in crisp_dm.items():  # .items(): iterasi pasangan (kunci, nil
 
 \subsection{Menyimpan metadata sumber data (etika)}
 
-\noindent\textbf{Mengapa blok ini?} Kamus \texttt{Sumber\_data} menyimpan metadata etika (URL, lisensi, tanggal, catatan) dalam struktur yang mudah disalin ke laporan. \texttt{json.dumps} mengubah kamus menjadi teks JSON; argumen \texttt{indent=2} merapikan baris, \texttt{ensure\_ascii=False} mempertahankan aksara non-ASCII (mis.\ bahasa Indonesia).
+\MulaiPenjelasanKode Kamus \texttt{Sumber\_data} menyimpan metadata etika (URL, lisensi, tanggal, catatan) dalam struktur yang mudah disalin ke laporan. \texttt{json.dumps} mengubah kamus menjadi teks JSON; argumen \texttt{indent=2} merapikan baris, \texttt{ensure\_ascii=False} mempertahankan aksara non-ASCII (mis.\ bahasa Indonesia). \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=Blok dokumentasi sumber data di notebook]
 Sumber_data = {  # ganti URL/lisensi sesuai dataset Anda

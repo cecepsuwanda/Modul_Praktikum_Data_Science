@@ -38,9 +38,7 @@ Contoh di bawah memakai dataset bawaan Seaborn (\texttt{tips}, \texttt{titanic})
 
 \section{K3 dan etika}
 
-Dataset hanya dari sumber yang diizinkan; jangan menyematkan token API atau path absolut sensitif di notebook yang diunggah ke LMS.
-
-Menyematkan kunci API atau path personal di notebook yang dibagikan berisiko kebocoran kredensial. Gunakan variabel lingkungan atau file konfigurasi lokal yang tidak diunggah, dan dokumentasikan nama variabel yang diperlukan di Markdown.
+Gunakan dataset dari sumber yang diizinkan. Jangan menyematkan token API, kunci, atau path absolut sensitif di notebook yang diunggah ke LMS---berisiko kebocoran kredensial. Pakai variabel lingkungan atau berkas konfigurasi lokal yang tidak ikut diunggah, dan catat nama variabel yang diperlukan di Markdown.
 
 \section{Sarana}
 
@@ -75,30 +73,38 @@ Prosedur minggu ini melatih perbandingan dua sumber data: bentuk (\texttt{shape}
 
 \section{Contoh kode}
 
-Contoh berikut menunjukkan variasi sumber data tanpa mengganti pola inspeksi: selalu mulai dari \texttt{head}, \texttt{info}, lalu \texttt{describe} bila kolom numerik sudah masuk akal.
+Contoh berikut memakai dua \textit{listing} terpisah untuk \texttt{tips} dan \texttt{titanic} (pola inspeksi sama: muat, \texttt{shape}, tipe, \texttt{head}; lalu \texttt{info}/\texttt{describe} untuk Titanic).
 
-\noindent\textbf{Mengapa blok ini?} \texttt{sns.load\_dataset} memuat DataFrame bawaan Seaborn (tanpa unduh manual); \texttt{.shape} memberi \texttt{(baris, kolom)}, \texttt{.dtypes} menunjukkan tipe per kolom, \texttt{.head()} menampilkan baris awal untuk cek isi.
+\MulaiPenjelasanKode \texttt{sns.load\_dataset("tips")} memuat DataFrame bawaan Seaborn (data restoran, proporsi ujung); \texttt{.shape} memberi \texttt{(baris, kolom)}, \texttt{.dtypes} menunjukkan tipe per kolom, \texttt{.head()} menampilkan baris awal. \SelesaiPenjelasanKode
 
-\begin{lstlisting}[caption=Dua dataset Seaborn: tips dan Titanic]
+\begin{lstlisting}[caption=Memuat dan menginspeksi dataset \texttt{tips}]
 import pandas as pd  # alias umum: pd
 import seaborn as sns  # dataset contoh + visualisasi nanti
 
-df_tips = sns.load_dataset("tips")  # DataFrame: data restoran (ujung proporsi)
-df_titanic = sns.load_dataset("titanic")  # DataFrame: penumpang Titanic
+df_tips = sns.load_dataset("tips")  # DataFrame: data restoran (ujung/proporsi)
+print("tips", df_tips.shape, df_tips.dtypes.head())  # dimensi; cuplikan tipe kolom
+print(df_tips.head())  # lima baris pertama
+\end{lstlisting}
 
-print("tips", df_tips.shape, df_tips.dtypes.head())  # shape: dimensi; dtypes.head: cuplikan tipe kolom
+\MulaiPenjelasanKode \texttt{"titanic"} dimuat di \textit{listing} sendiri. Setelah \texttt{shape} dan \texttt{head}, lanjut ke ringkasan struktur di blok berikut. \SelesaiPenjelasanKode
+
+\begin{lstlisting}[caption=Memuat dan menginspeksi awal dataset \texttt{titanic}]
+import pandas as pd
+import seaborn as sns
+
+df_titanic = sns.load_dataset("titanic")  # DataFrame: penumpang Titanic
 print("titanic", df_titanic.shape)
 print(df_titanic.head())  # lima baris pertama (cek nilai/kolom)
 \end{lstlisting}
 
-\noindent\textbf{Mengapa blok ini?} \texttt{info()} merangkum tipe, non-null, dan penggunaan memori; \texttt{describe(include="all")} menghitung statistik ringkas untuk numerik dan frekuensi untuk kategorikal---\texttt{.T} mem-transpose agar kolom asli menjadi baris (mudah dibaca di layar).
+\MulaiPenjelasanKode \texttt{info()} merangkum tipe, non-null, dan penggunaan memori; \texttt{describe(include="all")} menghitung statistik ringkas untuk numerik dan frekuensi untuk kategorikal---\texttt{.T} mem-transpose agar kolom asli menjadi baris (mudah dibaca di layar). \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=Ringkasan struktur dan statistik (Titanic)]
 print(df_titanic.info())  # ringkasan dtypes + jumlah non-NA per kolom
 print(df_titanic.describe(include="all").T.head(14))  # statistik per kolom; .T: transpose; head: batasi baris cetak
 \end{lstlisting}
 
-\noindent\textbf{Mengapa blok ini?} \texttt{fetch\_openml} mengunduh dataset dari OpenML (butuh jaringan); \texttt{as\_frame=True} mengembalikan DataFrame pandas lewat atribut \texttt{.frame}.
+\MulaiPenjelasanKode \texttt{fetch\_openml} mengunduh dataset dari OpenML (butuh jaringan); \texttt{as\_frame=True} mengembalikan DataFrame pandas lewat atribut \texttt{.frame}. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=Alternatif sumber terbuka: OpenML (perlu jaringan pertama kali)]
 from sklearn.datasets import fetch_openml  # akses dataset publik OpenML
@@ -109,7 +115,7 @@ print(df_iris.shape, df_iris.columns.tolist())  # dimensi + daftar nama kolom
 print(df_iris.head())
 \end{lstlisting}
 
-\noindent\textbf{Mengapa blok ini?} \texttt{pd.read\_csv(url)} memuat CSV langsung dari URL; cocok untuk data terbuka berbasis GitHub/raw---pastikan lisensi URL tersebut.
+\MulaiPenjelasanKode \texttt{pd.read\_csv(url)} memuat CSV langsung dari URL; cocok untuk data terbuka berbasis GitHub/raw---pastikan lisensi URL tersebut. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=Membaca CSV dari URL (contoh format terbuka)]
 url = (  # string multi-baris untuk keterbacaan URL panjang
@@ -119,16 +125,16 @@ df_url = pd.read_csv(url)  # I/O jaringan: unduh lalu parse sebagai DataFrame
 print(df_url.shape)
 \end{lstlisting}
 
-\noindent\textbf{Mengapa blok ini?} \texttt{read\_excel} membaca lembar spreadsheet; \texttt{sheet\_name=0} adalah indeks lembar pertama. Berkas harus ada di path relatif proyek (contoh: folder \texttt{data/}).
+\MulaiPenjelasanKode \texttt{read\_excel} membaca lembar spreadsheet; \texttt{sheet\_name=0} adalah indeks lembar pertama. Berkas harus ada di path relatif proyek (contoh: folder \texttt{data/}). \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption={Membaca Excel (satu sheet, jika ada berkas lokal)}]
 df_xlsx = pd.read_excel("data/contoh.xlsx", sheet_name=0)  # sheet pertama (indeks 0)
 print(df_xlsx.dtypes.value_counts())  # hitung berapa kolom per dtype
 \end{lstlisting}
 
-\noindent\textbf{Mengapa blok ini?} Fungsi kecil \texttt{ringkas} mengembalikan kamus metrik per DataFrame---\texttt{len(frame)} sama dengan jumlah baris, \texttt{frame.isna().sum().sum()} menjumlahkan seluruh sel yang hilang.
+\MulaiPenjelasanKode Fungsi \texttt{ringkas} memuat metrik sebaris per DataFrame---\texttt{len(frame)} untuk baris, \texttt{frame.isna().sum().sum()} untuk jumlah sel kosong. Dipanggil terpisah untuk \texttt{tips} lalu \texttt{titanic}. \SelesaiPenjelasanKode
 
-\begin{lstlisting}[caption=Membandingkan dua kerangka data]
+\begin{lstlisting}[caption={Metrik baris, kolom, missing: \texttt{tips} lalu \texttt{titanic}}]
 def ringkas(nama, frame):  # nama: label string; frame: DataFrame
     return {
         "nama": nama,

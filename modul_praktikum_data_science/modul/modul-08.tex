@@ -10,7 +10,7 @@
 
 \SesiRPS{8}{P7}{$\sim$170 menit}{CPMK-P3}
 
-\noindent Membandingkan beberapa keluarga classifier pada dataset yang sama melatih intuisi tentang \textbf{bias-variance} dan asumsi geometris (linear vs berbasis jarak vs partisi aksial). Confusion matrix mengubah angka akurasi tunggal menjadi pola kesalahan yang dapat ditindaklanjuti.
+\noindent Membandingkan beberapa jenis klasifikator pada data yang sama melatih intuisi \textbf{bias-variance} dan asumsi geometris (pembatas linear, jarak, atau partisi sumbu). Matriks konfusi mengubah satu angka akurasi menjadi pola salah prediksi yang bisa ditindaklanjuti.
 
 \section{Kemampuan akhir sesi}
 
@@ -24,7 +24,7 @@ Selain akurasi, pertimbangkan distribusi kelas: pada data tidak seimbang, model 
 Klasifikasi memprediksi kelas diskrit. Regresi logistik memodelkan log-odds linear; K-NN berbasis jarak; pohon keputusan memecah ruang fitur secara hierarkis. Untuk kelas tidak seimbang, akurasi bisa menyesatkan---pertimbangkan F1 per kelas.
 \end{konsep}
 
-Regresi logistik membutuhkan skala fitur yang wajar bila dipasangkan dengan regularisasi; K-NN sangat sensitif terhadap skala karena memakai jarak Euclidean; pohon lebih toleran terhadap monotonic transform pada fitur numerik namun tetap bisa overfit tanpa kedalaman terbatas.
+Regresi logistik dengan regularisasi mengandalkan skala fitur yang wajar. K-NN sangat sensitif terhadap skala (jarak Euclidean). Pohon lebih toleran pada monotonik fitur numerik, tetapi tetap mudah \textit{overfit} tanpa batas kedalaman atau pemangkasan.
 
 \input{tikz/fig_confusion_2x2}
 
@@ -45,7 +45,7 @@ Regresi logistik membutuhkan skala fitur yang wajar bila dipasangkan dengan regu
 
 \section{Contoh kode}
 
-\noindent\textbf{Mengapa blok ini?} Memuat Iris sebagai array NumPy lalu split 75/25 dengan \texttt{stratify=y} agar tiga kelas bunga tetap proporsional di train dan test.
+\MulaiPenjelasanKode Memuat Iris sebagai array NumPy lalu split 75/25 dengan \texttt{stratify=y} agar tiga kelas bunga tetap proporsional di train dan test. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=Data dan split (Iris)]
 from sklearn.datasets import load_iris
@@ -56,7 +56,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 \end{lstlisting}
 
-\noindent\textbf{Mengapa blok ini?} Regresi logistik sebagai model linier probabilistik; \texttt{.score} pada klasifikasi = akurasi.
+\MulaiPenjelasanKode Regresi logistik sebagai model linier probabilistik; \texttt{.score} pada klasifikasi = akurasi. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=LogisticRegression]
 from sklearn.linear_model import LogisticRegression
@@ -65,7 +65,7 @@ log_reg.fit(X_train, y_train)
 print("logreg score", log_reg.score(X_test, y_test))
 \end{lstlisting}
 
-\noindent\textbf{Mengapa blok ini?} KNN membandingkan jarak ke-\texttt{n\_neighbors} tetangga (skala fitur penting); pohon keputusan mempartisi ruang fitur---\texttt{max\_depth} membatasi kompleksitas mengurangi overfit.
+\MulaiPenjelasanKode KNN membandingkan jarak ke-\texttt{n\_neighbors} tetangga (skala fitur penting); pohon keputusan mempartisi ruang fitur---\texttt{max\_depth} membatasi kompleksitas mengurangi overfit. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=KNeighborsClassifier dan DecisionTree]
 from sklearn.neighbors import KNeighborsClassifier
@@ -79,7 +79,7 @@ print("knn", knn.score(X_test, y_test))
 print("tree", tree.score(X_test, y_test))
 \end{lstlisting}
 
-\noindent\textbf{Mengapa blok ini?} Matriks kebingungan menghitung TP/TN/FP/FN per kelas (di Iris 3x3); \texttt{ConfusionMatrixDisplay} memplot heatmap numerik.
+\MulaiPenjelasanKode Matriks kebingungan menghitung TP/TN/FP/FN per kelas (di Iris 3x3); \texttt{ConfusionMatrixDisplay} memplot heatmap numerik. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=Confusion matrix]
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay

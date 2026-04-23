@@ -10,7 +10,7 @@
 
 \SesiRPS{16}{P10}{$\sim$170 menit}{CPMK-P4}
 
-\noindent Presentasi menutup siklus OBE: Anda menunjukkan kemampuan merangkum bukti kuantitatif menjadi narasi keputusan. Penilaian tidak hanya pada metrik tertinggi, melainkan pada kejelasan argumen dan pengakuan keterbatasan.
+\noindent Presentasi menutup siklus OBE: bukti angka diubah menjadi narasi keputusan. Penilaian mengutamakan kejelasan argumen dan pengakuan keterbatasan, bukan hanya metrik tertinggi.
 
 \section{Struktur presentasi}
 
@@ -55,7 +55,7 @@ Penutup (risiko/etika) & 0.5 & 1 \\
 
 Mahasiswa dapat memakai Jupyter + Rise, Marp, atau PowerPoint; contoh poin di Markdown:
 
-\noindent\textbf{Mengapa blok ini?} Struktur heading Markdown memetakan satu ide per slide: konteks data, bukti model, aksi bisnis---memudahkan audiens non-teknis mengikuti alur.
+\MulaiPenjelasanKode Struktur heading Markdown memetakan satu ide per slide: konteks data, bukti model, aksi bisnis---memudahkan audiens non-teknis mengikuti alur. \SelesaiPenjelasanKode
 
 \begin{verbatim}
 # Slide judul
@@ -66,7 +66,7 @@ Mahasiswa dapat memakai Jupyter + Rise, Marp, atau PowerPoint; contoh poin di Ma
 
 \section{Contoh kode (demo cepat di kelas)}
 
-\noindent\textbf{Mengapa blok ini?} Menunjukkan pola \texttt{joblib.load} untuk membuka artefak model yang disimpan minggu lalu; baris aktif di bawah hanya placeholder agar sel tetap jalan tanpa berkas \texttt{.joblib}.
+\MulaiPenjelasanKode Menunjukkan pola \texttt{joblib.load} untuk membuka artefak model yang disimpan minggu lalu; baris aktif di bawah hanya placeholder agar sel tetap jalan tanpa berkas \texttt{.joblib}. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=Muat ulang model/figur final]
 # from joblib import dump, load
@@ -74,7 +74,7 @@ Mahasiswa dapat memakai Jupyter + Rise, Marp, atau PowerPoint; contoh poin di Ma
 print("Notebook final siap ditunjukkan")  # ganti dengan load/prediksi nyata bila ada artefak
 \end{lstlisting}
 
-\noindent\textbf{Mengapa blok ini?} \texttt{os.path.getsize} memberi ukuran byte; dibagi 1024 untuk KB agar Anda memastikan unggahan di bawah batas portal pengumpulan.
+\MulaiPenjelasanKode \texttt{os.path.getsize} memberi ukuran byte; dibagi 1024 untuk KB agar Anda memastikan unggahan di bawah batas portal pengumpulan. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=Cek ukuran berkas sebelum unggah]
 import os

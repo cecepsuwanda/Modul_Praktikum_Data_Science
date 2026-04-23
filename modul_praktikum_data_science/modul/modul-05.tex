@@ -10,7 +10,7 @@
 
 \SesiRPS{5}{P4}{$\sim$170 menit}{CPMK-P2}
 
-\noindent EDA (\textit{Exploratory Data Analysis}) adalah iterasi antara pertanyaan analitik, plot, dan pemeriksaan tabel ringkas. Tujuan utamanya bukan estetika semata, tetapi \textbf{membantu memutuskan} transformasi data dan keluarga model yang masuk akal.
+\noindent EDA (\textit{Exploratory Data Analysis}) mengulang siklus: merumuskan pertanyaan, memplot, lalu memeriksa ringkasan tabel. Tujuan utamanya bukan estetika, melainkan \textbf{mendukung keputusan} tentang transformasi data dan jenis model yang realistis.
 
 \section{Kemampuan akhir sesi}
 
@@ -54,7 +54,7 @@ Heatmap korelasi & Fitur numerik mana yang redundan atau berkolinear? \\
 
 Contoh berikut mendemonstrasikan empat keluarga visual pada dataset yang sama; di notebook, tambahkan sel Markdown antara plot untuk menjelaskan temuan.
 
-\noindent\textbf{Mengapa blok ini?} \texttt{plt.subplots(1,2)} membuat dua sumbu sejajar; \texttt{histplot(..., kde=True)} menampilkan distribusi + estimasi kepadatan; \texttt{scatterplot(..., hue=)} mewarnai titik menurut kelas target.
+\MulaiPenjelasanKode \texttt{plt.subplots(1,2)} menyusun dua sumbu sejajar. Di sumbu kiri, \texttt{histplot(..., kde=True)} menunjukkan distribusi dan kepadatan; di kanan, \texttt{scatterplot(..., hue=)} mewarnai titik menurut kelas target. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=Histogram umur dan scatter umur vs fare]
 import matplotlib.pyplot as plt  # antarmuka pyplot: figur dan sumbu
@@ -74,7 +74,7 @@ plt.tight_layout()
 plt.show()
 \end{lstlisting}
 
-\noindent\textbf{Mengapa blok ini?} Boxplot membandingkan distribusi \texttt{fare} antar \texttt{class} (median, IQR, outlier).
+\MulaiPenjelasanKode Boxplot membandingkan distribusi \texttt{fare} antar \texttt{class} (median, IQR, outlier). \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=Boxplot tarif per kelas kabin]
 plt.figure(figsize=(8, 4))  # figur baru default axes
@@ -86,7 +86,7 @@ plt.tight_layout()
 plt.show()
 \end{lstlisting}
 
-\noindent\textbf{Mengapa blok ini?} Matriks korelasi Pearson (\texttt{.corr()}) pada subset numerik divisualkan sebagai heatmap; \texttt{center=0} menekankan korelasi positif/negatif.
+\MulaiPenjelasanKode Matriks korelasi Pearson (\texttt{.corr()}) pada subset numerik divisualkan sebagai heatmap; \texttt{center=0} menekankan korelasi positif/negatif. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=Heatmap korelasi fitur numerik]
 num = df[["survived", "pclass", "age", "sibsp", "parch", "fare"]].dropna()  # hanya baris lengkap untuk korelasi
@@ -97,7 +97,7 @@ plt.tight_layout()
 plt.show()
 \end{lstlisting}
 
-\noindent\textbf{Mengapa blok ini?} \texttt{pairplot} menampilkan scatter per pasangan fitur; \texttt{corner=True} hanya segitiga bawah (mengurangi redundansi); \texttt{hue} memisahkan warna menurut \texttt{survived}.
+\MulaiPenjelasanKode \texttt{pairplot} menampilkan scatter per pasangan fitur; \texttt{corner=True} hanya segitiga bawah (mengurangi redundansi); \texttt{hue} memisahkan warna menurut \texttt{survived}. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=Pairplot subset (dengan hue survival)]
 cols = ["age", "fare", "pclass"]

@@ -10,13 +10,13 @@
 
 \SesiRPS{6}{P5}{$\sim$170 menit}{CPMK-P3}
 
-\noindent Minggu ini adalah ``pengikat'' antara prapemrosesan dan pemodelan: API \sklearn{} yang konsisten memudahkan Anda menukar algoritma tanpa mengubah pola evaluasi. Memahami perbedaan supervised dan unsupervised membantu memilih metrik dan visual yang tepat di minggu berikutnya.
+\noindent Minggu ini menjembatani prapemrosesan dan pemodelan: API \sklearn{} yang seragam memungkinkan penukaran algoritma tanpa mengubah pola evaluasi. Memahami beda \textit{supervised} dan \textit{unsupervised} membantu memilih metrik dan visual pada minggu berikutnya.
 
 \section{Kemampuan akhir sesi}
 
 Menjelaskan beda supervised/unsupervised; menggunakan \texttt{train\_test\_split} dengan \texttt{random\_state}; memanggil \texttt{fit}, \texttt{predict}, \texttt{score} pada data uji; mengenali gejala overfitting konsep.
 
-Anda diharapkan dapat membaca dokumentasi estimator dengan cepat: argumen wajib, metode yang tersedia, dan apakah model membutuhkan skala fitur. Kebiasaan menetapkan \texttt{random\_state} membuat hasil dapat direplikasi oleh asisten atau rekan kelompok.
+Latih membaca dokumentasi estimator: argumen wajib, metode yang ada, dan apakah fitur perlu diskalakan. Menetapkan \texttt{random\_state} memudahkan asisten atau rekan mereplikasi hasil Anda.
 
 \section{Teori}
 
@@ -47,7 +47,7 @@ Metrik & Akurasi, RMSE, F1, \ldots & Silhouette, inertia, \ldots \\
 
 Contoh Iris memakai \texttt{stratify=y} agar proporsi kelas konsisten di latih dan uji---penting untuk dataset kecil atau kelas jarang.
 
-\noindent\textbf{Mengapa blok ini?} \texttt{DummyClassifier(strategy="most\_frequent")} memprediksi kelas modus dari train---landasan perbandingan: model sejati harus mengalahkan baseline naif ini.
+\MulaiPenjelasanKode \texttt{DummyClassifier(strategy="most\_frequent")} memprediksi kelas modus dari train---landasan perbandingan: model sejati harus mengalahkan baseline naif ini. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=Split dan baseline DummyClassifier]
 from sklearn.model_selection import train_test_split
@@ -63,7 +63,7 @@ base.fit(X_train, y_train)  # "belajar" hanya statistik modus
 print("akurasi baseline", base.score(X_test, y_test))  # .score: akurasi klasifikasi pada test
 \end{lstlisting}
 
-\noindent\textbf{Mengapa blok ini?} Regresi logistik multi-kelas pada Iris; \texttt{max\_iter} dinaikkan agar optimisasi konvergen pada data terstandar default.
+\MulaiPenjelasanKode Regresi logistik multi-kelas pada Iris; \texttt{max\_iter} dinaikkan agar optimisasi konvergen pada data terstandar default. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=LogisticRegression sederhana]
 from sklearn.linear_model import LogisticRegression
@@ -72,7 +72,7 @@ clf.fit(X_train, y_train)  # estimasi koefisien dari data latih
 print("akurasi model", clf.score(X_test, y_test))
 \end{lstlisting}
 
-\noindent\textbf{Mengapa blok ini?} \texttt{predict} menghasilkan vektor label prediksi per baris test; memotong \texttt{[:5]} mempermudah inspeksi cepat banding \texttt{y\_test}.
+\MulaiPenjelasanKode \texttt{predict} menghasilkan vektor label prediksi per baris test; memotong \texttt{[:5]} mempermudah inspeksi cepat banding \texttt{y\_test}. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=Prediksi dan bentuk array]
 import numpy as np
@@ -80,7 +80,7 @@ pred = clf.predict(X_test)  # label prediksi untuk setiap baris X_test
 print(pred[:5], y_test[:5])  # lima prediksi pertama vs label sebenarnya
 \end{lstlisting}
 
-\noindent\textbf{Catatan:} Baris berikut ditulis sebagai \textbf{komentar Python} di listing; di notebook, narasi panjang sebaiknya di sel Markdown.
+\MulaiPenjelasanKode \textbf{Catatan.} Baris berikut ditulis sebagai \textbf{komentar Python} di listing; di notebook, narasi panjang sebaiknya di sel Markdown. \SelesaiPenjelasanKode
 
 \begin{lstlisting}[caption=Catatan Markdown di notebook]
 # Setelah split, semua fit/scaling hanya pada X_train
